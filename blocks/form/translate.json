@@ -1,0 +1,15 @@
+{
+  "name": "overchain/form",
+  "attributes": {
+    "noPaddingTop":    { "translate": "ignore" },
+    "title":           { "translate": "rich" },
+    "subtitle":        { "translate": "rich" },
+    "privacyText":     { "translate": "rich" },
+    "privacyLinkText": { "translate": "string" },
+    "privacyLinkUrl":  { "translate": "url" },
+    "marketingText":   { "translate": "rich" },
+    "buttonText":      { "translate": "string" },
+    "successTitle":    { "translate": "string" },
+    "successDesc":     { "translate": "string" }
+  }
+}

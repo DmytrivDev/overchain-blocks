@@ -1,0 +1,27 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/features",
+  "title": "Features",
+  "category": "overchain",
+  "icon": "grid-view",
+  "description": "Features section with cards.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1000
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "allowedBlocks": [
+    "overchain/feature-card"
+  ],
+  "editorScript": "file:../../build/features/index.js",
+  "render": "file:./render.php"
+}

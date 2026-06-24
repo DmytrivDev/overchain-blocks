@@ -1,0 +1,121 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/accordion",
+  "title": "Accordion",
+  "category": "overchain",
+  "icon": "list-view",
+  "description": "Accordion section with items and per-item images.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Get Paid in Crypto",
+      "subtitle": "Unlock Seamless Crypto Transactions",
+      "items": [
+        {
+          "heading": "Widgets",
+          "text": "Enable crypto deposits instantly: embed our widget to accept major cryptocurrencies with 15-minute rate locks and secure, unique wallets for every transaction.",
+          "imageId": 0,
+          "imageUrl": "",
+          "buttonType": "link",
+          "buttonLink": "#",
+          "buttonLinkId": 0,
+          "buttonLinkTitle": "",
+          "buttonNewTab": false,
+          "buttonAnchor": "",
+          "buttonPopupId": ""
+        },
+        {
+          "heading": "Payment Links",
+          "text": "Enable crypto deposits instantly: embed our widget to accept major cryptocurrencies with 15-minute rate locks and secure, unique wallets for every transaction.",
+          "imageId": 0,
+          "imageUrl": "",
+          "buttonType": "link",
+          "buttonLink": "#",
+          "buttonLinkId": 0,
+          "buttonLinkTitle": "",
+          "buttonNewTab": false,
+          "buttonAnchor": "",
+          "buttonPopupId": ""
+        },
+        {
+          "heading": "Invoices",
+          "text": "Enable crypto deposits instantly: embed our widget to accept major cryptocurrencies with 15-minute rate locks and secure, unique wallets for every transaction.",
+          "imageId": 0,
+          "imageUrl": "",
+          "buttonType": "link",
+          "buttonLink": "#",
+          "buttonLinkId": 0,
+          "buttonLinkTitle": "",
+          "buttonNewTab": false,
+          "buttonAnchor": "",
+          "buttonPopupId": ""
+        }
+      ]
+    }
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "default": "Get Paid in Crypto"
+    },
+    "subtitle": {
+      "type": "string",
+      "default": "Unlock Seamless Crypto Transactions"
+    },
+    "items": {
+      "type": "array",
+      "default": [
+        {
+          "heading": "Widgets",
+          "text": "",
+          "imageId": 0,
+          "imageUrl": "",
+          "buttonType": "link",
+          "buttonLink": "",
+          "buttonLinkId": 0,
+          "buttonLinkTitle": "",
+          "buttonNewTab": false,
+          "buttonAnchor": "",
+          "buttonPopupId": ""
+        },
+        {
+          "heading": "Payment Links",
+          "text": "",
+          "imageId": 0,
+          "imageUrl": "",
+          "buttonType": "link",
+          "buttonLink": "",
+          "buttonLinkId": 0,
+          "buttonLinkTitle": "",
+          "buttonNewTab": false,
+          "buttonAnchor": "",
+          "buttonPopupId": ""
+        },
+        {
+          "heading": "Invoices",
+          "text": "",
+          "imageId": 0,
+          "imageUrl": "",
+          "buttonType": "link",
+          "buttonLink": "",
+          "buttonLinkId": 0,
+          "buttonLinkTitle": "",
+          "buttonNewTab": false,
+          "buttonAnchor": "",
+          "buttonPopupId": ""
+        }
+      ]
+    }
+  },
+  "editorScript": "file:../../build/accordion/index.js",
+  "render": "file:./render.php"
+}

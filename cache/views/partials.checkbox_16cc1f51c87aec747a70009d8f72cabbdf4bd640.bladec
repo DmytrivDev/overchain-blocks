@@ -1,0 +1,35 @@
+<?php 
+ $id       = $id ?? '';
+ $name     = $name ?? '';
+ $text     = $text ?? '';
+ $required = $required ?? false;
+ ?>
+
+<div data-hsfc-id="CheckboxField" class="hsfc-CheckboxField" id="<?php echo \htmlentities($id??'', ENT_QUOTES, 'UTF-8', false); ?>">
+ <label
+ data-hsfc-id="FieldLabel"
+ id="<?php echo \htmlentities($id??'', ENT_QUOTES, 'UTF-8', false); ?>-label"
+ for="<?php echo \htmlentities($id??'', ENT_QUOTES, 'UTF-8', false); ?>-input"
+ lang="EN"
+ class="hsfc-FieldLabel"
+ >
+ <input
+ type="checkbox"
+ data-required="<?php echo \htmlentities($required ? '1' : '0'??'', ENT_QUOTES, 'UTF-8', false); ?>"
+ data-hsfc-id="CheckboxInput"
+ id="<?php echo \htmlentities($id??'', ENT_QUOTES, 'UTF-8', false); ?>-input"
+ name="<?php echo \htmlentities($name??'', ENT_QUOTES, 'UTF-8', false); ?>"
+ aria-invalid="false"
+ aria-required="<?php echo \htmlentities($required ? 'true' : 'false'??'', ENT_QUOTES, 'UTF-8', false); ?>"
+ aria-labelledby="<?php echo \htmlentities($id??'', ENT_QUOTES, 'UTF-8', false); ?>-label"
+ class="hsfc-CheckboxInput"
+ value="false"
+ />
+ <span>
+ <span><?php echo wp_kses_post( $text ); ?></span>
+ <?php if( $required ): ?>
+ <span class="hsfc-FieldLabel__RequiredIndicator">*</span>
+ <?php endif; ?>
+ </span>
+ </label>
+</div>

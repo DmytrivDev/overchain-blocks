@@ -1,0 +1,290 @@
+@use "blocks";
+
+// ─── Grid layouts ─────────────────────────────────────────
+
+.grid-settings {
+	display: block !important;
+
+	.block-editor-block-list__layout {
+		width: 100%;
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 1.5rem;
+	}
+
+	&.grid-2 {
+		.block-editor-block-list__layout {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+}
+
+// ─── Section padding reset ────────────────────────────────
+
+section {
+	padding-bottom: 1rem !important;
+}
+
+// ─── Inner blocks appender ────────────────────────────────
+
+section .block-list-appender {
+	margin-top: 16px;
+	position: relative;
+	z-index: 20 !important;
+	visibility: hidden;
+
+	.block-editor-button-block-appender {
+		width: 32px;
+		height: 32px;
+		border-radius: 1px;
+		background: #3858e9 !important;
+		border: none !important;
+		color: #fff !important;
+		justify-content: center;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		align-content: center;
+		padding: 0;
+		box-shadow: none !important;
+		opacity: 0.75;
+
+		svg {
+			width: 24px;
+			height: 24px;
+		}
+
+		* {
+			fill: #fff;
+		}
+
+		&:hover {
+			background: #183ad6 !important;
+			color: #fff !important;
+			opacity: 1;
+		}
+	}
+}
+
+.is-selected section {
+	ul .block-editor-block-list__layout {
+		padding-bottom: 40px !important;
+	}
+
+	.block-list-appender {
+		visibility: visible;
+	}
+}
+
+// ─── Tabs block ───────────────────────────────────────────
+
+.overchain-tabs__content {
+	.block-editor-block-list__layout > .wp-block:not(:nth-child(1)) {
+		display: none;
+	}
+
+	@for $i from 0 through 9 {
+		&[data-active-tab="#{$i}"] {
+			.block-editor-block-list__layout > .wp-block:nth-child(#{$i + 1}) {
+				display: block;
+				opacity: 1;
+				visibility: visible;
+			}
+			.block-editor-block-list__layout > .wp-block:not(:nth-child(#{$i + 1})) {
+				display: none;
+			}
+		}
+	}
+}
+
+.overchain-tabs__content {
+	.block-list-appender {
+		display: flex !important;
+		bottom: 0.5rem;
+		right: 0.5rem;
+	}
+}
+
+// ─── Colored frame block ──────────────────────────────────
+
+.is-root-container > .wp-block:first-child {
+	& > section {
+		padding-top: 1rem !important;
+	}
+
+	.events-archive {
+		padding-top: 1rem !important;
+	}
+
+	&.wp-block-overchain-white-section {
+		.frame-colored {
+			padding-top: 1rem !important;
+		}
+	}
+}
+
+.frame-colored__body > .block-editor-inner-blocks {
+	padding-block-start: 3rem;
+
+	& > .block-editor-block-list__layout {
+		& > .block-editor-block-list__block:first-child {
+			& > * {
+				padding-top: 0 !important;
+				section {
+					padding-top: 0 !important;
+				}
+			}
+		}
+	}
+}
+
+.wp-block-overchain-white-section {
+	.frame-colored__body {
+		& > .block-editor-inner-blocks {
+			& > .block-editor-block-list__layout {
+				& > .block-list-appender.wp-block {
+					top: auto !important;
+					bottom: -1.5rem !important;
+				}
+			}
+		}
+	}
+}
+
+.frame-colored__body > :first-child {
+	padding-block-start: 3rem;
+}
+
+// ─── Steps block ──────────────────────────────────────────
+
+.oneflow__layout .oneflow__line {
+	transform: scaleX(1) !important;
+}
+
+// ─── Settlement / Tabs layout ─────────────────────────────
+
+.settlement__layout {
+	height: 29.5rem;
+
+	.block-editor-inner-blocks,
+	.block-editor-block-list__layout,
+	.block-editor-block-list__block,
+	.settlement__content {
+		height: 100%;
+	}
+}
+
+// ─── Accordion / Paid block ───────────────────────────────
+
+section.paid .splide {
+	visibility: visible;
+
+	.splide__slide {
+		display: none;
+		width: 100%;
+
+		&:first-child {
+			display: flex;
+		}
+	}
+}
+
+.tab-paid__dropdown {
+	visibility: visible !important;
+	max-height: unset !important;
+}
+
+// ─── Slider drag arrow ────────────────────────────────────
+
+.drag-arrow {
+	display: none !important;
+}
+
+.related__splide {
+	padding-right: 0 !important;
+
+	.splide {
+		visibility: visible;
+
+		.splide__list {
+			display: grid;
+			gap: 1.5rem;
+			grid-template-columns: repeat(3, 1fr);
+
+			& > li {
+				width: 100% !important;
+				max-width: unset !important;
+			}
+		}
+	}
+}
+
+// ─── List style reset ─────────────────────────────────────
+
+li:not(ul li) {
+	list-style: none !important;
+	margin-left: 0 !important;
+
+	& > * {
+		margin-left: 1rem !important;
+	}
+}
+
+// ─── Tablet ───────────────────────────────────────────────
+
+@media screen and (max-width: 992px) {
+	.wp-block section {
+		ul .block-editor-block-list__layout {
+			padding-bottom: 40px !important;
+		}
+
+		.block-list-appender {
+			visibility: visible;
+		}
+	}
+
+	.frame-colored__body > .block-editor-inner-blocks {
+		padding-block-start: 2rem;
+	}
+
+	.settlement__layout {
+		height: inherit;
+	}
+
+	.grid-settings {
+		.block-editor-block-list__layout {
+			grid-template-columns: repeat(2, 1fr);
+			gap: 1rem;
+		}
+
+		&.grid-2 {
+			.block-editor-block-list__layout {
+				grid-template-columns: repeat(2, 1fr);
+			}
+		}
+	}
+	.related__splide {
+		.splide {
+			.splide__list {
+				grid-template-columns: repeat(2, 1fr);
+			}
+		}
+	}
+}
+
+// ─── Mobile ───────────────────────────────────────────────
+
+@media screen and (max-width: 768px) {
+	.grid-settings {
+		.block-editor-block-list__layout {
+			grid-template-columns: 1fr !important;
+		}
+	}
+	.related__splide {
+		.splide {
+			.splide__list {
+				grid-template-columns: 1fr;
+			}
+		}
+	}
+}

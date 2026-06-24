@@ -1,0 +1,43 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/related-posts",
+  "title": "Related Posts",
+  "category": "overchain",
+  "icon": "grid-view",
+  "description": "Related posts section.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Related Articles"
+    }
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "default": "Related Articles"
+    },
+    "sourceType": {
+      "type": "string",
+      "default": "latest"
+    },
+    "postsCount": {
+      "type": "number",
+      "default": 4
+    },
+    "selectedPosts": {
+      "type": "array",
+      "default": []
+    }
+  },
+  "editorScript": "file:../../build/related-posts/index.js",
+  "render": "file:./render.php"
+}

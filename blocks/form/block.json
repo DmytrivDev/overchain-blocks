@@ -1,0 +1,64 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/form",
+  "title": "Form",
+  "category": "overchain",
+  "icon": "feedback",
+  "description": "Contact form section.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Beyond Access<br />Built for Operation",
+      "subtitle": "Access to crypto rails isn't the challenge. Using them within real financial workflows is. Overchain makes that possible."
+    }
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "default": "Beyond Access<br />Built for Operation"
+    },
+    "subtitle": {
+      "type": "string",
+      "default": "Access to crypto rails isn't the challenge. Using them within real financial workflows is. Overchain makes that possible."
+    },
+    "privacyText": {
+      "type": "string",
+      "default": "<strong>I agree to allow Overchain to process my data to handle this request, as described in the <a href=\"https://overchain.io/canada-privacy-policy/\" target=\"_blank\" rel=\"nofollow noopener noreferrer\">Privacy Policy.</a></strong>"
+    },
+    "privacyLinkText": {
+      "type": "string",
+      "default": "Privacy Policy"
+    },
+    "privacyLinkUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "marketingText": {
+      "type": "string",
+      "default": "<strong>I agree to receive marketing and product updates from Overchain.</strong>"
+    },
+    "buttonText": {
+      "type": "string",
+      "default": "Book a Demo"
+    },
+    "successTitle": {
+      "type": "string",
+      "default": "Request Submitted"
+    },
+    "successDesc": {
+      "type": "string",
+      "default": "Thank you for contacting us. Our integration team will review your information and reach out shortly."
+    }
+  },
+  "editorScript": "file:../../build/form/index.js",
+  "render": "file:./render.php"
+}

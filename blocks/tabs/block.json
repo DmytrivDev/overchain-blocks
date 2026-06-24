@@ -1,0 +1,34 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/tabs",
+  "title": "Tabs",
+  "category": "overchain",
+  "icon": "table-row-before",
+  "description": "Tabs section with switchable content.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Fast Settlements"
+    }
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "default": "Fast Settlements"
+    }
+  },
+  "allowedBlocks": [
+    "overchain/tab"
+  ],
+  "editorScript": "file:../../build/tabs/index.js",
+  "render": "file:./render.php"
+}

@@ -1,0 +1,80 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/split",
+  "title": "Split",
+  "category": "overchain",
+  "icon": "columns",
+  "description": "Split section with title, image and content.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "default": "Section title goes here"
+    },
+    "subtitle": {
+      "type": "string",
+      "default": "Short subtitle goes here."
+    },
+    "imageId": {
+      "type": "number",
+      "default": 0
+    },
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": "Supporting text goes here. Describe your value proposition in a few sentences."
+    },
+    "buttonText": {
+      "type": "string",
+      "default": "See how it works"
+    },
+    "buttonType": {
+      "type": "string",
+      "default": "link"
+    },
+    "buttonLink": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkId": {
+      "type": "number",
+      "default": 0
+    },
+    "buttonLinkTitle": {
+      "type": "string",
+      "default": "" 
+    },
+    "buttonLinkNewTab": {
+      "type": "boolean",
+      "default": false
+    },
+    "buttonAnchor": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonPopupId": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonIcon": {
+      "type": "string",
+      "default": "arrow"
+    }
+  },
+  "editorScript": "file:../../build/split/index.js",
+  "render": "file:./render.php"
+}

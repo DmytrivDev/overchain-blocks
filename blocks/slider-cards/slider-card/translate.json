@@ -1,0 +1,13 @@
+{
+  "name": "overchain/slider-card",
+  "attributes": {
+    "title":         { "translate": "rich" },
+    "backgroundId":  { "translate": "ignore" },
+    "backgroundUrl": { "translate": "ignore" },
+    "imageId":       { "translate": "ignore" },
+    "imageUrl":      { "translate": "ignore" },
+    "linkUrl":       { "translate": "url" },
+    "linkId":        { "translate": "postobject" },
+    "linkNewTab":    { "translate": "ignore" }
+  }
+}

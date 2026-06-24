@@ -1,0 +1,57 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/subscribe",
+  "title": "Subscribe",
+  "category": "overchain",
+  "icon": "email",
+  "description": "Subscribe section with email form.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Track Our Event Schedule & Announcements",
+      "subtitle": "Subscribe to get early access to our global event schedule and secure your opportunity to meet the Overchain team on the ground.",
+      "privacy": "By clicking subscribe, you consent to receive event updates and agree to our <a href=\"#\">Privacy Policy</a>. You can unsubscribe at any time."
+    }
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "default": "Track Our Event Schedule & Announcements"
+    },
+    "subtitle": {
+      "type": "string",
+      "default": "Subscribe to get early access to our global event schedule."
+    },
+    "privacy": {
+      "type": "string",
+      "default": "By clicking subscribe, you consent to receive event updates and agree to our <a href=\"#\">Privacy Policy</a>. You can unsubscribe at any time."
+    },
+    "imageId": {
+      "type": "number",
+      "default": 0
+    },
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "successTitle": {
+      "type": "string",
+      "default": "You're on the list!"
+    },
+    "successDesc": {
+      "type": "string",
+      "default": "Thanks for subscribing. We'll keep you posted on upcoming events and announcements."
+    }
+  },
+  "editorScript": "file:../../build/subscribe/index.js",
+  "render": "file:./render.php"
+}

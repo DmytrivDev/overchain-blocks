@@ -1,0 +1,9 @@
+{
+  "name": "overchain/spotlight",
+  "attributes": {
+    "noPaddingTop":  { "translate": "ignore" },
+    "title":         { "translate": "rich" },
+    "backgroundId":  { "translate": "ignore" },
+    "backgroundUrl": { "translate": "ignore" }
+  }
+}

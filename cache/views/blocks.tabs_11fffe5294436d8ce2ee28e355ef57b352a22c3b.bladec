@@ -1,0 +1,69 @@
+<?php 
+	$noPaddingTop = $attributes['noPaddingTop'] ?? false;
+	$title = $attributes['title'] ?? '';
+	$innerBlocks = $block->inner_blocks ?? [];
+
+	$sectionClass = 'settlement ' . ( $noPaddingTop ? 'pbs4' : 'pbs2' );
+	$blurUrl = get_template_directory_uri() . '/assets/img/decor/settlement_blur_1.webp';
+	$bgUrl = get_template_directory_uri() . '/assets/img/decor/settlement_blur_2.webp';
+ ?>
+
+<section class="<?php echo \htmlentities(esc_attr( $sectionClass )??'', ENT_QUOTES, 'UTF-8', false); ?>">
+	<div class="settlement__container">
+ <div class="settlement__wrap">
+ <div class="settlement__blur no-select" aria-hidden="true">
+ <img src="<?php echo \htmlentities(esc_url( $blurUrl )??'', ENT_QUOTES, 'UTF-8', false); ?>" alt="">
+ </div>
+
+ <div class="settlement__body section-body">
+ <?php if( ! empty( $title ) ): ?>
+ <div class="heading">
+ <h2 class="tl2"><?php echo wp_kses_post( $title ); ?></h2>
+ </div>
+ <?php endif; ?>
+
+ <?php if( ! empty( $innerBlocks ) ): ?>
+ <div class="settlement__main tabs">
+ <div class="settlement__btns tabs__btns" data-center-tab>
+ <ul>
+ <?php $__currentLoopData = $innerBlocks; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $index => $innerBlock): $loop = $this->incrementLoopIndices();  ?>
+ <?php 
+ $tabId = 'tb-block' . ( $index + 1 );
+ $tabLabel = $innerBlock->attributes['tabLabel'] ?? 'Tab ' . ( $index + 1 );
+  ?>
+
+ <li>
+ <button type="button" class="tab__btn<?php echo \htmlentities($index === 0 ? ' is-active' : ''??'', ENT_QUOTES, 'UTF-8', false); ?>"
+ data-tab="<?php echo \htmlentities(esc_attr( $tabId )??'', ENT_QUOTES, 'UTF-8', false); ?>">
+ <?php echo \htmlentities(esc_html( $tabLabel )??'', ENT_QUOTES, 'UTF-8', false); ?>
+
+ </button>
+ </li>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </ul>
+ </div>
+
+ <div class="settlement__layout">
+ <?php $__currentLoopData = $innerBlocks; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $index => $innerBlock): $loop = $this->incrementLoopIndices();  ?>
+ <?php 
+ $tabId = 'tb-block' . ( $index + 1 );
+  ?>
+
+ <div class="tabs__inner<?php echo \htmlentities($index === 0 ? ' is-active' : ''??'', ENT_QUOTES, 'UTF-8', false); ?>" id="<?php echo \htmlentities(esc_attr( $tabId )??'', ENT_QUOTES, 'UTF-8', false); ?>">
+ <?php echo $innerBlock->render(); ?>
+
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </div>
+
+ <div class="settlement__bg no-select" aria-hidden="true">
+ <img src="<?php echo \htmlentities(esc_url( $bgUrl )??'', ENT_QUOTES, 'UTF-8', false); ?>" alt="">
+ </div>
+ </div>
+ <?php endif; ?>
+ </div>
+ </div>
+	</div>
+</section>

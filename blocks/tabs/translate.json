@@ -1,0 +1,7 @@
+{
+  "name": "overchain/tabs",
+  "attributes": {
+    "noPaddingTop": { "translate": "ignore" },
+    "title":        { "translate": "rich" }
+  }
+}

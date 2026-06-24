@@ -1,0 +1,110 @@
+<?php 
+	$noPaddingTop = $attributes['noPaddingTop'] ?? false;
+	$title = $attributes['title'] ?? '';
+	$subtitle = $attributes['subtitle'] ?? '';
+	$items = $attributes['items'] ?? [];
+
+	$sectionClass = 'paid ' . ( $noPaddingTop ? 'pbs4' : 'pbs2' );
+	$cardBgUrl = get_template_directory_uri() . '/assets/img/decor/paid_bg_1.jpg';
+	$arrowUrl = get_template_directory_uri() . '/assets/img/icons/vec_1b.svg';
+
+	$buttonLabel = function_exists( 'pll__' )
+ ? pll__( 'Discover More' )
+ : __( 'Discover More', 'overchain-blocks' );
+ ?>
+
+<?php if( ! empty( $items ) ): ?>
+	<section class="<?php echo \htmlentities(esc_attr( $sectionClass )??'', ENT_QUOTES, 'UTF-8', false); ?>">
+ <div class="paid__container">
+ <div class="paid__body section-body">
+ <div class="paid__layout">
+ <div class="paid__heading">
+ <?php if( ! empty( $title ) ): ?>
+ <h2 class="tl2"><?php echo wp_kses_post( $title ); ?></h2>
+ <?php endif; ?>
+
+ <?php if( ! empty( $subtitle ) ): ?>
+ <div class="txt2">
+ <p><?php echo wp_kses_post( $subtitle ); ?></p>
+ </div>
+ <?php endif; ?>
+ </div>
+
+ <div class="paid__splide splide">
+ <div class="splide__track">
+ <ul class="splide__list">
+ <?php $__currentLoopData = $items; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $item): $loop = $this->incrementLoopIndices();  ?>
+ <?php 
+ $imageUrl = $item['imageUrl'] ?? '';
+ $buttonData = overchain_resolve_button_data( $item );
+ $hasLink = ! empty( $buttonData['href'] );
+  ?>
+
+ <li class="splide__slide card-paid">
+ <?php if( $hasLink ): ?>
+ <a class="card-paid__link" href="<?php echo \htmlentities($buttonData['href']??'', ENT_QUOTES, 'UTF-8', false); ?>" <?php echo $buttonData['attrs']; ?>>
+ <img src="<?php echo \htmlentities(esc_url( $arrowUrl )??'', ENT_QUOTES, 'UTF-8', false); ?>" alt="">
+ </a>
+ <?php endif; ?>
+
+ <div class="card-paid__bg ibg no-select" aria-hidden="true">
+ <img src="<?php echo \htmlentities(esc_url( $cardBgUrl )??'', ENT_QUOTES, 'UTF-8', false); ?>" alt="">
+ </div>
+
+ <?php if( ! empty( $imageUrl ) ): ?>
+ <div class="card-paid__img">
+ <img src="<?php echo \htmlentities(esc_url( $imageUrl )??'', ENT_QUOTES, 'UTF-8', false); ?>" alt="">
+ </div>
+ <?php endif; ?>
+ </li>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </ul>
+ </div>
+ </div>
+
+ <ul class="paid__tabs">
+ <?php $__currentLoopData = $items; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $item): $loop = $this->incrementLoopIndices();  ?>
+ <?php 
+ $heading = $item['heading'] ?? '';
+ $text = $item['text'] ?? '';
+ $buttonData = overchain_resolve_button_data( $item );
+ $hasLink = ! empty( $buttonData['href'] );
+  ?>
+
+ <li class="tab-paid">
+ <span class="progress" aria-hidden="true">
+ <span></span>
+ </span>
+
+ <?php if( ! empty( $heading ) ): ?>
+ <div class="tab-paid__head">
+ <h3 class="tl5"><?php echo wp_kses_post( $heading ); ?></h3>
+ </div>
+ <?php endif; ?>
+
+ <div class="tab-paid__dropdown">
+ <div class="tab-paid__content">
+ <?php if( ! empty( $text ) ): ?>
+ <div class="txt3 light">
+ <p><?php echo wp_kses_post( $text ); ?></p>
+ </div>
+ <?php endif; ?>
+
+ <?php if( $hasLink ): ?>
+ <a class="link-more" href="<?php echo \htmlentities($buttonData['href']??'', ENT_QUOTES, 'UTF-8', false); ?>" <?php echo $buttonData['attrs']; ?>>
+ <?php echo \htmlentities(esc_html( $buttonLabel )??'', ENT_QUOTES, 'UTF-8', false); ?>
+
+ </a>
+ <?php endif; ?>
+ </div>
+ </div>
+ </li>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </ul>
+ </div>
+ </div>
+ </div>
+	</section>
+<?php endif; ?>

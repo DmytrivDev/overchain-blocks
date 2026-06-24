@@ -1,0 +1,50 @@
+<?php 
+ $noPaddingTop = $attributes['noPaddingTop'] ?? false;
+ $quote        = $attributes['quote'] ?? '';
+ $author       = $attributes['author'] ?? '';
+ $position     = $attributes['position'] ?? '';
+ $avatarUrl    = $attributes['avatarUrl'] ?? '';
+ $sectionClass = 'emb emb-excerpt ' . ( $noPaddingTop ? 'pbs4' : 'pbs2' );
+ $decorImg     = get_template_directory_uri() . '/assets/img/decor/emb-excerpt_img_1.png';
+ $decorBg      = get_template_directory_uri() . '/assets/img/decor/infrastruct_bg_1.jpg';
+ ?>
+
+<section class="<?php echo \htmlentities(esc_attr( $sectionClass )??'', ENT_QUOTES, 'UTF-8', false); ?>">
+ <div class="emb__container">
+ <div class="emb__body section-body">
+ <div class="emb-excerpt__main">
+ <div class="emb-excerpt__img no-select" aria-hidden="true">
+ <img src="<?php echo \htmlentities(esc_url( $decorImg )??'', ENT_QUOTES, 'UTF-8', false); ?>" alt="">
+ </div>
+
+ <?php if( ! empty( $quote ) ): ?>
+ <blockquote class="emb-excerpt__mess">
+ <p><?php echo wp_kses_post( $quote ); ?></p>
+ </blockquote>
+ <?php endif; ?>
+
+ <?php if( ! empty( $author ) || ! empty( $avatarUrl ) ): ?>
+ <div class="emb-excerpt__author">
+ <?php if( ! empty( $avatarUrl ) ): ?>
+ <div class="ava ibg">
+ <img src="<?php echo \htmlentities(esc_url( $avatarUrl )??'', ENT_QUOTES, 'UTF-8', false); ?>" alt="<?php echo \htmlentities(esc_attr( $author )??'', ENT_QUOTES, 'UTF-8', false); ?>">
+ </div>
+ <?php endif; ?>
+ <div class="person">
+ <?php if( ! empty( $author ) ): ?>
+ <p><?php echo wp_kses_post( $author ); ?></p>
+ <?php endif; ?>
+ <?php if( ! empty( $position ) ): ?>
+ <span><?php echo wp_kses_post( $position ); ?></span>
+ <?php endif; ?>
+ </div>
+ </div>
+ <?php endif; ?>
+
+ <div class="emb-excerpt__bg no-select" aria-hidden="true">
+ <img src="<?php echo \htmlentities(esc_url( $decorBg )??'', ENT_QUOTES, 'UTF-8', false); ?>" alt="">
+ </div>
+ </div>
+ </div>
+ </div>
+</section>

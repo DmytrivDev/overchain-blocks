@@ -1,0 +1,54 @@
+<?php 
+	$noPaddingTop = $attributes['noPaddingTop'] ?? false;
+	$videoUrl     = $attributes['videoUrl'] ?? '';
+	$videoType    = $attributes['videoType'] ?? 'video/mp4';
+	$posterUrl    = $attributes['posterUrl'] ?? '';
+
+	$isSingle = is_singular() && ! is_page();
+	$sectionClass = $isSingle ? 'emb emb-video pbs2' : 'preview' . ( $noPaddingTop ? '' : ' pbs2' );
+
+	
+ ?>
+<?php if( ! empty( $videoUrl ) ): ?>
+	<?php if( $isSingle ): ?>
+ <section class="<?php echo \htmlentities(esc_attr( $sectionClass )??'', ENT_QUOTES, 'UTF-8', false); ?>">
+ <div class="emb__container">
+ <div class="emb__body section-body">
+ <div class="emb-video__main media-box ibg">
+ <video
+ <?php if( ! empty( $posterUrl ) ): ?> poster="<?php echo \htmlentities(esc_url( $posterUrl )??'', ENT_QUOTES, 'UTF-8', false); ?>" <?php endif; ?>
+ preload="metadata"
+ >
+ <source src="<?php echo \htmlentities(esc_url( $videoUrl )??'', ENT_QUOTES, 'UTF-8', false); ?>" type="<?php echo \htmlentities(esc_attr( $videoType )??'', ENT_QUOTES, 'UTF-8', false); ?>">
+ </video>
+
+ <button type="button" class="video-play" aria-label="Video play">
+ <span></span>
+ </button>
+ </div>
+ </div>
+ </div>
+ </section>
+	<?php else: ?>
+ <section class="<?php echo \htmlentities(esc_attr( $sectionClass )??'', ENT_QUOTES, 'UTF-8', false); ?>">
+ <div class="preview__container">
+ <div class="preview__body section-body">
+ <h2 class="tl2 visually-hidden">Video Preview</h2>
+
+ <div class="preview__video media-box ibg">
+ <video
+ <?php if( ! empty( $posterUrl ) ): ?> poster="<?php echo \htmlentities(esc_url( $posterUrl )??'', ENT_QUOTES, 'UTF-8', false); ?>" <?php endif; ?>
+ preload="metadata"
+ >
+ <source src="<?php echo \htmlentities(esc_url( $videoUrl )??'', ENT_QUOTES, 'UTF-8', false); ?>" type="<?php echo \htmlentities(esc_attr( $videoType )??'', ENT_QUOTES, 'UTF-8', false); ?>">
+ </video>
+
+ <button type="button" class="video-play" aria-label="Video play">
+ <span></span>
+ </button>
+ </div>
+ </div>
+ </div>
+ </section>
+	<?php endif; ?>
+<?php endif; ?>

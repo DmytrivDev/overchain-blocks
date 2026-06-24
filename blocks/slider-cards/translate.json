@@ -1,0 +1,7 @@
+{
+  "name": "overchain/slider-cards",
+  "attributes": {
+    "noPaddingTop": { "translate": "ignore" },
+    "title":        { "translate": "rich" }
+  }
+}

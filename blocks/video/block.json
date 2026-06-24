@@ -1,0 +1,44 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/video",
+  "title": "Video",
+  "category": "overchain",
+  "icon": "video-alt3",
+  "description": "Video section with optional poster image.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "videoId": {
+      "type": "number",
+      "default": 0
+    },
+    "videoUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "videoType": {
+      "type": "string",
+      "default": "video/mp4"
+    },
+    "posterId": {
+      "type": "number",
+      "default": 0
+    },
+    "posterUrl": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "editorScript": "file:../../build/video/index.js",
+  "render": "file:./render.php"
+}

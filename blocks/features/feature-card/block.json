@@ -1,0 +1,38 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/feature-card",
+  "title": "Feature Card",
+  "category": "overchain",
+  "icon": "index-card",
+  "description": "Single feature card with icon, title and text.",
+  "textdomain": "overchain-blocks",
+  "parent": [
+    "overchain/features"
+  ],
+  "supports": {
+    "html": false,
+    "align": false,
+    "reusable": false
+  },
+  "example": {},
+  "attributes": {
+    "iconId": {
+      "type": "number",
+      "default": 0
+    },
+    "iconUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "default": "Feature title"
+    },
+    "text": {
+      "type": "string",
+      "default": "Short feature description goes here."
+    }
+  },
+  "editorScript": "file:../../../build/features/feature-card/index.js",
+  "render": "file:./render.php"
+}

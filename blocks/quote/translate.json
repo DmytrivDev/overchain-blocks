@@ -1,0 +1,11 @@
+{
+  "name": "overchain/quote",
+  "attributes": {
+    "noPaddingTop": { "translate": "ignore" },
+    "quote":        { "translate": "rich" },
+    "author":       { "translate": "ignore" },
+    "position":     { "translate": "rich" },
+    "avatarId":     { "translate": "ignore" },
+    "avatarUrl":    { "translate": "ignore" }
+  }
+}

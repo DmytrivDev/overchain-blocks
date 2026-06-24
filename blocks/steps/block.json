@@ -1,0 +1,51 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/steps",
+  "title": "Steps",
+  "category": "overchain",
+  "icon": "list-view",
+  "description": "Steps section with title, subtitle and up to 4 steps.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "From Digital Asset to Fiat – in One Flow",
+      "subtitle": "Fully Tracked. Fully Reconciled. Fully Controlled.",
+      "steps": [
+        { "iconUrl": "", "label": "Client Pays in USDT" },
+        { "iconUrl": "", "label": "Funds Received Instantly" },
+        { "iconUrl": "", "label": "Converted to GBP" },
+        { "iconUrl": "", "label": "Settled to Your Account" }
+      ]
+    }
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "default": "Section title goes here"
+    },
+    "subtitle": {
+      "type": "string",
+      "default": "Short subtitle goes here."
+    },
+    "steps": {
+      "type": "array",
+      "default": [
+        { "iconUrl": "", "iconId": 0, "label": "Step title" },
+        { "iconUrl": "", "iconId": 0, "label": "Step title" },
+        { "iconUrl": "", "iconId": 0, "label": "Step title" },
+        { "iconUrl": "", "iconId": 0, "label": "Step title" }
+      ]
+    }
+  },
+  "editorScript": "file:../../build/steps/index.js",
+  "render": "file:./render.php"
+}

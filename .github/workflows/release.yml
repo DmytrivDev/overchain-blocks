@@ -1,0 +1,52 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies and build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Build plugin zip
+        run: |
+          mkdir -p build-zip/overchain-blocks
+          cp overchain-blocks.php  build-zip/overchain-blocks/
+          cp ob-updater.php        build-zip/overchain-blocks/
+          cp fix-asset.js          build-zip/overchain-blocks/
+          cp composer.json         build-zip/overchain-blocks/ 2>/dev/null || true
+          cp composer.lock         build-zip/overchain-blocks/ 2>/dev/null || true
+          cp README.md             build-zip/overchain-blocks/ 2>/dev/null || true
+          cp CHANGELOG.md          build-zip/overchain-blocks/ 2>/dev/null || true
+          cp -r blocks             build-zip/overchain-blocks/
+          cp -r build              build-zip/overchain-blocks/
+          cp -r resources          build-zip/overchain-blocks/
+          if [ -d vendor ]; then
+            cp -r vendor           build-zip/overchain-blocks/
+          fi
+          if [ -d languages ]; then
+            cp -r languages        build-zip/overchain-blocks/
+          fi
+          cd build-zip
+          zip -r ../overchain-blocks.zip overchain-blocks/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: overchain-blocks.zip
+          generate_release_notes: true

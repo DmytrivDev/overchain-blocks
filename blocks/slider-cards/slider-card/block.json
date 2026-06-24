@@ -1,0 +1,66 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/slider-card",
+  "title": "Slider Card",
+  "category": "overchain",
+  "icon": "index-card",
+  "description": "Single slider card.",
+  "textdomain": "overchain-blocks",
+  "parent": [
+    "overchain/slider-cards"
+  ],
+  "supports": {
+    "html": false,
+    "align": false,
+    "reusable": false
+  },
+  "example": {
+    "attributes": {
+      "title": "Card title",
+      "linkUrl": "#",
+      "linkId": 0,
+      "linkTitle": "Discover More",
+      "linkNewTab": false
+    }
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Card title"
+    },
+    "backgroundId": {
+      "type": "number",
+      "default": 0
+    },
+    "backgroundUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "imageId": {
+      "type": "number",
+      "default": 0
+    },
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "linkUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "linkId": {
+      "type": "number",
+      "default": 0
+    },
+    "linkTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "linkNewTab": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "editorScript": "file:../../../build/slider-cards/slider-card/index.js",
+  "render": "file:./render.php"
+}

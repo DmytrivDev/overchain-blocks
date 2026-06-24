@@ -1,0 +1,17 @@
+{
+  "name": "overchain/cards",
+  "attributes": {
+    "noPaddingTop":    { "translate": "ignore" },
+    "enableDecor":     { "translate": "ignore" },
+    "title":           { "translate": "rich" },
+    "buttonText":      { "translate": "string" },
+    "buttonType":      { "translate": "ignore" },
+    "buttonLink":      { "translate": "url" },
+    "buttonLinkId":    { "translate": "postobject" },
+    "buttonLinkTitle": { "translate": "string" },
+    "buttonLinkNewTab":{ "translate": "ignore" },
+    "buttonAnchor":    { "translate": "ignore" },
+    "buttonPopupId":   { "translate": "ignore" },
+    "buttonIcon":      { "translate": "ignore" }
+  }
+}

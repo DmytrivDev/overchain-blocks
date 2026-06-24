@@ -1,0 +1,19 @@
+{
+  "name": "overchain/overchain-blocks",
+  "description": "Custom Gutenberg blocks for Overchain sites.",
+  "type": "wordpress-plugin",
+  "license": "GPL-2.0-or-later",
+  "require": {
+    "php": ">=7.4",
+    "eftec/bladeone": "^4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "OverchainBlocks\\": "src/"
+    }
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true
+  }
+}

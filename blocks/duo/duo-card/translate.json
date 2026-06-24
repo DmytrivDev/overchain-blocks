@@ -1,0 +1,9 @@
+{
+  "name": "overchain/duo-card",
+  "attributes": {
+    "iconId":  { "translate": "ignore" },
+    "iconUrl": { "translate": "ignore" },
+    "title":   { "translate": "rich" },
+    "text":    { "translate": "rich" }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/promo",
+  "title": "Promo",
+  "category": "overchain",
+  "icon": "megaphone",
+  "description": "Promo section with image, title and button.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Infrastructure for Businesses that Move Money Globally",
+      "text": "If settlement is slowing you down, it's time to fix the layer underneath.",
+      "buttonText": "Book a Demo"
+    }
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "default": "Infrastructure for Businesses that Move Money Globally"
+    },
+    "text": {
+      "type": "string",
+      "default": "If settlement is slowing you down, it’s time<br />to fix the layer underneath."
+    },
+    "imageId": {
+      "type": "number",
+      "default": 0
+    },
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonText": {
+      "type": "string",
+      "default": "Book a Demo"
+    },
+    "buttonType": {
+      "type": "string",
+      "default": "link"
+    },
+    "buttonLink": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkId": {
+      "type": "number",
+      "default": 0
+    },
+    "buttonLinkTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkNewTab": {
+      "type": "boolean",
+      "default": false
+    },
+    "buttonAnchor": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonPopupId": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonIcon": {
+      "type": "string",
+      "default": "calendar"
+    }
+  },
+  "editorScript": "file:../../build/promo/index.js",
+  "render": "file:./render.php"
+}

@@ -1,0 +1,79 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/tab",
+  "title": "Tab",
+  "category": "overchain",
+  "icon": "schedule",
+  "description": "Single tab with content.",
+  "textdomain": "overchain-blocks",
+  "parent": [
+    "overchain/tabs"
+  ],
+  "supports": {
+    "html": false,
+    "align": false,
+    "reusable": false
+  },
+  "example": {
+    "attributes": {
+      "heading": "Tab heading example",
+      "buttonText": "Book a Demo"
+    }
+  },
+  "attributes": {
+    "tabLabel": {
+      "type": "string",
+      "default": "Tab title"
+    },
+    "heading": {
+      "type": "string",
+      "default": "Tab heading"
+    },
+    "buttonText": {
+      "type": "string",
+      "default": "Book a Demo"
+    },
+    "buttonType": {
+      "type": "string",
+      "default": "link"
+    },
+    "buttonLink": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkId": {
+      "type": "number",
+      "default": 0
+    },
+    "buttonLinkTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkNewTab": {
+      "type": "boolean",
+      "default": false
+    },
+    "buttonAnchor": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonPopupId": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonIcon": {
+      "type": "string",
+      "default": "calendar"
+    },
+    "imageId": {
+      "type": "number",
+      "default": 0
+    },
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "editorScript": "file:../../../build/tabs/tab/index.js",
+  "render": "file:./render.php"
+}

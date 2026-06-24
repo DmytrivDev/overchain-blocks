@@ -1,0 +1,72 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/hero",
+  "title": "Hero",
+  "category": "overchain",
+  "icon": "cover-image",
+  "description": "Hero section with title, subtitle, button and background image.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1000
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Title of the page"
+    },
+    "subtitle": {
+      "type": "string",
+      "default": "Short description goes here"
+    },
+    "buttonText": {
+      "type": "string",
+      "default": "Book a Demo"
+    },
+    "buttonType": {
+      "type": "string",
+      "default": "link"
+    },
+    "buttonLink": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkId": {
+      "type": "number",
+      "default": 0
+    },
+    "buttonLinkTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkNewTab": {
+      "type": "boolean",
+      "default": false
+    },
+    "buttonAnchor": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonPopupId": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonIcon": {
+      "type": "string",
+      "default": "calendar"
+    },
+    "backgroundId": {
+      "type": "number",
+      "default": 0
+    },
+    "backgroundUrl": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "editorScript": "file:../../build/hero/index.js",
+  "render": "file:./render.php"
+}

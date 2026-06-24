@@ -1,0 +1,19 @@
+{
+  "name": "overchain/badges",
+  "attributes": {
+    "noPaddingTop": { "translate": "ignore" },
+    "title":        { "translate": "rich" },
+    "decoLeftId":   { "translate": "ignore" },
+    "decoLeftUrl":  { "translate": "ignore" },
+    "decoRightId":  { "translate": "ignore" },
+    "decoRightUrl": { "translate": "ignore" },
+    "badges": {
+      "translate": "repeater",
+      "items": {
+        "iconUrl": { "translate": "ignore" },
+        "iconId":  { "translate": "ignore" },
+        "label":   { "translate": "string" }
+      }
+    }
+  }
+}

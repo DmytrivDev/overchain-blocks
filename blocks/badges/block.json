@@ -1,0 +1,60 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/badges",
+  "title": "Badges",
+  "category": "overchain",
+  "icon": "tag",
+  "description": "Badges section with title and icon+text items.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Built for <span style=\"color:#39d98a\">Real-World</span> Financial Operations",
+      "badges": [
+        { "iconUrl": "", "iconId": 0, "label": "Instant Settlement" },
+        { "iconUrl": "", "iconId": 0, "label": "Unified Conversion" },
+        { "iconUrl": "", "iconId": 0, "label": "Treasury Control" }
+      ]
+    }
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "default": "Section title goes here"
+    },
+    "decoLeftId": {
+      "type": "number",
+      "default": 0
+    },
+    "decoLeftUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "decoRightId": {
+      "type": "number",
+      "default": 0
+    },
+    "decoRightUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "badges": {
+      "type": "array",
+      "default": [
+        { "iconUrl": "", "iconId": 0, "label": "Badge title" },
+        { "iconUrl": "", "iconId": 0, "label": "Badge title" },
+        { "iconUrl": "", "iconId": 0, "label": "Badge title" }
+      ]
+    }
+  },
+  "editorScript": "file:../../build/badges/index.js",
+  "render": "file:./render.php"
+}

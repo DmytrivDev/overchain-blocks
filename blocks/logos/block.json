@@ -1,0 +1,39 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/logos",
+  "title": "Logos",
+  "category": "overchain",
+  "icon": "images-alt2",
+  "description": "Logos section with optional links.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "logos": [
+        { "imageUrl": "", "imageId": 0, "link": "" },
+        { "imageUrl": "", "imageId": 0, "link": "" },
+        { "imageUrl": "", "imageId": 0, "link": "" }
+      ]
+    }
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "logos": {
+      "type": "array",
+      "default": [
+        { "imageUrl": "", "imageId": 0, "link": "" },
+        { "imageUrl": "", "imageId": 0, "link": "" },
+        { "imageUrl": "", "imageId": 0, "link": "" }
+      ]
+    }
+  },
+  "editorScript": "file:../../build/logos/index.js",
+  "render": "file:./render.php"
+}

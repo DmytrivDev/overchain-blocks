@@ -1,0 +1,24 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/white-section",
+  "title": "White Section",
+  "category": "overchain",
+  "icon": "layout",
+  "description": "White background wrapper for any blocks.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200
+  },
+  "attributes": {
+    "showDecor": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "editorScript": "file:../../build/white-section/index.js",
+  "render": "file:./render.php"
+}

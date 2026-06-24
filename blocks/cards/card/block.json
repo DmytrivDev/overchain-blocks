@@ -1,0 +1,36 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/card",
+  "title": "Card",
+  "category": "overchain",
+  "icon": "index-card",
+  "description": "Single card with icon, title and text.",
+  "textdomain": "overchain-blocks",
+  "parent": [ "overchain/cards" ],
+  "supports": {
+    "html": false,
+    "align": false,
+    "reusable": false
+  },
+  "example": {},
+  "attributes": {
+    "iconId": {
+      "type": "number",
+      "default": 0
+    },
+    "iconUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "default": "Card title"
+    },
+    "text": {
+      "type": "string",
+      "default": "Short card description goes here."
+    }
+  },
+  "editorScript": "file:../../../build/cards/card/index.js",
+  "render": "file:./render.php"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "overchain/related-posts",
+  "attributes": {
+    "noPaddingTop":  { "translate": "ignore" },
+    "title":         { "translate": "rich" },
+    "sourceType":    { "translate": "ignore" },
+    "postsCount":    { "translate": "ignore" },
+    "selectedPosts": { "translate": "postobject" }
+  }
+}

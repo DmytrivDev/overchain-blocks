@@ -1,0 +1,11 @@
+{
+  "name": "overchain/video",
+  "attributes": {
+    "noPaddingTop": { "translate": "ignore" },
+    "videoId":      { "translate": "ignore" },
+    "videoUrl":     { "translate": "ignore" },
+    "videoType":    { "translate": "ignore" },
+    "posterId":     { "translate": "ignore" },
+    "posterUrl":    { "translate": "ignore" }
+  }
+}

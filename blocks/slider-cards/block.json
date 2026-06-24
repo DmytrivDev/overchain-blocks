@@ -1,0 +1,31 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/slider-cards",
+  "title": "Slider Cards",
+  "category": "overchain",
+  "icon": "slides",
+  "description": "Slider cards section with title.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "default": "Built for Businesses<br /><span>Operating Globally</span>"
+    }
+  },
+  "allowedBlocks": [
+    "overchain/slider-card"
+  ],
+  "editorScript": "file:../../build/slider-cards/index.js",
+  "render": "file:./render.php"
+}

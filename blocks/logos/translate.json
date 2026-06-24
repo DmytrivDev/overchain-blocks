@@ -1,0 +1,14 @@
+{
+  "name": "overchain/logos",
+  "attributes": {
+    "noPaddingTop": { "translate": "ignore" },
+    "logos": {
+      "translate": "repeater",
+      "items": {
+        "imageUrl": { "translate": "ignore" },
+        "imageId":  { "translate": "ignore" },
+        "link":     { "translate": "url" }
+      }
+    }
+  }
+}

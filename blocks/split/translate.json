@@ -1,0 +1,20 @@
+{
+  "name": "overchain/split",
+  "attributes": {
+    "noPaddingTop":    { "translate": "ignore" },
+    "title":           { "translate": "rich" },
+    "subtitle":        { "translate": "rich" },
+    "imageId":         { "translate": "ignore" },
+    "imageUrl":        { "translate": "ignore" },
+    "text":            { "translate": "rich" },
+    "buttonText":      { "translate": "string" },
+    "buttonType":      { "translate": "ignore" },
+    "buttonLink":      { "translate": "url" },
+    "buttonLinkId":    { "translate": "postobject" },
+    "buttonLinkTitle": { "translate": "string" },
+    "buttonLinkNewTab":{ "translate": "ignore" },
+    "buttonAnchor":    { "translate": "ignore" },
+    "buttonPopupId":   { "translate": "ignore" },
+    "buttonIcon":      { "translate": "ignore" }
+  }
+}

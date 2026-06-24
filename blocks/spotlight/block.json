@@ -1,0 +1,39 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/spotlight",
+  "title": "Spotlight",
+  "category": "overchain",
+  "icon": "editor-expand",
+  "description": "Spotlight section with title and feature cards.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "default": "<span>Full Control</span> Over<br />How Money Moves"
+    },
+    "backgroundId": {
+      "type": "number",
+      "default": 0
+    },
+    "backgroundUrl": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "allowedBlocks": [
+    "overchain/spotlight-card"
+  ],
+  "editorScript": "file:../../build/spotlight/index.js",
+  "render": "file:./render.php"
+}

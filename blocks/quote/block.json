@@ -1,0 +1,31 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/quote",
+  "title": "Quote",
+  "category": "overchain",
+  "icon": "format-quote",
+  "description": "Quote block with text and author.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1400,
+    "attributes": {
+      "quote": "Traditional banking systems and credit card networks require substantial energy for their infrastructure.",
+      "author": "Tyler Betts",
+      "position": "Chief Compliance Officer"
+    }
+  },
+  "attributes": {
+    "noPaddingTop": { "type": "boolean", "default": false },
+    "quote":        { "type": "string",  "default": "Traditional banking systems and credit card networks require substantial energy for their infrastructure." },
+    "author":       { "type": "string",  "default": "Tyler Betts" },
+    "position":     { "type": "string",  "default": "Chief Compliance Officer" },
+    "avatarId":     { "type": "number",  "default": 0 },
+    "avatarUrl":    { "type": "string",  "default": "" }
+  },
+  "editorScript": "file:../../build/quote/index.js",
+  "render": "file:./render.php"
+}

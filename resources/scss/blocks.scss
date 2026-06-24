@@ -1,0 +1,22 @@
+@use "styles";
+
+.oneflow__decor, .infrastruct__bg, .intouch__decor, .compliant__decor {
+    display: none;
+}
+
+.frame-colored__body {
+    .oneflow__decor, .infrastruct__bg, .intouch__decor, .compliant__decor {
+        display: block;
+    }
+    .settlement__blur, .operation__bg  {
+        display: none;
+    }
+}
+
+.card-paid__bg, .card-businesses__bg {
+    position: absolute !important;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+}

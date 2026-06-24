@@ -1,0 +1,15 @@
+{
+  "name": "overchain-blocks",
+  "version": "1.0.0",
+  "description": "Custom Gutenberg blocks for Overchain sites.",
+  "private": true,
+  "scripts": {
+    "start": "wp-scripts start",
+    "build": "wp-scripts build && node fix-asset.js"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^30.0.0",
+    "rimraf": "^5.0.5",
+    "webpack-remove-empty-scripts": "^1.1.1"
+  }
+}

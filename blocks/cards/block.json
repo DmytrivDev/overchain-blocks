@@ -1,0 +1,71 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/cards",
+  "title": "Cards",
+  "category": "overchain",
+  "icon": "grid-view",
+  "description": "Cards section with title and button.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "enableDecor": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "default": "Built for Secure, <br />Compliant Operations"
+    },
+    "buttonText": {
+      "type": "string",
+      "default": "Book a Demo"
+    },
+    "buttonType": {
+      "type": "string",
+      "default": "link"
+    },
+    "buttonLink": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkId": {
+      "type": "number",
+      "default": 0
+    },
+    "buttonLinkTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkNewTab": {
+      "type": "boolean",
+      "default": false
+    },
+    "buttonAnchor": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonPopupId": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonIcon": {
+      "type": "string",
+      "default": "calendar"
+    }
+  },
+  "allowedBlocks": [
+    "overchain/card"
+  ],
+  "editorScript": "file:../../build/cards/index.js",
+  "render": "file:./render.php"
+}

@@ -1,0 +1,35 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/duo",
+  "title": "Duo",
+  "category": "overchain",
+  "icon": "columns",
+  "description": "Two-column header with cards below.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "default": "Move Funds Globally -<br />Without Friction"
+    },
+    "text": {
+      "type": "string",
+      "default": "Send individual or bulk crypto payments from Overchain to maximise the flexibility of your business operations."
+    }
+  },
+  "allowedBlocks": [
+    "overchain/duo-card"
+  ],
+  "editorScript": "file:../../build/duo/index.js",
+  "render": "file:./render.php"
+}

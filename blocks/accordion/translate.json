@@ -1,0 +1,24 @@
+{
+  "name": "overchain/accordion",
+  "attributes": {
+    "noPaddingTop": { "translate": "ignore" },
+    "title":        { "translate": "rich" },
+    "subtitle":     { "translate": "rich" },
+    "items": {
+      "translate": "repeater",
+      "items": {
+        "heading":         { "translate": "rich" },
+        "text":            { "translate": "rich" },
+        "imageId":         { "translate": "ignore" },
+        "imageUrl":        { "translate": "ignore" },
+        "buttonType":      { "translate": "ignore" },
+        "buttonLink":      { "translate": "url" },
+        "buttonLinkId":    { "translate": "postobject" },
+        "buttonLinkTitle": { "translate": "string" },
+        "buttonNewTab":    { "translate": "ignore" },
+        "buttonAnchor":    { "translate": "ignore" },
+        "buttonPopupId":   { "translate": "ignore" }
+      }
+    }
+  }
+}
