@@ -131,7 +131,7 @@
  <fieldset class="field-inputs form-columns-2">
  <div class="field-inputs__box hs_website hs-website hs-fieldtype-text field hs-form-field">
  <label id="label-website-20bb11ad-6121-4405-87b3-bf0999944443-3147563103814"
- placeholder="<?php echo \htmlentities($plEnterYour??'', ENT_QUOTES, 'UTF-8', false); ?> <?php echo \htmlentities($plEwbsite??'', ENT_QUOTES, 'UTF-8', false); ?>"
+ placeholder="<?php echo \htmlentities($plEnterYour??'', ENT_QUOTES, 'UTF-8', false); ?> <?php echo \htmlentities($plWebsite??'', ENT_QUOTES, 'UTF-8', false); ?>"
  for="website-20bb11ad-6121-4405-87b3-bf0999944443-3147563103814"
  data-optional="<?php echo \htmlentities($labelOptional??'', ENT_QUOTES, 'UTF-8', false); ?>">
  <span><?php echo \htmlentities($labelWebsite??'', ENT_QUOTES, 'UTF-8', false); ?></span>
@@ -153,29 +153,37 @@
  <span><?php echo \htmlentities($labelPhone??'', ENT_QUOTES, 'UTF-8', false); ?></span><span class="hs-form-required">*</span>
  </label>
  <legend class="hs-field-desc" style="display: none"></legend>
- <div class="input phone-wrapp">
- <div class="iti iti--allow-dropdown iti--separate-dial-code iti--show-flags">
- <div class="iti__flag-container">
- <div class="iti__selected-flag" role="combobox" aria-haspopup="listbox"
- aria-controls="iti-0__country-listbox" aria-owns="iti-0__country-listbox"
- aria-expanded="false" aria-label="Telephone country code" tabindex="0"
- title="Ukraine (Україна): +380">
- <div class="iti__flag iti__ua"></div>
- <div class="iti__selected-dial-code">
- +380
- </div>
- <div class="iti__arrow"></div>
- </div>
- </div>
- <input name="tel" required="" data-required="1" type="tel" class="hs-input" value=""
- autocomplete="off" data-intl-tel-input-id="0" placeholder="050 123 4567"
- style="padding-left: 95px" />
- </div>
- </div>
+ <div class="input phone-field">
+ <span class="phone-field__select">
+ <select
+ class="tom-select"
+ data-type="country"
+ data-noresults="No found."
+ data-required
+ >
+ <option value="">+000</option>
+ </select>
+ </span>
+ <span class="phone-field__input">
+ <input
+ name="tel"
+ required=""
+ data-required="1"
+ type="tel"
+ class="hs-input"
+ value=""
+ autocomplete="off"
+ data-intl-tel-input-id="0"
+ placeholder="050 123 4567"
+ style="padding-left: 95px"
+ />
+ </span>
+
  <div style="display: none" class="input">
  <input id="phone-20bb11ad-6121-4405-87b3-bf0999944443-2972723625769" name="0-1/phone"
- required="" placeholder="+380" data-required="1" type="tel" class="hs-input"
- autocomplete="tel" value="+380" />
+ required="" data-required="1" type="tel" class="phone-full hs-input"
+ autocomplete="tel" />
+ </div>
  </div>
  </div>
  </fieldset>

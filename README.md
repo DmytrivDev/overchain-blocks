@@ -1,24 +1,26 @@
 # Overchain Blocks
 
-Стартовий WordPress-плагін з нативними Gutenberg-блоками. Без ACF, без Laravel.
+WordPress plugin providing the native Gutenberg blocks the Overchain site is built from. No ACF, no Laravel.
 
-Editor UI написаний на React (`@wordpress/*` пакети), frontend-рендер блоків — звичайний PHP dynamic block, а HTML frontend-шаблонів генерується через [BladeOne](https://github.com/EFTEC/BladeOne) (standalone Composer-пакет, без Laravel).
+Editor UI is React (`@wordpress/*` packages); frontend rendering is a plain PHP dynamic block whose HTML is produced by [BladeOne](https://github.com/EFTEC/BladeOne) — a standalone Composer package, no Laravel involved.
 
-## Встановлення
+The plugin is **tightly coupled to the Overchain theme**: blocks use theme CSS classes and theme icon paths. It is not intended to run with any other theme.
 
-### 1. PHP-залежності
+## Installation
+
+### 1. PHP dependencies
 
 ```bash
 composer install
 ```
 
-### 2. JS-залежності
+### 2. JS dependencies
 
 ```bash
 npm install
 ```
 
-### 3. Dev-режим (watch)
+### 3. Dev mode (watch)
 
 ```bash
 npm run start
@@ -30,58 +32,64 @@ npm run start
 npm run build
 ```
 
-Білд генерує:
+The build generates:
 
-- `build/blocks/test-block/index.js` — скомпільований editor script блоку;
-- `build/blocks.css` — спільні стилі (frontend + editor), скомпільовані з `resources/scss/blocks.scss`;
-- `build/editor.css` — стилі тільки для Gutenberg editor, скомпільовані з `resources/scss/editor.scss`.
+- `build/<block-name>/index.js` + `index.asset.php` — compiled editor script per block (including child blocks at `build/<parent>/<child>/`);
+- `build/blocks.css` — shared styles (frontend + editor), compiled from `resources/scss/blocks.scss`;
+- `build/editor.css` — editor-only styles, compiled from `resources/scss/editor.scss`;
+- `build/blocks-scripts.js` — frontend block behaviour, compiled from `resources/js/blocks.js`.
 
-### 5. Активація плагіна
+### 5. Activate the plugin
 
-1. Скопіюйте папку `overchain-blocks/` у `wp-content/plugins/`.
-2. У WordPress admin відкрийте **Плагіни** → активуйте **Overchain Blocks**.
+1. Copy `overchain-blocks/` into `wp-content/plugins/`.
+2. In WP admin open **Plugins** → activate **Overchain Blocks**.
 
-Плагін активується без fatal error навіть якщо `composer install` або `npm run build` ще не виконані — у цьому випадку просто не підʼєднається BladeOne-рендер і не завантажаться CSS-файли, доки відповідні файли не зʼявляться.
+The plugin activates without a fatal error even if `composer install` or `npm run build` have not been run yet — it simply will not hook up the BladeOne renderer or load any CSS until those files exist.
 
-## Перевірка тестового блоку
+> **A block only appears in the inserter once `build/<block-name>/index.js` and `index.asset.php` both exist.** An empty Overchain category almost always means a forgotten `npm run build`.
 
-1. Відкрийте Gutenberg editor (сторінка або пост).
-2. Додайте блок **Test Block**.
-3. Перевірте, що блок знаходиться в категорії **Overchain**.
-4. Заповніть title, text, button text/URL, виберіть зображення.
-5. Збережіть сторінку.
-6. Відкрийте сторінку на frontend і перевірте, що блок рендериться через Blade-шаблон.
+## Verifying the install
 
-## Архітектура
+1. Open the Gutenberg editor on a page.
+2. Open the inserter and find the **Overchain** category — it should list 19 blocks, starting with **White Section** and **Hero**.
+3. Add **Hero**, fill in title, subtitle and button, pick a background image.
+4. Save and open the page on the frontend; the block should render through its Blade template.
 
-- **Editor UI** — React / `@wordpress/block-editor`, `@wordpress/components`, `@wordpress/blocks` тощо. Кожен блок має власний `edit.js` з повноцінним canvas-редагуванням (не тільки sidebar).
-- **Frontend render** — PHP dynamic block (`render.php` кожного блоку), який делегує побудову HTML класу `\OverchainBlocks\View`.
-- **Frontend HTML templates** — [BladeOne](https://github.com/EFTEC/BladeOne), шаблони лежать у `resources/views/blocks/*.blade.php`, скомпільований кеш — у `cache/views/`.
-- **blocks.css** — один спільний CSS-файл для всіх блоків. Вантажиться і на frontend (`wp_enqueue_scripts`), і в Gutenberg editor (`enqueue_block_editor_assets`).
-- **editor.css** — стилі тільки для Gutenberg editor (scoped через `.editor-styles-wrapper`). Вантажиться лише в editor.
-- **Нові блоки** додаються як нова папка в `blocks/<block-name>/` з власним `block.json`, `index.js`, `edit.js`, `render.php`. `BlocksService` автоматично знаходить і реєструє всі `blocks/*/block.json` — додаткового коду не потрібно.
-- **Стилі нових блоків** додаються прямо в `resources/scss/blocks.scss` (спільні стилі для всіх блоків в одному файлі).
-- **Editor-only стилі** нових блоків додаються в `resources/scss/editor.scss`.
+## Architecture
 
-## Структура проєкту
+- **Editor UI** — React / `@wordpress/block-editor`, `@wordpress/components`, `@wordpress/blocks`. Every block has its own `edit.js` with full canvas editing, not just a sidebar.
+- **Frontend render** — PHP dynamic block (`render.php` per block) delegating HTML construction to `\OverchainBlocks\View`.
+- **Frontend HTML templates** — [BladeOne](https://github.com/EFTEC/BladeOne); templates in `resources/views/blocks/*.blade.php`, compiled cache in `cache/views/`.
+- **blocks.css** — one shared stylesheet for all blocks, loaded on the frontend (`wp_enqueue_scripts`) and in the editor (`enqueue_block_editor_assets`).
+- **editor.css** — editor-only styles (scoped via `.editor-styles-wrapper`), loaded only in the editor.
+- **New blocks** are a new folder under `blocks/<block-name>/` with its own `block.json`, `index.js`, `edit.js`, `render.php` and `translate.json`, plus an entry in the `$order` array in `overchain-blocks.php`.
+- **Styles for new blocks** go into `resources/scss/blocks.scss`; editor-only styles into `resources/scss/editor.scss`.
+- **`translate.json`** per block declares which attributes the separate `deepl-translator` plugin should translate.
+
+Full developer documentation, including the [Technical Debt](./PLUGIN.md#technical-debt) register: **[PLUGIN.md](./PLUGIN.md)**.
+
+## Project structure
 
 ```
 overchain-blocks/
-├── overchain-blocks.php       # Plugin header, константи, bootstrap
+├── overchain-blocks.php       # Plugin header, constants, hooks, block registration
+├── ob-updater.php             # GitHub Releases auto-updater
 ├── composer.json              # PSR-4 autoload + BladeOne
-├── package.json                # wp-scripts build/start
-├── webpack.config.js          # Кастомні entry points для CSS/JS
+├── package.json               # wp-scripts build/start
+├── webpack.config.js          # Auto-discovered block entries + CSS/JS entries
+├── fix-asset.js               # Writes correct index.asset.php after each build
 ├── src/
-│   ├── Plugin.php              # Bootstrap класу плагіна
-│   ├── View.php                # BladeOne wrapper / singleton
-│   ├── Assets/AssetsService.php   # Enqueue blocks.css / editor.css
-│   └── Blocks/BlocksService.php   # Реєстрація категорії + блоків
-├── blocks/
-│   └── test-block/             # Тестовий блок overchain/test-block
+│   ├── Plugin.php             # Plugin bootstrap class
+│   ├── View.php               # BladeOne wrapper / singleton
+│   ├── Assets/AssetsService.php   # Enqueues blocks.css / editor.css / blocks-scripts.js
+│   └── Blocks/BlocksService.php   # Category + block registration (duplicates the main file)
+├── blocks/                    # 19 parent blocks + 6 child blocks
+├── components/                # 11 shared React editor components
 ├── resources/
-│   ├── scss/blocks.scss        # Спільні стилі всіх блоків
-│   ├── scss/editor.scss        # Editor-only стилі
-│   └── views/blocks/           # Blade-шаблони
-├── cache/views/                # Кеш скомпільованих Blade-шаблонів
-└── build/                      # Скомпільовані JS/CSS (генерується build)
+│   ├── scss/                  # styles.scss (generated) → blocks.scss → editor.scss
+│   ├── js/blocks.js           # Frontend block behaviour
+│   ├── placeholders/          # Editor placeholder images
+│   └── views/                 # Blade templates + partials
+├── cache/views/               # Compiled Blade cache
+└── build/                     # Compiled JS/CSS (generated, gitignored)
 ```

@@ -20,3 +20,9 @@
     bottom: 0;
     top: 0;
 }
+
+.phone-field.is-error {
+    .phone-field__input input {
+        border-color: var(--cr1) !important;
+    }
+}
