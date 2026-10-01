@@ -11,7 +11,7 @@
 
 <section class="{{ esc_attr( $sectionClass ) }}">
 	<div class="operation__container">
-		<div class="operation__wrap">
+		<div class="operation__wrap section-wrap">
 			<div class="operation__bg no-select" aria-hidden="true">
 				<img src="{{ esc_url( $bgUrl ) }}" alt="">
 			</div>
@@ -19,7 +19,7 @@
 			<div class="operation__decor decor1 no-select" aria-hidden="true"></div>
 			<div class="operation__decor decor2 no-select" aria-hidden="true"></div>
 
-			<div class="operation__body section-body">
+			<div class="operation__body section-body{{ overchain_blocks_fade_class( $attributes ) }}">
 				@if ( ! empty( $decoLeftUrl ) )
 					<div class="operation__img img1 no-select mouse-prllx" aria-hidden="true">
 						<img src="{{ esc_url( $decoLeftUrl ) }}" alt="">
@@ -34,7 +34,7 @@
 
 				@if ( ! empty( $title ) )
 					<div class="heading aic">
-						<h2 class="tl2">{!! wp_kses_post( $title ) !!}</h2>
+						<h2 class="tl2 anim-txt">{!! wp_kses_post( $title ) !!}</h2>
 					</div>
 				@endif
 

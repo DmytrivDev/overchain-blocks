@@ -111,40 +111,42 @@ export default function Edit({ attributes, setAttributes }) {
       <div {...blockProps}>
         <section className={sectionClass}>
           <div className="platform__container">
-            <div className="platform__body section-body">
-              <h2 className="visually-hidden">
-                {__("Platforms", "overchain-blocks")}
-              </h2>
+            <div className="platform__wrap section-wrap">
+              <div className="platform__body section-body">
+                <h2 className="visually-hidden">
+                  {__("Platforms", "overchain-blocks")}
+                </h2>
 
-              <ul className="platform__list">
-                {logos.map((logo, index) => (
-                  <li key={index} className="item-platform">
-                    {logo.link ? (
-                      <a
-                        href={logo.link}
-                        className="item-platform__logo"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(event) => event.preventDefault()}
-                      >
-                        <img
-                          src={logo.imageUrl || placeholderLogo}
-                          alt=""
-                          style={!logo.imageUrl ? { filter: "unset" } : {}}
-                        />
-                      </a>
-                    ) : (
-                      <div className="item-platform__logo">
-                        <img
-                          src={logo.imageUrl || placeholderLogo}
-                          alt=""
-                          style={!logo.imageUrl ? { filter: "unset" } : {}}
-                        />
-                      </div>
-                    )}
-                  </li>
-                ))}
-              </ul>
+                <ul className="platform__list">
+                  {logos.map((logo, index) => (
+                    <li key={index} className="item-platform">
+                      {logo.link ? (
+                        <a
+                          href={logo.link}
+                          className="item-platform__logo"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(event) => event.preventDefault()}
+                        >
+                          <img
+                            src={logo.imageUrl || placeholderLogo}
+                            alt=""
+                            style={!logo.imageUrl ? { filter: "unset" } : {}}
+                          />
+                        </a>
+                      ) : (
+                        <div className="item-platform__logo">
+                          <img
+                            src={logo.imageUrl || placeholderLogo}
+                            alt=""
+                            style={!logo.imageUrl ? { filter: "unset" } : {}}
+                          />
+                        </div>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </section>

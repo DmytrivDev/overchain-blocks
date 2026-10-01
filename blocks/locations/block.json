@@ -1,0 +1,69 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/locations",
+  "title": "Locations",
+  "category": "overchain",
+  "icon": "location-alt",
+  "description": "Regulated office locations as a row of image cards with a city badge.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Global Reach, Regulated Operations"
+    },
+    "innerBlocks": [
+      {
+        "name": "overchain/location-card",
+        "attributes": {
+          "label": "Toronto"
+        }
+      },
+      {
+        "name": "overchain/location-card",
+        "attributes": {
+          "label": "London"
+        }
+      },
+      {
+        "name": "overchain/location-card",
+        "attributes": {
+          "label": "Vilnius",
+          "tag": "Soon"
+        }
+      },
+      {
+        "name": "overchain/location-card",
+        "attributes": {
+          "label": "Dubai"
+        }
+      }
+    ]
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "allowedBlocks": [
+    "overchain/location-card"
+  ],
+  "editorScript": "file:../../build/locations/index.js",
+  "render": "file:./render.php"
+}

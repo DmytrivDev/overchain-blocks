@@ -1,0 +1,78 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/showcase-card",
+  "title": "Showcase Card",
+  "category": "overchain",
+  "icon": "index-card",
+  "description": "Single showcase card.",
+  "textdomain": "overchain-blocks",
+  "parent": [
+    "overchain/showcase"
+  ],
+  "supports": {
+    "html": false,
+    "align": false,
+    "reusable": false
+  },
+  "example": {},
+  "attributes": {
+    "imageId": {
+      "type": "number",
+      "default": 0
+    },
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    },
+    "tags": {
+      "type": "array",
+      "default": []
+    },
+    "buttonText": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonType": {
+      "type": "string",
+      "default": "link"
+    },
+    "buttonLink": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkId": {
+      "type": "number",
+      "default": 0
+    },
+    "buttonLinkTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkNewTab": {
+      "type": "boolean",
+      "default": false
+    },
+    "buttonAnchor": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonPopupId": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonIcon": {
+      "type": "string",
+      "default": "arrow"
+    }
+  },
+  "editorScript": "file:../../../build/showcase/showcase-card/index.js",
+  "render": "file:./render.php"
+}

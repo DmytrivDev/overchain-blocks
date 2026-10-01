@@ -1,6 +1,11 @@
 {
   "name": "overchain/features",
   "attributes": {
-    "noPaddingTop": { "translate": "ignore" }
+    "noPaddingTop": { "translate": "ignore" },
+    "disableWhiteFade": { "translate": "ignore" },
+    "topSpacing":   { "translate": "ignore" },
+    "enableBlur":   { "translate": "ignore" },
+    "title":        { "translate": "rich" },
+    "text":         { "translate": "rich" }
   }
 }

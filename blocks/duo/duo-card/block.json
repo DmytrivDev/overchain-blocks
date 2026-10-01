@@ -6,13 +6,20 @@
   "icon": "index-card",
   "description": "Single duo card.",
   "textdomain": "overchain-blocks",
-  "parent": [ "overchain/duo" ],
+  "parent": [
+    "overchain/duo"
+  ],
   "supports": {
     "html": false,
     "align": false,
     "reusable": false
   },
-  "example": {},
+  "example": {
+    "attributes": {
+      "title": "Card title",
+      "text": "Short card description goes here."
+    }
+  },
   "attributes": {
     "iconId": {
       "type": "number",
@@ -24,11 +31,11 @@
     },
     "title": {
       "type": "string",
-      "default": "Card title"
+      "default": ""
     },
     "text": {
       "type": "string",
-      "default": "Short card description goes here."
+      "default": ""
     }
   },
   "editorScript": "file:../../../build/duo/duo-card/index.js",

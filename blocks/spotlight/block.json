@@ -11,16 +11,53 @@
     "align": false
   },
   "example": {
-    "viewportWidth": 1200
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "<span>Full Control</span> Over<br />How Money Moves"
+    },
+    "innerBlocks": [
+      {
+        "name": "overchain/spotlight-card",
+        "attributes": {
+          "title": "Feature title",
+          "text": "Short feature description goes here."
+        }
+      },
+      {
+        "name": "overchain/spotlight-card",
+        "attributes": {
+          "title": "Feature title",
+          "text": "Short feature description goes here."
+        }
+      },
+      {
+        "name": "overchain/spotlight-card",
+        "attributes": {
+          "title": "Feature title",
+          "text": "Short feature description goes here."
+        }
+      },
+      {
+        "name": "overchain/spotlight-card",
+        "attributes": {
+          "title": "Feature title",
+          "text": "Short feature description goes here."
+        }
+      }
+    ]
   },
   "attributes": {
     "noPaddingTop": {
       "type": "boolean",
       "default": false
     },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
     "title": {
       "type": "string",
-      "default": "<span>Full Control</span> Over<br />How Money Moves"
+      "default": ""
     },
     "backgroundId": {
       "type": "number",

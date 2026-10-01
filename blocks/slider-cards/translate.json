@@ -2,6 +2,9 @@
   "name": "overchain/slider-cards",
   "attributes": {
     "noPaddingTop": { "translate": "ignore" },
-    "title":        { "translate": "rich" }
+    "disableWhiteFade": { "translate": "ignore" },
+    "title":         { "translate": "rich" },
+    "text":          { "translate": "rich" },
+    "centerHeading": { "translate": "ignore" }
   }
 }

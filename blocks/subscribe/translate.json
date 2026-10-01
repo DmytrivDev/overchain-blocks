@@ -2,11 +2,20 @@
   "name": "overchain/subscribe",
   "attributes": {
     "noPaddingTop": { "translate": "ignore" },
+    "disableWhiteFade": { "translate": "ignore" },
+    "mediaType":    { "translate": "ignore" },
     "title":        { "translate": "rich" },
     "subtitle":     { "translate": "rich" },
     "privacy":      { "translate": "rich" },
     "imageId":      { "translate": "ignore" },
     "imageUrl":     { "translate": "ignore" },
+    "slides": {
+      "translate": "repeater",
+      "items": {
+        "imageId":  { "translate": "ignore" },
+        "imageUrl": { "translate": "ignore" }
+      }
+    },
     "successTitle": { "translate": "string" },
     "successDesc":  { "translate": "string" }
   }

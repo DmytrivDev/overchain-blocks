@@ -1,0 +1,22 @@
+{
+  "name": "overchain/flow-promo",
+  "attributes": {
+    "noPaddingTop":     { "translate": "ignore" },
+    "disableWhiteFade": { "translate": "ignore" },
+    "enableBackground": { "translate": "ignore" },
+    "title":            { "translate": "rich" },
+    "subtitle":         { "translate": "rich" },
+    "desc":             { "translate": "rich" },
+    "imageId":          { "translate": "ignore" },
+    "imageUrl":         { "translate": "ignore" },
+    "buttonText":       { "translate": "string" },
+    "buttonType":       { "translate": "ignore" },
+    "buttonLink":       { "translate": "url" },
+    "buttonLinkId":     { "translate": "postobject" },
+    "buttonLinkTitle":  { "translate": "string" },
+    "buttonLinkNewTab": { "translate": "ignore" },
+    "buttonAnchor":     { "translate": "ignore" },
+    "buttonPopupId":    { "translate": "ignore" },
+    "buttonIcon":       { "translate": "ignore" }
+  }
+}

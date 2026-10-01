@@ -1,0 +1,57 @@
+<?php 
+	$quote     = $attributes['quote'] ?? '';
+	$avatarUrl = $attributes['avatarUrl'] ?? '';
+	$name      = $attributes['name'] ?? '';
+	$role      = $attributes['role'] ?? '';
+
+	// Identical on every slide in the design — fixed theme assets, not attributes.
+	$cardBgUrl    = get_template_directory_uri() . '/assets/img/decor/testimonials_bg_1.jpg';
+	$cardDecorUrl = get_template_directory_uri() . '/assets/img/decor/testimonials_decor_1.png';
+
+	// An author with no photo falls back to a default avatar. `ava_def_2.svg` rather
+	// than Team Card's `ava_def_1.svg`: this avatar is cropped by `ibg` (object-fit:
+	// cover) with no CSS inset of its own, so the breathing room has to be built into
+	// the artwork. Team Card insets its copy from CSS instead
+	// (`.card-understand__ava.empty img { width: 3.5rem }`) and keeps the tighter file.
+	$avatarUrl = ! empty( $avatarUrl )
+ ? $avatarUrl
+ : get_template_directory_uri() . '/assets/img/icons/ava_def_2.svg';
+
+	$hasAuthor = ! empty( $attributes['avatarUrl'] ?? '' ) || ! empty( $name ) || ! empty( $role );
+ ?>
+
+<li class="splide__slide card-testimonials">
+	<div class="card-testimonials__bg ibg no-select" aria-hidden="true">
+ <img src="<?php echo \htmlentities(esc_url( $cardBgUrl )??'', ENT_QUOTES, 'UTF-8', false); ?>" alt="">
+	</div>
+
+	<div class="card-testimonials__decor no-select" aria-hidden="true">
+ <img src="<?php echo \htmlentities(esc_url( $cardDecorUrl )??'', ENT_QUOTES, 'UTF-8', false); ?>" alt="">
+	</div>
+
+	<div class="card-testimonials__content">
+ <?php if( ! empty( $quote ) ): ?>
+ <h3 class="tl4"><?php echo wp_kses_post( $quote ); ?></h3>
+ <?php endif; ?>
+
+ <?php /* The avatar always has an image now, so the author row is gated on whether
+      there is an author at all — an untouched card stays empty. */ ?>
+ <?php if( $hasAuthor ): ?>
+ <div class="card-testimonials__author">
+ <div class="ava ibg">
+ <img src="<?php echo \htmlentities(esc_url( $avatarUrl )??'', ENT_QUOTES, 'UTF-8', false); ?>" alt="">
+ </div>
+
+ <div class="person">
+ <?php if( ! empty( $name ) ): ?>
+ <p><?php echo \htmlentities(esc_html( wp_strip_all_tags( $name ) )??'', ENT_QUOTES, 'UTF-8', false); ?></p>
+ <?php endif; ?>
+
+ <?php if( ! empty( $role ) ): ?>
+ <span><?php echo \htmlentities(esc_html( wp_strip_all_tags( $role ) )??'', ENT_QUOTES, 'UTF-8', false); ?></span>
+ <?php endif; ?>
+ </div>
+ </div>
+ <?php endif; ?>
+	</div>
+</li>

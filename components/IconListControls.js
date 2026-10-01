@@ -18,6 +18,11 @@ export default function IconListControls({
   itemTitle = __("Item", "overchain-blocks"),
   labelText = __("Label", "overchain-blocks"),
 
+  // Items ship with an empty `label` so a fresh block arrives blank; this is the
+  // sidebar's equivalent of RichText's placeholder, without which the row is a
+  // nameless empty field.
+  placeholder = "",
+
   selectIconText = __("Select icon", "overchain-blocks"),
   replaceIconText = __("Replace icon", "overchain-blocks"),
   removeIconText = __("Remove icon", "overchain-blocks"),
@@ -28,11 +33,15 @@ export default function IconListControls({
   defaultItem = {
     iconUrl: "",
     iconId: 0,
-    label: "Item title",
+    label: "",
   },
 
   minItems = 1,
   maxItems = 0,
+
+  // Further text fields per item, rendered under the label:
+  // `[{ key, label, placeholder, help }]`. Each writes `item[key]`.
+  extraFields = [],
 }) {
   const updateItem = (index, key, value) => {
     const updated = items.map((item, i) =>
@@ -112,8 +121,20 @@ export default function IconListControls({
           <TextControl
             label={labelText}
             value={item.label}
+            placeholder={placeholder}
             onChange={(value) => updateItem(index, "label", value)}
           />
+
+          {extraFields.map((field) => (
+            <TextControl
+              key={field.key}
+              label={field.label}
+              value={item[field.key] || ""}
+              placeholder={field.placeholder || ""}
+              help={field.help}
+              onChange={(value) => updateItem(index, field.key, value)}
+            />
+          ))}
 
           {item.iconUrl && (
             <img

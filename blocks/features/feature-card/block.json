@@ -14,7 +14,12 @@
     "align": false,
     "reusable": false
   },
-  "example": {},
+  "example": {
+    "attributes": {
+      "title": "Feature title",
+      "text": "Short feature description goes here."
+    }
+  },
   "attributes": {
     "iconId": {
       "type": "number",
@@ -26,11 +31,11 @@
     },
     "title": {
       "type": "string",
-      "default": "Feature title"
+      "default": ""
     },
     "text": {
       "type": "string",
-      "default": "Short feature description goes here."
+      "default": ""
     }
   },
   "editorScript": "file:../../../build/features/feature-card/index.js",

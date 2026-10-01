@@ -26,7 +26,7 @@
 </div>
 
 @if ( ! empty( $imageUrl ) )
-	<div class="settlement__img">
+	<div class="settlement__img img1">
 		<img src="{{ esc_url( $imageUrl ) }}" alt="">
 	</div>
 @endif

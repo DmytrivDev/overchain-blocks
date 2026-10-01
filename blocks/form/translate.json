@@ -2,6 +2,7 @@
   "name": "overchain/form",
   "attributes": {
     "noPaddingTop":    { "translate": "ignore" },
+    "disableWhiteFade": { "translate": "ignore" },
     "title":           { "translate": "rich" },
     "subtitle":        { "translate": "rich" },
     "privacyText":     { "translate": "rich" },

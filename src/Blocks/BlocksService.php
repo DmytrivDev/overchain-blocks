@@ -20,28 +20,13 @@ class BlocksService {
 	 * @return void
 	 */
 	public static function init() {
-		add_filter( 'block_categories_all', array( self::class, 'register_category' ) );
+		// Block categories are owned by overchain_blocks_register_category() in the
+		// main plugin file — it is the one that knows about the post-only category
+		// and controls the order. Hooking here too produced a duplicate "Overchain"
+		// in the inserter. See Technical Debt § 1.
 		self::register_blocks();
 	}
 
-	/**
-	 * Add the custom "Overchain" block category.
-	 *
-	 * @param array $categories Existing block categories.
-	 *
-	 * @return array
-	 */
-	public static function register_category( $categories ) {
-		return array_merge(
-			array(
-				array(
-					'slug'  => self::CATEGORY_SLUG,
-					'title' => self::CATEGORY_NAME,
-				),
-			),
-			$categories
-		);
-	}
 
 	/**
 	 * Discover and register every block.json found under /blocks/*.

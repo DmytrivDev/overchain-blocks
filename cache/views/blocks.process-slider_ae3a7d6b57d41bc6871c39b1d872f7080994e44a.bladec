@@ -1,0 +1,28 @@
+<?php 
+	$noPaddingTop = $attributes['noPaddingTop'] ?? false;
+
+	$sectionClass = 'accept ' . ( $noPaddingTop ? 'pbs4' : 'pbs2' );
+ ?>
+
+<section class="<?php echo \htmlentities(esc_attr( $sectionClass )??'', ENT_QUOTES, 'UTF-8', false); ?>">
+	<div class="accept__container">
+ <div class="accept__wrap section-wrap">
+ <div class="accept__body section-body<?php echo \htmlentities(overchain_blocks_fade_class( $attributes )??'', ENT_QUOTES, 'UTF-8', false); ?>">
+ <div class="accept__splide">
+ <?php /* `data-lock` is handled in the theme's js/main.js: it hides the arrows
+      and disables dragging when every slide already fits. */ ?>
+ <div class="splide" data-lock>
+ <div class="splide__track">
+ <ul class="splide__list anim-cards" data-threshold-desktop="0.3">
+ <?php echo overchain_blocks_stagger( $content, 'card-accept' ); ?>
+
+ </ul>
+ </div>
+ </div>
+
+ <?php echo $this->runChild( 'partials.splide-arrows' ); ?>
+ </div>
+ </div>
+ </div>
+	</div>
+</section>

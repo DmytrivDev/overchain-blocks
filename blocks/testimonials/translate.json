@@ -1,0 +1,10 @@
+{
+  "name": "overchain/testimonials",
+  "attributes": {
+    "noPaddingTop": { "translate": "ignore" },
+    "disableWhiteFade": { "translate": "ignore" },
+    "title":        { "translate": "rich" },
+    "imageId":      { "translate": "ignore" },
+    "imageUrl":     { "translate": "ignore" }
+  }
+}

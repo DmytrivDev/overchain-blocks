@@ -28,21 +28,25 @@
       "type": "boolean",
       "default": false
     },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
     "title": {
       "type": "string",
-      "default": "Section title goes here"
+      "default": ""
     },
     "subtitle": {
       "type": "string",
-      "default": "Short subtitle goes here."
+      "default": ""
     },
     "steps": {
       "type": "array",
       "default": [
-        { "iconUrl": "", "iconId": 0, "label": "Step title" },
-        { "iconUrl": "", "iconId": 0, "label": "Step title" },
-        { "iconUrl": "", "iconId": 0, "label": "Step title" },
-        { "iconUrl": "", "iconId": 0, "label": "Step title" }
+        { "iconUrl": "", "iconId": 0, "label": "", "swapWords": "" },
+        { "iconUrl": "", "iconId": 0, "label": "", "swapWords": "" },
+        { "iconUrl": "", "iconId": 0, "label": "", "swapWords": "" },
+        { "iconUrl": "", "iconId": 0, "label": "", "swapWords": "" }
       ]
     }
   },

@@ -1,0 +1,87 @@
+<?php 
+	$noPaddingTop = $attributes['noPaddingTop'] ?? false;
+	$enableDecor  = $attributes['enableDecor'] ?? true;
+	$title        = $attributes['title'] ?? '';
+	$items        = $attributes['items'] ?? [];
+
+	$sectionClass = 'faq ' . ( $noPaddingTop ? 'pbs4' : 'pbs2' );
+
+	// Same on every page that has the section — a fixed theme asset, not an attribute.
+	$decorUrl = get_template_directory_uri() . '/assets/img/decor/faq_decor_1.png';
+
+	// Rows with neither a question nor an answer would render an empty accordion
+	// item that still increments the CSS counter.
+	$items = array_values( array_filter(
+ is_array( $items ) ? $items : [],
+ function ( $item ) {
+ return ! empty( $item['question'] ) || ! empty( $item['answer'] );
+ }
+	) );
+
+	// The design's own aria-label is "Toggle accordion"; a screen reader announces the
+	// label, not the class, so it is replaced with something a reader can act on.
+	$toggleLabel = function_exists( 'pll__' )
+ ? pll__( 'Toggle answer' )
+ : __( 'Toggle answer', 'overchain-blocks' );
+ ?>
+
+<section class="<?php echo \htmlentities(esc_attr( $sectionClass )??'', ENT_QUOTES, 'UTF-8', false); ?>">
+	<div class="faq__container">
+ <div class="faq__wrap section-wrap">
+ <?php if( $enableDecor ): ?>
+ <div class="faq__decor no-select" aria-hidden="true">
+ <img src="<?php echo \htmlentities(esc_url( $decorUrl )??'', ENT_QUOTES, 'UTF-8', false); ?>" alt="" loading="lazy" decoding="async">
+ </div>
+ <?php endif; ?>
+
+ <div class="faq__body section-body<?php echo \htmlentities(overchain_blocks_fade_class( $attributes )??'', ENT_QUOTES, 'UTF-8', false); ?>">
+ <?php if( ! empty( $title ) ): ?>
+ <div class="heading aic">
+ <h2 class="tl2 anim-txt"><?php echo wp_kses_post( $title ); ?></h2>
+ </div>
+ <?php endif; ?>
+
+ <?php if( ! empty( $items ) ): ?>
+ <?php /* `base-accord` is wired up in the theme's js/main.js; the `01`/`02`
+      numbers come from a CSS counter on `.faq__list .ac`, never stored,
+      so reordering questions never means renumbering them. */ ?>
+ <ul class="faq__list base-accord accord">
+ <?php $__currentLoopData = $items; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $item): $loop = $this->incrementLoopIndices();  ?>
+ <?php 
+ $question = $item['question'] ?? '';
+ $answer   = $item['answer'] ?? '';
+  ?>
+
+ <li class="ac">
+ <?php /* `.ac-panel` sits INSIDE `.ac-trigger`, not beside it. That is
+      what the design ships and what js/main.js expects: it attaches
+      a click handler to `.ac-panel` that stops propagation so
+      selecting the answer text does not collapse the item. */ ?>
+ <div class="ac-trigger">
+ <div class="ac-head">
+ <?php if( ! empty( $question ) ): ?>
+ <h3 class="tl5 regular"><?php echo wp_kses_post( $question ); ?></h3>
+ <?php endif; ?>
+
+ <button type="button" class="ac-toggle" aria-label="<?php echo \htmlentities(esc_attr( $toggleLabel )??'', ENT_QUOTES, 'UTF-8', false); ?>">
+ <span></span>
+ </button>
+ </div>
+
+ <?php if( ! empty( $answer ) ): ?>
+ <div class="ac-panel">
+ <div class="faq__content txt2 light">
+ <p><?php echo wp_kses_post( $answer ); ?></p>
+ </div>
+ </div>
+ <?php endif; ?>
+ </div>
+ </li>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </ul>
+ <?php endif; ?>
+ </div>
+ </div>
+	</div>
+</section>

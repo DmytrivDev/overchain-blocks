@@ -2,6 +2,7 @@
   "name": "overchain/badges",
   "attributes": {
     "noPaddingTop": { "translate": "ignore" },
+    "disableWhiteFade": { "translate": "ignore" },
     "title":        { "translate": "rich" },
     "decoLeftId":   { "translate": "ignore" },
     "decoLeftUrl":  { "translate": "ignore" },

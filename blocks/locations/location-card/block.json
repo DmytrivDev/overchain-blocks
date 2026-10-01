@@ -1,0 +1,38 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/location-card",
+  "title": "Location Card",
+  "category": "overchain",
+  "icon": "location",
+  "description": "Single location card: photo plus a city badge with an optional tag.",
+  "textdomain": "overchain-blocks",
+  "parent": [
+    "overchain/locations"
+  ],
+  "supports": {
+    "html": false,
+    "align": false,
+    "reusable": false
+  },
+  "example": {},
+  "attributes": {
+    "imageId": {
+      "type": "number",
+      "default": 0
+    },
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "label": {
+      "type": "string",
+      "default": ""
+    },
+    "tag": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "editorScript": "file:../../../build/locations/location-card/index.js",
+  "render": "file:./render.php"
+}

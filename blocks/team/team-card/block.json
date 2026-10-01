@@ -1,0 +1,38 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/team-card",
+  "title": "Team Card",
+  "category": "overchain",
+  "icon": "admin-users",
+  "description": "Single team slide — photo, name and role.",
+  "textdomain": "overchain-blocks",
+  "parent": [
+    "overchain/team"
+  ],
+  "supports": {
+    "html": false,
+    "align": false,
+    "reusable": false
+  },
+  "example": {},
+  "attributes": {
+    "role": {
+      "type": "string",
+      "default": ""
+    },
+    "name": {
+      "type": "string",
+      "default": ""
+    },
+    "avatarId": {
+      "type": "number",
+      "default": 0
+    },
+    "avatarUrl": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "editorScript": "file:../../../build/team/team-card/index.js",
+  "render": "file:./render.php"
+}

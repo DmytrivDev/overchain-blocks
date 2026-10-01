@@ -1,0 +1,42 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/connect-card",
+  "title": "Connect Card",
+  "category": "overchain",
+  "icon": "index-card",
+  "description": "One integration card in the Connect section.",
+  "textdomain": "overchain-blocks",
+  "parent": [
+    "overchain/connect"
+  ],
+  "supports": {
+    "html": false,
+    "align": false,
+    "reusable": false
+  },
+  "example": {},
+  "attributes": {
+    "iconId": {
+      "type": "number",
+      "default": 0
+    },
+    "iconUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    },
+    "decor": {
+      "type": "string",
+      "default": "none"
+    }
+  },
+  "editorScript": "file:../../../build/connect/connect-card/index.js",
+  "render": "file:./render.php"
+}

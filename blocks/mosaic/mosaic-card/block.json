@@ -1,0 +1,90 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/mosaic-card",
+  "title": "Mosaic Card",
+  "category": "overchain",
+  "icon": "index-card",
+  "description": "Single mosaic card. Layout depends on the chosen variant.",
+  "textdomain": "overchain-blocks",
+  "parent": [
+    "overchain/mosaic"
+  ],
+  "supports": {
+    "html": false,
+    "align": false,
+    "reusable": false
+  },
+  "example": {},
+  "attributes": {
+    "variant": {
+      "type": "string",
+      "default": "default"
+    },
+    "iconId": {
+      "type": "number",
+      "default": 0
+    },
+    "iconUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "imageId": {
+      "type": "number",
+      "default": 0
+    },
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "backgroundId": {
+      "type": "number",
+      "default": 0
+    },
+    "backgroundUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonText": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonType": {
+      "type": "string",
+      "default": "link"
+    },
+    "buttonLink": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkId": {
+      "type": "number",
+      "default": 0
+    },
+    "buttonLinkTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkNewTab": {
+      "type": "boolean",
+      "default": false
+    },
+    "buttonAnchor": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonPopupId": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "editorScript": "file:../../../build/mosaic/mosaic-card/index.js",
+  "render": "file:./render.php"
+}

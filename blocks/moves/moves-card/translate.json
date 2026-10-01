@@ -1,0 +1,12 @@
+{
+  "name": "overchain/moves-card",
+  "attributes": {
+    "variant":  { "translate": "ignore" },
+    "iconId":   { "translate": "ignore" },
+    "iconUrl":  { "translate": "ignore" },
+    "imageId":  { "translate": "ignore" },
+    "imageUrl": { "translate": "ignore" },
+    "title":    { "translate": "rich" },
+    "text":     { "translate": "rich" }
+  }
+}

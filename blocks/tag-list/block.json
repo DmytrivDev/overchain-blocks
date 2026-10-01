@@ -1,0 +1,68 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/tag-list",
+  "title": "Tag List",
+  "category": "overchain",
+  "icon": "tag",
+  "description": "Centred heading above a wrapping row of text tags.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Built for Modern Money Movement",
+      "text": "Infrastructure shouldn't become more complex as your business grows.",
+      "tags": [
+        {
+          "label": "High-volume processing"
+        },
+        {
+          "label": "Mass payouts"
+        },
+        {
+          "label": "Multi-currency settlement"
+        },
+        {
+          "label": "API-first architecture"
+        }
+      ]
+    }
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    },
+    "tags": {
+      "type": "array",
+      "default": [
+        {
+          "label": "Tag 1"
+        },
+        {
+          "label": "Tag 2"
+        },
+        {
+          "label": "Tag 3"
+        }
+      ]
+    }
+  },
+  "editorScript": "file:../../build/tag-list/index.js",
+  "render": "file:./render.php"
+}

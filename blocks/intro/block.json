@@ -1,0 +1,130 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/intro",
+  "title": "Intro",
+  "category": "overchain",
+  "icon": "cover-image",
+  "description": "Page intro with background, heading, text and two buttons.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1400,
+    "attributes": {
+      "title": "The <span style=\"color: #30e4a3\">Operating Layer</span><br />for Businesses",
+      "text": "Moving money across fiat and stablecoins, through one connected infrastructure layer.",
+      "buttonText": "Request a Demo",
+      "secondaryText": "Explore Money Movement"
+    }
+  },
+  "attributes": {
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "layout": {
+      "type": "string",
+      "default": "default"
+    },
+    "coverBackground": {
+      "type": "boolean",
+      "default": false
+    },
+    "backgroundId": {
+      "type": "number",
+      "default": 0
+    },
+    "backgroundUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    },
+    "imageId": {
+      "type": "number",
+      "default": 0
+    },
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonText": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonType": {
+      "type": "string",
+      "default": "link"
+    },
+    "buttonLink": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkId": {
+      "type": "number",
+      "default": 0
+    },
+    "buttonLinkTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkNewTab": {
+      "type": "boolean",
+      "default": false
+    },
+    "buttonAnchor": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonPopupId": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonIcon": {
+      "type": "string",
+      "default": "calendar"
+    },
+    "secondaryText": {
+      "type": "string",
+      "default": ""
+    },
+    "secondaryType": {
+      "type": "string",
+      "default": "link"
+    },
+    "secondaryLink": {
+      "type": "string",
+      "default": ""
+    },
+    "secondaryLinkId": {
+      "type": "number",
+      "default": 0
+    },
+    "secondaryLinkTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "secondaryLinkNewTab": {
+      "type": "boolean",
+      "default": false
+    },
+    "secondaryAnchor": {
+      "type": "string",
+      "default": ""
+    },
+    "secondaryPopupId": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "editorScript": "file:../../build/intro/index.js",
+  "render": "file:./render.php"
+}

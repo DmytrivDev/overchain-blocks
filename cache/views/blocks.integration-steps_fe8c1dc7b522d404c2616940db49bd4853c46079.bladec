@@ -1,0 +1,102 @@
+<?php 
+	$noPaddingTop = $attributes['noPaddingTop'] ?? false;
+	$title        = $attributes['title'] ?? '';
+	$text         = $attributes['text'] ?? '';
+	$steps        = $attributes['steps'] ?? [];
+
+	// A fresh block arrives with three empty steps, and an editor can add more than
+	// they fill. An untouched row would still render its icon and its number, so drop
+	// the empty ones — `array_values` keeps the numbering sequential afterwards.
+	$steps = array_values( array_filter(
+ is_array( $steps ) ? $steps : [],
+ function ( $step ) {
+ return ! empty( $step['title'] ) || ! empty( $step['text'] );
+ }
+	) );
+
+	$sectionClass = 'steps ' . ( $noPaddingTop ? 'pbs4' : 'pbs2' );
+ ?>
+
+<section class="<?php echo \htmlentities(esc_attr( $sectionClass )??'', ENT_QUOTES, 'UTF-8', false); ?>">
+	<div class="steps__container">
+ <div class="steps__wrap section-wrap">
+ <div class="steps__body section-body<?php echo \htmlentities(overchain_blocks_fade_class( $attributes )??'', ENT_QUOTES, 'UTF-8', false); ?>">
+ <?php if( ! empty( $title ) || ! empty( $text ) ): ?>
+ <div class="heading">
+ <?php if( ! empty( $title ) ): ?>
+ <h2 class="tl2 anim-txt"><?php echo wp_kses_post( $title ); ?></h2>
+ <?php endif; ?>
+
+ <?php if( ! empty( $text ) ): ?>
+ <div class="txt2 col-alt1">
+ <p><?php echo wp_kses_post( $text ); ?></p>
+ </div>
+ <?php endif; ?>
+ </div>
+ <?php endif; ?>
+
+ <div class="steps__layout">
+ <?php if( ! empty( $steps ) ): ?>
+ <ul class="steps__list">
+ <?php $__currentLoopData = $steps; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $index => $step): $loop = $this->incrementLoopIndices();  ?>
+ <?php 
+ $stepTitle = $step['title'] ?? '';
+ $stepText  = $step['text'] ?? '';
+ $stepNumber = str_pad( (string) ( $index + 1 ), 2, '0', STR_PAD_LEFT );
+
+ // The design ships three glyphs and uses them in order, so the
+ // cycle is the fallback rather than the value: an untouched block
+ // looks like the design, and an editor can still override any one
+ // step. The modulo keeps a fourth step from requesting a file
+ // that does not exist.
+ $iconUrl = $step['iconUrl'] ?? '';
+
+ if ( empty( $iconUrl ) ) {
+ $iconUrl = get_template_directory_uri()
+ . '/assets/img/icons/steps_icon_' . ( ( $index % 3 ) + 1 ) . '.svg';
+ }
+  ?>
+
+ <li class="item-steps">
+ <div class="item-steps__icon">
+ <img src="<?php echo \htmlentities(esc_url( $iconUrl )??'', ENT_QUOTES, 'UTF-8', false); ?>" alt="">
+ </div>
+
+ <div class="item-steps__content">
+ <?php /* Derived from the index, never stored: reordering steps must
+      not mean renumbering them by hand. */ ?>
+ <span class="item-steps__num"><?php echo \htmlentities(esc_html( $stepNumber )??'', ENT_QUOTES, 'UTF-8', false); ?></span>
+
+ <div class="item-steps__box">
+ <?php if( ! empty( $stepTitle ) ): ?>
+ <h3 class="tl5 regular"><?php echo wp_kses_post( $stepTitle ); ?></h3>
+ <?php endif; ?>
+
+ <?php if( ! empty( $stepText ) ): ?>
+ <div class="txt2 col-alt1">
+ <p><?php echo wp_kses_post( $stepText ); ?></p>
+ </div>
+ <?php endif; ?>
+ </div>
+ </div>
+ </li>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </ul>
+ <?php endif; ?>
+
+ <?php echo $this->runChild( 'partials.btn-icon', [
+ 'text' => $attributes['buttonText'] ?? '',
+ 'type' => $attributes['buttonType'] ?? 'link',
+ 'link' => $attributes['buttonLink'] ?? '',
+ 'newTab' => $attributes['buttonLinkNewTab'] ?? false,
+ 'anchor' => $attributes['buttonAnchor'] ?? '',
+ 'popupId' => $attributes['buttonPopupId'] ?? '',
+ 'icon' => $attributes['buttonIcon'] ?? 'calendar',
+ 'class' => 'steps__btn',
+ ] ); ?>
+ </div>
+ </div>
+ </div>
+	</div>
+</section>

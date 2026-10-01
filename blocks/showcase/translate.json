@@ -1,0 +1,8 @@
+{
+  "name": "overchain/showcase",
+  "attributes": {
+    "noPaddingTop": { "translate": "ignore" },
+    "disableWhiteFade": { "translate": "ignore" },
+    "title":        { "translate": "rich" }
+  }
+}

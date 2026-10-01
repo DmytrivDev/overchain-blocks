@@ -1,0 +1,89 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/highlight",
+  "title": "Highlight",
+  "category": "overchain",
+  "icon": "megaphone",
+  "description": "Closing highlight with a heading, inline image, description and button.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Built for iGaming that <br />Never Stops",
+      "desc": "Your players are global. Your platform is always on. Your financial infrastructure should be too.",
+      "buttonText": "Book a Demo"
+    }
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "enableDecor": {
+      "type": "boolean",
+      "default": true
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "desc": {
+      "type": "string",
+      "default": ""
+    },
+    "imageId": {
+      "type": "number",
+      "default": 0
+    },
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonText": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonType": {
+      "type": "string",
+      "default": "link"
+    },
+    "buttonLink": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkId": {
+      "type": "number",
+      "default": 0
+    },
+    "buttonLinkTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkNewTab": {
+      "type": "boolean",
+      "default": false
+    },
+    "buttonAnchor": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonPopupId": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonIcon": {
+      "type": "string",
+      "default": "arrow"
+    }
+  },
+  "editorScript": "file:../../build/highlight/index.js",
+  "render": "file:./render.php"
+}

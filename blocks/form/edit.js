@@ -75,7 +75,7 @@ export default function Edit({ attributes, setAttributes }) {
       <div {...blockProps}>
         <section className={sectionClass}>
           <div className="intouch__container">
-            <div className="intouch__wrap">
+            <div className="intouch__wrap section-wrap">
               <div className="intouch__decor no-select" aria-hidden="true">
                 <img
                   src={`${themeUrl}assets/img/decor/oneflow_dec_1.jpg`}

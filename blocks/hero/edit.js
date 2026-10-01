@@ -49,7 +49,7 @@ export default function Edit({ attributes, setAttributes }) {
       </InspectorControls>
 
       <div {...blockProps}>
-        <section className="hero-home hero">
+        <section className="hero">
           {backgroundUrl && (
             <div className="hero__bg no-select" aria-hidden="true">
               <img src={backgroundUrl} alt="" />
@@ -57,33 +57,36 @@ export default function Edit({ attributes, setAttributes }) {
           )}
 
           <div className="hero__container">
-            <div className="hero__body section-body">
-              <div className="hero__content">
-                <RichText
-                  tagName="h1"
-                  className="tl1"
-                  placeholder={__("Title of the page", "overchain-blocks")}
-                  value={title}
-                  onChange={(value) => setAttributes({ title: value })}
-                  allowedFormats={["core/bold", "core/italic"]}
-                />
+            <div className="hero__wrap section-wrap">
+              <div className="hero__body section-body">
+                <div className="hero__content">
+                  <RichText
+                    tagName="h1"
+                    className="tl1"
+                    placeholder={__("Title of the page", "overchain-blocks")}
+                    value={title}
+                    onChange={(value) => setAttributes({ title: value })}
+                    allowedFormats={["core/bold", "core/italic"]}
+                  />
 
-                <RichText
-                  tagName="div"
-                  className="txt1"
-                  placeholder={__(
-                    "Short description goes here",
-                    "overchain-blocks",
+                  <RichText
+                    tagName="div"
+                    className="txt1"
+                    placeholder={__(
+                      "Short description goes here",
+                      "overchain-blocks",
+                    )}
+                    value={subtitle}
+                    onChange={(value) => setAttributes({ subtitle: value })}
+                    allowedFormats={["core/bold", "core/italic"]}
+                  />
+
+                  {buttonText && (
+                    <div className="hero__btns">
+                      <ButtonPreview text={buttonText} icon={buttonIcon} />
+                    </div>
                   )}
-                  value={subtitle}
-                  onChange={(value) => setAttributes({ subtitle: value })}
-                  allowedFormats={["core/bold", "core/italic"]}
-                />
-
-                <ButtonPreview
-                  text={buttonText}
-                  icon={buttonIcon}
-                />
+                </div>
               </div>
             </div>
           </div>

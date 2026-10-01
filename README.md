@@ -51,7 +51,7 @@ The plugin activates without a fatal error even if `composer install` or `npm ru
 ## Verifying the install
 
 1. Open the Gutenberg editor on a page.
-2. Open the inserter and find the **Overchain** category — it should list 19 blocks, starting with **White Section** and **Hero**.
+2. Open the inserter and find the **Overchain** category — it should list 41 blocks, starting with **White Section** and **Lead**.
 3. Add **Hero**, fill in title, subtitle and button, pick a background image.
 4. Save and open the page on the frontend; the block should render through its Blade template.
 
@@ -83,8 +83,8 @@ overchain-blocks/
 │   ├── View.php               # BladeOne wrapper / singleton
 │   ├── Assets/AssetsService.php   # Enqueues blocks.css / editor.css / blocks-scripts.js
 │   └── Blocks/BlocksService.php   # Category + block registration (duplicates the main file)
-├── blocks/                    # 19 parent blocks + 6 child blocks
-├── components/                # 11 shared React editor components
+├── blocks/                    # 40 parent blocks + 16 child blocks
+├── components/                # 13 shared React editor components
 ├── resources/
 │   ├── scss/                  # styles.scss (generated) → blocks.scss → editor.scss
 │   ├── js/blocks.js           # Frontend block behaviour

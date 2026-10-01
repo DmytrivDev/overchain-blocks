@@ -1,0 +1,27 @@
+{
+  "name": "overchain/control-list",
+  "attributes": {
+    "noPaddingTop":    { "translate": "ignore" },
+    "disableWhiteFade": { "translate": "ignore" },
+    "enableImage":     { "translate": "ignore" },
+    "imageId":         { "translate": "ignore" },
+    "imageUrl":        { "translate": "ignore" },
+    "title":           { "translate": "rich" },
+    "text":            { "translate": "rich" },
+    "items": {
+      "translate": "repeater",
+      "items": {
+        "label": { "translate": "string" }
+      }
+    },
+    "buttonText":      { "translate": "string" },
+    "buttonType":      { "translate": "ignore" },
+    "buttonLink":      { "translate": "url" },
+    "buttonLinkId":    { "translate": "postobject" },
+    "buttonLinkTitle": { "translate": "string" },
+    "buttonLinkNewTab":{ "translate": "ignore" },
+    "buttonAnchor":    { "translate": "ignore" },
+    "buttonPopupId":   { "translate": "ignore" },
+    "buttonIcon":      { "translate": "ignore" }
+  }
+}

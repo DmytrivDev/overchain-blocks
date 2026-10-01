@@ -1,0 +1,38 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/everything-card",
+  "title": "Everything Card",
+  "category": "overchain",
+  "icon": "index-card",
+  "description": "One icon card in the Everything grid.",
+  "textdomain": "overchain-blocks",
+  "parent": [
+    "overchain/everything"
+  ],
+  "supports": {
+    "html": false,
+    "align": false,
+    "reusable": false
+  },
+  "example": {},
+  "attributes": {
+    "iconId": {
+      "type": "number",
+      "default": 0
+    },
+    "iconUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "editorScript": "file:../../../build/everything/everything-card/index.js",
+  "render": "file:./render.php"
+}

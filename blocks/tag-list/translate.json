@@ -1,0 +1,15 @@
+{
+  "name": "overchain/tag-list",
+  "attributes": {
+    "noPaddingTop": { "translate": "ignore" },
+    "disableWhiteFade": { "translate": "ignore" },
+    "title":        { "translate": "rich" },
+    "text":         { "translate": "rich" },
+    "tags": {
+      "translate": "repeater",
+      "items": {
+        "label": { "translate": "string" }
+      }
+    }
+  }
+}

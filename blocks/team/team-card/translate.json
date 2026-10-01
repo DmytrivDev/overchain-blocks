@@ -1,0 +1,9 @@
+{
+  "name": "overchain/team-card",
+  "attributes": {
+    "role":      { "translate": "string" },
+    "name":      { "translate": "string" },
+    "avatarId":  { "translate": "ignore" },
+    "avatarUrl": { "translate": "ignore" }
+  }
+}

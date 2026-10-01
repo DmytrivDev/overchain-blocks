@@ -1,0 +1,50 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/moves-card",
+  "title": "Moves Card",
+  "category": "overchain",
+  "icon": "index-card",
+  "description": "One card in the Moves mosaic. The variant decides the grid cell it occupies.",
+  "textdomain": "overchain-blocks",
+  "parent": [
+    "overchain/moves"
+  ],
+  "supports": {
+    "html": false,
+    "align": false,
+    "reusable": false
+  },
+  "example": {},
+  "attributes": {
+    "variant": {
+      "type": "string",
+      "default": "default"
+    },
+    "iconId": {
+      "type": "number",
+      "default": 0
+    },
+    "iconUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "imageId": {
+      "type": "number",
+      "default": 0
+    },
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "editorScript": "file:../../../build/moves/moves-card/index.js",
+  "render": "file:./render.php"
+}

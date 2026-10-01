@@ -5,6 +5,7 @@ import {
   InnerBlocks,
   InspectorControls,
 } from "@wordpress/block-editor";
+import { PanelBody, ToggleControl } from "@wordpress/components";
 
 import SectionSettingsControls from "../../components/SectionSettingsControls";
 
@@ -18,7 +19,7 @@ const TEMPLATE = [
 ];
 
 export default function Edit({ attributes, setAttributes }) {
-  const { noPaddingTop, title } = attributes;
+  const { noPaddingTop, title, text, centerHeading = true } = attributes;
 
   const blockProps = useBlockProps({
     style: {
@@ -36,31 +37,49 @@ export default function Edit({ attributes, setAttributes }) {
           attributes={attributes}
           setAttributes={setAttributes}
         />
+
+        <PanelBody title={__("Layout", "overchain-blocks")}>
+          <ToggleControl
+            label={__("Center heading", "overchain-blocks")}
+            checked={centerHeading}
+            onChange={(value) => setAttributes({ centerHeading: value })}
+          />
+        </PanelBody>
       </InspectorControls>
 
       <div {...blockProps}>
         <section className={sectionClass}>
           <div className="businesses__container">
-            <div className="businesses__body section-body">
-              <div className="heading">
-                <RichText
-                  tagName="h2"
-                  className="tl2"
-                  placeholder={__("Section title", "overchain-blocks")}
-                  value={title}
-                  onChange={(value) => setAttributes({ title: value })}
-                />
-              </div>
-
-              <div className="businesses__splide">
-                <ul className="businesses__list grid-settings grid-4">
-                  <InnerBlocks
-                    allowedBlocks={ALLOWED_BLOCKS}
-                    template={TEMPLATE}
-                    orientation="horizontal"
-                    renderAppender={InnerBlocks.ButtonBlockAppender}
+            <div className="businesses__wrap section-wrap">
+              <div className="businesses__body section-body">
+                <div className={`heading${centerHeading ? " aic" : ""}`}>
+                  <RichText
+                    tagName="h2"
+                    className="tl2"
+                    placeholder={__("Section title", "overchain-blocks")}
+                    value={title}
+                    onChange={(value) => setAttributes({ title: value })}
                   />
-                </ul>
+
+                  <RichText
+                    tagName="div"
+                    className="txt2"
+                    placeholder={__("Section subtitle", "overchain-blocks")}
+                    value={text}
+                    onChange={(value) => setAttributes({ text: value })}
+                  />
+                </div>
+
+                <div className="businesses__splide">
+                  <ul className="businesses__list grid-settings grid-4">
+                    <InnerBlocks
+                      allowedBlocks={ALLOWED_BLOCKS}
+                      template={TEMPLATE}
+                      orientation="horizontal"
+                      renderAppender={InnerBlocks.ButtonBlockAppender}
+                    />
+                  </ul>
+                </div>
               </div>
             </div>
           </div>

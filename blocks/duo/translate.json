@@ -2,6 +2,7 @@
   "name": "overchain/duo",
   "attributes": {
     "noPaddingTop": { "translate": "ignore" },
+    "disableWhiteFade": { "translate": "ignore" },
     "title":        { "translate": "rich" },
     "text":         { "translate": "rich" }
   }

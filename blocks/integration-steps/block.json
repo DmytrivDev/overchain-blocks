@@ -1,0 +1,105 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/integration-steps",
+  "title": "Integration Steps",
+  "category": "overchain",
+  "icon": "editor-ol",
+  "description": "Numbered integration steps with icon, title and description, plus a button.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Integrate Without <br />Rebuilding Your Stack",
+      "text": "Three ways to connect, whichever fits your stack.",
+      "steps": [
+        {
+          "iconId": 0,
+          "iconUrl": "",
+          "title": "API",
+          "text": "Connect Overchain directly to your platform and existing payment infrastructure."
+        },
+        {
+          "iconId": 0,
+          "iconUrl": "",
+          "title": "Widgets",
+          "text": "Embed stablecoin payment functionality directly into your player experience."
+        },
+        {
+          "iconId": 0,
+          "iconUrl": "",
+          "title": "Payment links",
+          "text": "Create secure payment requests without requiring a full integration."
+        }
+      ],
+      "buttonText": "Explore Integrations"
+    }
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    },
+    "steps": {
+      "type": "array",
+      "default": [
+        { "iconId": 0, "iconUrl": "", "title": "", "text": "" },
+        { "iconId": 0, "iconUrl": "", "title": "", "text": "" },
+        { "iconId": 0, "iconUrl": "", "title": "", "text": "" }
+      ]
+    },
+    "buttonText": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonType": {
+      "type": "string",
+      "default": "link"
+    },
+    "buttonLink": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkId": {
+      "type": "number",
+      "default": 0
+    },
+    "buttonLinkTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkNewTab": {
+      "type": "boolean",
+      "default": false
+    },
+    "buttonAnchor": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonPopupId": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonIcon": {
+      "type": "string",
+      "default": "calendar"
+    }
+  },
+  "editorScript": "file:../../build/integration-steps/index.js",
+  "render": "file:./render.php"
+}

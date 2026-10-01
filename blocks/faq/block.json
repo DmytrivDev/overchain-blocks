@@ -1,0 +1,57 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/faq",
+  "title": "FAQ",
+  "category": "overchain",
+  "icon": "editor-help",
+  "description": "Questions and answers in an accordion list.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Questions & Answers",
+      "items": [
+        {
+          "question": "How long does it take to integrate the Overchain API?",
+          "answer": "Most teams are live in days, not weeks."
+        },
+        {
+          "question": "Do you offer a sandbox testing environment?",
+          "answer": "Yes. A developer account gives you the full sandbox immediately."
+        }
+      ]
+    }
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "enableDecor": {
+      "type": "boolean",
+      "default": true
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "items": {
+      "type": "array",
+      "default": [
+        { "question": "", "answer": "" },
+        { "question": "", "answer": "" },
+        { "question": "", "answer": "" }
+      ]
+    }
+  },
+  "editorScript": "file:../../build/faq/index.js",
+  "render": "file:./render.php"
+}

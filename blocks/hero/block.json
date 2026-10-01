@@ -11,20 +11,25 @@
     "align": false
   },
   "example": {
-    "viewportWidth": 1000
+    "viewportWidth": 1000,
+    "attributes": {
+      "title": "Title of the page",
+      "subtitle": "Short description goes here",
+      "buttonText": "Book a Demo"
+    }
   },
   "attributes": {
     "title": {
       "type": "string",
-      "default": "Title of the page"
+      "default": ""
     },
     "subtitle": {
       "type": "string",
-      "default": "Short description goes here"
+      "default": ""
     },
     "buttonText": {
       "type": "string",
-      "default": "Book a Demo"
+      "default": ""
     },
     "buttonType": {
       "type": "string",

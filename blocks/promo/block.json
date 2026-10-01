@@ -23,13 +23,21 @@
       "type": "boolean",
       "default": false
     },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "mediaLayout": {
+      "type": "string",
+      "default": "img1"
+    },
     "title": {
       "type": "string",
-      "default": "Infrastructure for Businesses that Move Money Globally"
+      "default": ""
     },
     "text": {
       "type": "string",
-      "default": "If settlement is slowing you down, it’s time<br />to fix the layer underneath."
+      "default": ""
     },
     "imageId": {
       "type": "number",
@@ -41,7 +49,7 @@
     },
     "buttonText": {
       "type": "string",
-      "default": "Book a Demo"
+      "default": ""
     },
     "buttonType": {
       "type": "string",

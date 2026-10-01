@@ -1,0 +1,94 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/flow-promo",
+  "title": "Flow Promo",
+  "category": "overchain",
+  "icon": "align-pull-left",
+  "description": "Promo band with a heading, subtitle, description and button beside an illustration.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Compliance Built Into the Flow",
+      "subtitle": "Move money across fiat and stablecoins while maintaining control.",
+      "desc": "Overchain combines verification, transaction monitoring and risk controls with the infrastructure used to receive, convert and settle funds.",
+      "buttonText": "Explore the Platform"
+    }
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "enableBackground": {
+      "type": "boolean",
+      "default": true
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "subtitle": {
+      "type": "string",
+      "default": ""
+    },
+    "desc": {
+      "type": "string",
+      "default": ""
+    },
+    "imageId": {
+      "type": "number",
+      "default": 0
+    },
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonText": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonType": {
+      "type": "string",
+      "default": "link"
+    },
+    "buttonLink": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkId": {
+      "type": "number",
+      "default": 0
+    },
+    "buttonLinkTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkNewTab": {
+      "type": "boolean",
+      "default": false
+    },
+    "buttonAnchor": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonPopupId": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonIcon": {
+      "type": "string",
+      "default": "calendar"
+    }
+  },
+  "editorScript": "file:../../build/flow-promo/index.js",
+  "render": "file:./render.php"
+}

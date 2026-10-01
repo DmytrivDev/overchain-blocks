@@ -1,0 +1,58 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/team",
+  "title": "Team",
+  "category": "overchain",
+  "icon": "groups",
+  "description": "Team slider of people cards — photo, name and role.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Built by People Who Understand How Money Moves"
+    },
+    "innerBlocks": [
+      {
+        "name": "overchain/team-card",
+        "attributes": {
+          "role": "Co-Founder & CEO",
+          "name": "Sam Shields"
+        }
+      },
+      {
+        "name": "overchain/team-card",
+        "attributes": {
+          "role": "Co-Founder",
+          "name": "Tyler Betts"
+        }
+      }
+    ]
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "allowedBlocks": [
+    "overchain/team-card"
+  ],
+  "editorScript": "file:../../build/team/index.js",
+  "render": "file:./render.php"
+}

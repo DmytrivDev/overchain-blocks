@@ -1,0 +1,59 @@
+{
+  "name": "overchain/promo-slider",
+  "attributes": {
+    "disableWhiteFade": { "translate": "ignore" },
+    "noPaddingTop": {
+      "translate": "ignore"
+    },
+    "enableBackground": {
+      "translate": "ignore"
+    },
+    "title": {
+      "translate": "rich"
+    },
+    "text": {
+      "translate": "rich"
+    },
+    "textAlt": {
+      "translate": "rich"
+    },
+    "slides": {
+      "translate": "repeater",
+      "items": {
+        "imageId": {
+          "translate": "ignore"
+        },
+        "imageUrl": {
+          "translate": "ignore"
+        }
+      }
+    },
+    "buttonText": {
+      "translate": "string"
+    },
+    "buttonType": {
+      "translate": "ignore"
+    },
+    "buttonLink": {
+      "translate": "url"
+    },
+    "buttonLinkId": {
+      "translate": "postobject"
+    },
+    "buttonLinkTitle": {
+      "translate": "string"
+    },
+    "buttonLinkNewTab": {
+      "translate": "ignore"
+    },
+    "buttonAnchor": {
+      "translate": "ignore"
+    },
+    "buttonPopupId": {
+      "translate": "ignore"
+    },
+    "buttonIcon": {
+      "translate": "ignore"
+    }
+  }
+}

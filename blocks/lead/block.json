@@ -1,0 +1,100 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/lead",
+  "title": "Lead",
+  "category": "overchain",
+  "icon": "cover-image",
+  "description": "Page hero: background, heading, text and an optional button.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Built for the Way Money Moves Now",
+      "text": "Financial infrastructure is changing."
+    }
+  },
+  "attributes": {
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "backgroundType": {
+      "type": "string",
+      "default": "bg2"
+    },
+    "backgroundId": {
+      "type": "number",
+      "default": 0
+    },
+    "backgroundUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "textStyle": {
+      "type": "string",
+      "default": "plain"
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    },
+    "textAlt": {
+      "type": "string",
+      "default": ""
+    },
+    "minHeight": {
+      "type": "boolean",
+      "default": false
+    },
+    "bottomSpacing": {
+      "type": "string",
+      "default": "pbe1"
+    },
+    "buttonText": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonType": {
+      "type": "string",
+      "default": "link"
+    },
+    "buttonLink": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkId": {
+      "type": "number",
+      "default": 0
+    },
+    "buttonLinkTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkNewTab": {
+      "type": "boolean",
+      "default": false
+    },
+    "buttonAnchor": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonPopupId": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonIcon": {
+      "type": "string",
+      "default": "arrow"
+    }
+  },
+  "editorScript": "file:../../build/lead/index.js",
+  "render": "file:./render.php"
+}

@@ -39,33 +39,35 @@ export default function Edit({ attributes, setAttributes }) {
       <div {...blockProps}>
         <section className={sectionClass}>
           <div className="funds__container">
-            <div className="funds__body section-body">
-              <div className="heading">
-                <RichText
-                  tagName="h2"
-                  className="tl2"
-                  placeholder={__("Section title", "overchain-blocks")}
-                  value={title}
-                  onChange={(value) => setAttributes({ title: value })}
-                />
+            <div className="funds__wrap section-wrap">
+              <div className="funds__body section-body">
+                <div className="heading">
+                  <RichText
+                    tagName="h2"
+                    className="tl2"
+                    placeholder={__("Section title", "overchain-blocks")}
+                    value={title}
+                    onChange={(value) => setAttributes({ title: value })}
+                  />
 
-                <RichText
-                  tagName="div"
-                  className="txt2"
-                  placeholder={__("Supporting text", "overchain-blocks")}
-                  value={text}
-                  onChange={(value) => setAttributes({ text: value })}
-                />
+                  <RichText
+                    tagName="div"
+                    className="txt2"
+                    placeholder={__("Supporting text", "overchain-blocks")}
+                    value={text}
+                    onChange={(value) => setAttributes({ text: value })}
+                  />
+                </div>
+
+                <ul className="funds__cards grid-settings grid-2">
+                  <InnerBlocks
+                    allowedBlocks={ALLOWED_BLOCKS}
+                    template={TEMPLATE}
+                    orientation="horizontal"
+                    renderAppender={InnerBlocks.ButtonBlockAppender}
+                  />
+                </ul>
               </div>
-
-              <ul className="funds__cards grid-settings grid-2">
-                <InnerBlocks
-                  allowedBlocks={ALLOWED_BLOCKS}
-                  template={TEMPLATE}
-                  orientation="horizontal"
-                  renderAppender={InnerBlocks.ButtonBlockAppender}
-                />
-              </ul>
             </div>
           </div>
         </section>

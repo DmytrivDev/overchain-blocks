@@ -1,0 +1,16 @@
+{
+  "name": "overchain/faq",
+  "attributes": {
+    "noPaddingTop": { "translate": "ignore" },
+    "disableWhiteFade": { "translate": "ignore" },
+    "enableDecor":  { "translate": "ignore" },
+    "title":        { "translate": "rich" },
+    "items": {
+      "translate": "repeater",
+      "items": {
+        "question": { "translate": "rich" },
+        "answer":   { "translate": "rich" }
+      }
+    }
+  }
+}

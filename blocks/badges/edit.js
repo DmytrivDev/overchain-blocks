@@ -75,6 +75,7 @@ export default function Edit({ attributes, setAttributes }) {
           itemTitle={__("Badge", "overchain-blocks")}
           removeItemText={__("Remove badge", "overchain-blocks")}
           addItemText={__("+ Add badge", "overchain-blocks")}
+          placeholder={__("Badge title", "overchain-blocks")}
           defaultItem={{
             iconUrl: "",
             iconId: 0,
@@ -87,7 +88,7 @@ export default function Edit({ attributes, setAttributes }) {
       <div {...blockProps}>
         <section className={sectionClass}>
           <div className="operation__container">
-            <div className="operation__wrap">
+            <div className="operation__wrap section-wrap">
               <div className="operation__bg no-select" aria-hidden="true">
                 <img
                   src={`${themeUrl}assets/img/decor/operation_bg_1.svg`}

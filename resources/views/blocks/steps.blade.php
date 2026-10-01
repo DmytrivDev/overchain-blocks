@@ -4,21 +4,31 @@
 	$subtitle     = $attributes['subtitle'] ?? '';
 	$steps        = $attributes['steps'] ?? [];
 
+	// A fresh block arrives with four empty steps. An untouched row would still print
+	// its number, so drop the ones with neither a label nor an icon — `array_values`
+	// keeps the numbering sequential afterwards.
+	$steps = array_values( array_filter(
+		is_array( $steps ) ? $steps : [],
+		function ( $step ) {
+			return ! empty( $step['label'] ) || ! empty( $step['iconUrl'] );
+		}
+	) );
+
 	$sectionClass = 'oneflow ' . ( $noPaddingTop ? 'pbs4' : 'pbs2' );
 	$decorUrl     = get_template_directory_uri() . '/assets/img/decor/oneflow_dec_1.jpg';
 @endphp
 
 <section class="{{ esc_attr( $sectionClass ) }}">
 	<div class="oneflow__container">
-		<div class="oneflow__wrap">
+		<div class="oneflow__wrap section-wrap">
 			<div class="oneflow__decor decor1 no-select" aria-hidden="true">
 				<img src="{{ esc_url( $decorUrl ) }}" alt="">
 			</div>
 
-			<div class="oneflow__body section-body">
+			<div class="oneflow__body section-body{{ overchain_blocks_fade_class( $attributes ) }}">
 				<div class="heading aic">
 					@if ( ! empty( $title ) )
-						<h2 class="tl2">{!! wp_kses_post( $title ) !!}</h2>
+						<h2 class="tl2 anim-txt">{!! wp_kses_post( $title ) !!}</h2>
 					@endif
 
 					@if ( ! empty( $subtitle ) )
@@ -38,18 +48,49 @@
 									$iconUrl = $step['iconUrl'] ?? '';
 									$label   = $step['label'] ?? '';
 									$number  = str_pad( (string) ( $index + 1 ), 2, '0', STR_PAD_LEFT );
+
+									// "USDT, BTC, ETH" → a word cycler after the title (theme
+									// auto-swap.js). The icon cycles in step with it: the design
+									// repeats the same icon once per word, and `data-swap-group`
+									// gives both tracks one shared timer and index.
+									$swapWords = array_values( array_filter( array_map(
+										'trim',
+										explode( ',', (string) ( $step['swapWords'] ?? '' ) )
+									), 'strlen' ) );
+									$hasSwap = count( $swapWords ) > 1;
 								@endphp
 
-								<li class="item-oneflow">
+								<li class="item-oneflow"@if ( $hasSwap ) data-swap-group @endif>
 									@if ( ! empty( $iconUrl ) )
 										<div class="item-oneflow__icon">
-											<img src="{{ esc_url( $iconUrl ) }}" alt="">
+											@if ( $hasSwap )
+												<span class="auto-swap-items">
+													<span>
+														@foreach ( $swapWords as $word )
+															<span><img src="{{ esc_url( $iconUrl ) }}" alt=""></span>
+														@endforeach
+													</span>
+												</span>
+											@else
+												<img src="{{ esc_url( $iconUrl ) }}" alt="">
+											@endif
 										</div>
 									@endif
 
 									<div class="item-oneflow__box">
-										@if ( ! empty( $label ) )
-											<h3 class="item-oneflow__tl">{!! wp_kses_post( $label ) !!}</h3>
+										@if ( ! empty( $label ) || $hasSwap )
+											<h3 class="item-oneflow__tl">
+												{!! wp_kses_post( $label ) !!}
+												@if ( $hasSwap )
+													<span class="auto-swap-items">
+														<span>
+															@foreach ( $swapWords as $word )
+																<span>{{ esc_html( $word ) }}</span>
+															@endforeach
+														</span>
+													</span>
+												@endif
+											</h3>
 										@endif
 
 										<p class="item-oneflow__step">{{ esc_html( $number ) }}</p>

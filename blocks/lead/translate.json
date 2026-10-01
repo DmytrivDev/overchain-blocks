@@ -1,0 +1,60 @@
+{
+  "name": "overchain/lead",
+  "attributes": {
+    "disableWhiteFade": { "translate": "ignore" },
+    "backgroundType": {
+      "translate": "ignore"
+    },
+    "backgroundId": {
+      "translate": "ignore"
+    },
+    "backgroundUrl": {
+      "translate": "ignore"
+    },
+    "title": {
+      "translate": "rich"
+    },
+    "textStyle": {
+      "translate": "ignore"
+    },
+    "text": {
+      "translate": "rich"
+    },
+    "textAlt": {
+      "translate": "rich"
+    },
+    "minHeight": {
+      "translate": "ignore"
+    },
+    "bottomSpacing": {
+      "translate": "ignore"
+    },
+    "buttonText": {
+      "translate": "string"
+    },
+    "buttonType": {
+      "translate": "ignore"
+    },
+    "buttonLink": {
+      "translate": "url"
+    },
+    "buttonLinkId": {
+      "translate": "postobject"
+    },
+    "buttonLinkTitle": {
+      "translate": "string"
+    },
+    "buttonLinkNewTab": {
+      "translate": "ignore"
+    },
+    "buttonAnchor": {
+      "translate": "ignore"
+    },
+    "buttonPopupId": {
+      "translate": "ignore"
+    },
+    "buttonIcon": {
+      "translate": "ignore"
+    }
+  }
+}

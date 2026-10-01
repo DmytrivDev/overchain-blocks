@@ -21,6 +21,10 @@
       "type": "boolean",
       "default": false
     },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
     "title": {
       "type": "string",
       "default": "Related Articles"

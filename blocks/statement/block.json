@@ -1,0 +1,58 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/statement",
+  "title": "Statement",
+  "category": "overchain",
+  "icon": "editor-alignleft",
+  "description": "Side image with a lead paragraph and two text columns.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Why Overchain Exists",
+      "lead": "Money no longer moves on one rail.",
+      "colOne": "Traditional banking and blockchain evolved apart.",
+      "colTwo": "Overchain brings those worlds together."
+    }
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "imageId": {
+      "type": "number",
+      "default": 0
+    },
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "lead": {
+      "type": "string",
+      "default": ""
+    },
+    "colOne": {
+      "type": "string",
+      "default": ""
+    },
+    "colTwo": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "editorScript": "file:../../build/statement/index.js",
+  "render": "file:./render.php"
+}

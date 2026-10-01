@@ -52,7 +52,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
       <div {...blockProps}>
         <section className={sectionClass}>
           <div className="settlement__container">
-            <div className="settlement__wrap">
+            <div className="settlement__wrap section-wrap">
               <div
                 className="settlement__blur no-select"
                 aria-hidden="true"

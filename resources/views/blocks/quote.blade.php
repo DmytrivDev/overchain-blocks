@@ -11,7 +11,7 @@
 
 <section class="{{ esc_attr( $sectionClass ) }}">
     <div class="emb__container">
-        <div class="emb__body section-body">
+        <div class="emb__body section-body{{ overchain_blocks_fade_class( $attributes ) }}">
             <div class="emb-excerpt__main">
                 <div class="emb-excerpt__img no-select" aria-hidden="true">
                     <img src="{{ esc_url( $decorImg ) }}" alt="">

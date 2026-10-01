@@ -1,0 +1,9 @@
+{
+  "name": "overchain/manage",
+  "attributes": {
+    "noPaddingTop":     { "translate": "ignore" },
+    "disableWhiteFade": { "translate": "ignore" },
+    "enableBackground": { "translate": "ignore" },
+    "title":            { "translate": "rich" }
+  }
+}

@@ -281,37 +281,39 @@ export default function Edit({ attributes, setAttributes }) {
       <div {...blockProps}>
         <section className={`related ${noPaddingTop ? "pbs4" : "pbs2"}`}>
           <div className="related__container">
-            <div className="related__body section-body">
-              <div className="heading">
-                <RichText
-                  tagName="h2"
-                  className="tl2"
-                  placeholder={__("Section title", "overchain-blocks")}
-                  value={title}
-                  onChange={(v) => setAttributes({ title: v })}
-                />
-              </div>
+            <div className="related__wrap section-wrap">
+              <div className="related__body section-body">
+                <div className="heading">
+                  <RichText
+                    tagName="h2"
+                    className="tl2"
+                    placeholder={__("Section title", "overchain-blocks")}
+                    value={title}
+                    onChange={(v) => setAttributes({ title: v })}
+                  />
+                </div>
 
-              <div className="related__splide base-splide">
-                <div className="splide">
-                  <div className="splide__track">
-                    <ul className="splide__list">
-                      {displayPosts === null && <Spinner />}
-                      {displayPosts && displayPosts.length === 0 && (
-                        <p style={{ opacity: 0.5 }}>
-                          {sourceType === "manual"
-                            ? __(
-                                "Select posts in the sidebar.",
-                                "overchain-blocks",
-                              )
-                            : __("No posts found.", "overchain-blocks")}
-                        </p>
-                      )}
-                      {displayPosts &&
-                        displayPosts.map((post) => (
-                          <PostCard key={post.id} post={post} />
-                        ))}
-                    </ul>
+                <div className="related__splide base-splide">
+                  <div className="splide">
+                    <div className="splide__track">
+                      <ul className="splide__list">
+                        {displayPosts === null && <Spinner />}
+                        {displayPosts && displayPosts.length === 0 && (
+                          <p style={{ opacity: 0.5 }}>
+                            {sourceType === "manual"
+                              ? __(
+                                  "Select posts in the sidebar.",
+                                  "overchain-blocks",
+                                )
+                              : __("No posts found.", "overchain-blocks")}
+                          </p>
+                        )}
+                        {displayPosts &&
+                          displayPosts.map((post) => (
+                            <PostCard key={post.id} post={post} />
+                          ))}
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>

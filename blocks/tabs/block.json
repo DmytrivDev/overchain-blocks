@@ -14,16 +14,50 @@
     "viewportWidth": 1200,
     "attributes": {
       "title": "Fast Settlements"
-    }
+    },
+    "innerBlocks": [
+      {
+        "name": "overchain/tab",
+        "attributes": {
+          "tabLabel": "Direct bank deposits",
+          "heading": "Tab heading"
+        }
+      },
+      {
+        "name": "overchain/tab",
+        "attributes": {
+          "tabLabel": "Diverse currency range",
+          "heading": "Tab heading"
+        }
+      },
+      {
+        "name": "overchain/tab",
+        "attributes": {
+          "tabLabel": "Automated settlements",
+          "heading": "Tab heading"
+        }
+      },
+      {
+        "name": "overchain/tab",
+        "attributes": {
+          "tabLabel": "24/7 support",
+          "heading": "Tab heading"
+        }
+      }
+    ]
   },
   "attributes": {
     "noPaddingTop": {
       "type": "boolean",
       "default": false
     },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
     "title": {
       "type": "string",
-      "default": "Fast Settlements"
+      "default": ""
     }
   },
   "allowedBlocks": [

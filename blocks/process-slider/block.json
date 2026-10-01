@@ -1,0 +1,62 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/process-slider",
+  "title": "Process Slider",
+  "category": "overchain",
+  "icon": "controls-repeat",
+  "description": "Slider of numbered process steps. The design has no section heading.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {},
+    "innerBlocks": [
+      {
+        "name": "overchain/process-card",
+        "attributes": {
+          "title": "Accept",
+          "text": "Funds enter through API, hosted pages, widgets or payment links."
+        }
+      },
+      {
+        "name": "overchain/process-card",
+        "attributes": {
+          "title": "Route",
+          "text": "Overchain routes the transaction through the most efficient path."
+        }
+      },
+      {
+        "name": "overchain/process-card",
+        "attributes": {
+          "title": "Convert",
+          "text": "Conversion happens automatically when required."
+        }
+      },
+      {
+        "name": "overchain/process-card",
+        "attributes": {
+          "title": "Settle",
+          "text": "Funds land where they are needed, in the currency required."
+        }
+      }
+    ]
+  },
+  "attributes": {
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "allowedBlocks": [
+    "overchain/process-card"
+  ],
+  "editorScript": "file:../../build/process-slider/index.js",
+  "render": "file:./render.php"
+}

@@ -1,0 +1,60 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/manage",
+  "title": "Manage Cards",
+  "category": "overchain",
+  "icon": "screenoptions",
+  "description": "Centred heading over two large cards with buttons.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Everything You Need to Move, Manage & Control Money"
+    },
+    "innerBlocks": [
+      {
+        "name": "overchain/manage-card",
+        "attributes": {
+          "title": "Money Movement",
+          "text": "Move money globally across fiat and stablecoins through one connected infrastructure layer.",
+          "buttonText": "Explore Money Movement"
+        }
+      },
+      {
+        "name": "overchain/manage-card",
+        "attributes": {
+          "title": "Control & Treasury",
+          "text": "See every balance. Every payment. Every flow.",
+          "buttonText": "Explore Control & Treasury"
+        }
+      }
+    ]
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "enableBackground": {
+      "type": "boolean",
+      "default": true
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "allowedBlocks": [
+    "overchain/manage-card"
+  ],
+  "editorScript": "file:../../build/manage/index.js",
+  "render": "file:./render.php"
+}

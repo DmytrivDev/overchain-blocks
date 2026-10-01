@@ -6,6 +6,10 @@
 	$selectedIds = $attributes['selectedPosts'] ?? [];
 	$sectionClass = 'related ' . ( $noPaddingTop ? 'pbs4' : 'pbs2' );
 
+	// `.anim-scroll` (fade-out on scroll) when a White Section follows this block —
+	// see overchain_blocks_fade_class().
+	$bodyClass = 'related__body section-body' . overchain_blocks_fade_class( $attributes );
+
 	$exclude = [];
 	if ( is_singular( 'post' ) ) {
 		$exclude[] = get_the_ID();
@@ -48,29 +52,31 @@
 @if ( $postsQuery->have_posts() )
 	<section class="{{ esc_attr( $sectionClass ) }}">
 		<div class="related__container">
-			<div class="related__body section-body">
-				@if ( ! empty( $title ) )
-					<div class="heading">
-						<h2 class="tl2">{!! wp_kses_post( $title ) !!}</h2>
-					</div>
-				@endif
-
-				<div class="related__splide base-splide">
-					<div class="splide" data-lock>
-						<div class="splide__track">
-							<ul class="splide__list">
-								@php
-									while ( $postsQuery->have_posts() ) {
-										$postsQuery->the_post();
-										get_template_part( 'template-parts/content' );
-									}
-									wp_reset_postdata();
-								@endphp
-							</ul>
+			<div class="related__wrap section-wrap">
+				<div class="{{ esc_attr( $bodyClass ) }}">
+					@if ( ! empty( $title ) )
+						<div class="heading">
+							<h2 class="tl2 anim-txt">{!! wp_kses_post( $title ) !!}</h2>
 						</div>
-					</div>
+					@endif
 
-					<div class="drag-arrow" aria-hidden="true"></div>
+					<div class="related__splide base-splide">
+						<div class="splide" data-lock>
+							<div class="splide__track">
+								<ul class="splide__list">
+									@php
+										while ( $postsQuery->have_posts() ) {
+											$postsQuery->the_post();
+											get_template_part( 'template-parts/content' );
+										}
+										wp_reset_postdata();
+									@endphp
+								</ul>
+							</div>
+						</div>
+
+						@include( 'partials.drag-arrow' )
+					</div>
 				</div>
 			</div>
 		</div>

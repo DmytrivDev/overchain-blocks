@@ -1,0 +1,78 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/mosaic",
+  "title": "Mosaic",
+  "category": "overchain",
+  "icon": "layout",
+  "description": "Mixed-size card grid with a heading and supporting text.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Control Every Flow from One Operating Layer",
+      "text": "Moving money is only half the challenge. Get complete visibility and control."
+    },
+    "innerBlocks": [
+      {
+        "name": "overchain/mosaic-card",
+        "attributes": {
+          "variant": "default",
+          "title": "Real-Time Balances",
+          "text": "See balances and positions across currencies and accounts."
+        }
+      },
+      {
+        "name": "overchain/mosaic-card",
+        "attributes": {
+          "variant": "big",
+          "title": "Treasury Control",
+          "text": "Manage liquidity and financial operations with a single source of truth.",
+          "buttonText": "Explore Control & Treasury"
+        }
+      },
+      {
+        "name": "overchain/mosaic-card",
+        "attributes": {
+          "variant": "img-top",
+          "title": "Reporting & Audit",
+          "text": "Maintain up-to-date reporting and complete transaction histories."
+        }
+      },
+      {
+        "name": "overchain/mosaic-card",
+        "attributes": {
+          "variant": "default",
+          "title": "Reconciliation",
+          "text": "Keep payments, transactions and balances continuously aligned."
+        }
+      }
+    ]
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "allowedBlocks": [
+    "overchain/mosaic-card"
+  ],
+  "editorScript": "file:../../build/mosaic/index.js",
+  "render": "file:./render.php"
+}

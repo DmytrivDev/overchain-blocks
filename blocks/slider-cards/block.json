@@ -11,16 +11,57 @@
     "align": false
   },
   "example": {
-    "viewportWidth": 1200
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Built for Businesses<br /><span>Operating Globally</span>"
+    },
+    "innerBlocks": [
+      {
+        "name": "overchain/slider-card",
+        "attributes": {
+          "title": "Card title"
+        }
+      },
+      {
+        "name": "overchain/slider-card",
+        "attributes": {
+          "title": "Card title"
+        }
+      },
+      {
+        "name": "overchain/slider-card",
+        "attributes": {
+          "title": "Card title"
+        }
+      },
+      {
+        "name": "overchain/slider-card",
+        "attributes": {
+          "title": "Card title"
+        }
+      }
+    ]
   },
   "attributes": {
     "noPaddingTop": {
       "type": "boolean",
       "default": false
     },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
     "title": {
       "type": "string",
-      "default": "Built for Businesses<br /><span>Operating Globally</span>"
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    },
+    "centerHeading": {
+      "type": "boolean",
+      "default": true
     }
   },
   "allowedBlocks": [

@@ -1,0 +1,73 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/everything",
+  "title": "Everything Grid",
+  "category": "overchain",
+  "icon": "grid-view",
+  "description": "Centred heading above a bordered grid of icon cards.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Everything You Need to Move Money",
+      "text": "Speed without sacrificing control."
+    },
+    "innerBlocks": [
+      {
+        "name": "overchain/everything-card",
+        "attributes": {
+          "title": "Accept Payments",
+          "text": "Accept fiat and stablecoins via APIs, payment links, and embedded UI."
+        }
+      },
+      {
+        "name": "overchain/everything-card",
+        "attributes": {
+          "title": "Route Payments",
+          "text": "Route every transaction through the fastest fiat and crypto networks."
+        }
+      },
+      {
+        "name": "overchain/everything-card",
+        "attributes": {
+          "title": "Convert Instantly",
+          "text": "Move between fiat and stablecoins through integrated institutional liquidity."
+        }
+      },
+      {
+        "name": "overchain/everything-card",
+        "attributes": {
+          "title": "Settle Globally",
+          "text": "Deliver funds to accounts, wallets and counterparties."
+        }
+      }
+    ]
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "allowedBlocks": [
+    "overchain/everything-card"
+  ],
+  "editorScript": "file:../../build/everything/index.js",
+  "render": "file:./render.php"
+}

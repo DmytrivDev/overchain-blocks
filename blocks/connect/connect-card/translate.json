@@ -1,0 +1,10 @@
+{
+  "name": "overchain/connect-card",
+  "attributes": {
+    "iconId":  { "translate": "ignore" },
+    "iconUrl": { "translate": "ignore" },
+    "title":   { "translate": "rich" },
+    "text":    { "translate": "rich" },
+    "decor":   { "translate": "ignore" }
+  }
+}

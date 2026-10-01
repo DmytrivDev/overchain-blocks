@@ -1,0 +1,56 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/testimonials",
+  "title": "Testimonials",
+  "category": "overchain",
+  "icon": "format-quote",
+  "description": "Testimonial slider with a side photo.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Testimonials"
+    },
+    "innerBlocks": [
+      {
+        "name": "overchain/testimonial-card",
+        "attributes": {
+          "quote": "Overchain gave us the confidence to modernise our payment infrastructure without increasing operational complexity",
+          "name": "John Doe",
+          "role": "Chief Compliance Officer"
+        }
+      }
+    ]
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "imageId": {
+      "type": "number",
+      "default": 0
+    },
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "allowedBlocks": [
+    "overchain/testimonial-card"
+  ],
+  "editorScript": "file:../../build/testimonials/index.js",
+  "render": "file:./render.php"
+}

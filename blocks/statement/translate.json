@@ -1,0 +1,27 @@
+{
+  "name": "overchain/statement",
+  "attributes": {
+    "disableWhiteFade": { "translate": "ignore" },
+    "noPaddingTop": {
+      "translate": "ignore"
+    },
+    "imageId": {
+      "translate": "ignore"
+    },
+    "imageUrl": {
+      "translate": "ignore"
+    },
+    "title": {
+      "translate": "rich"
+    },
+    "lead": {
+      "translate": "rich"
+    },
+    "colOne": {
+      "translate": "rich"
+    },
+    "colTwo": {
+      "translate": "rich"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "overchain/logo-grid",
+  "attributes": {
+    "noPaddingTop": { "translate": "ignore" },
+    "disableWhiteFade": { "translate": "ignore" },
+    "enableBg":     { "translate": "ignore" },
+    "title":        { "translate": "rich" },
+    "text":         { "translate": "rich" },
+    "platforms": {
+      "translate": "repeater",
+      "items": {
+        "imageId":  { "translate": "ignore" },
+        "imageUrl": { "translate": "ignore" }
+      }
+    }
+  }
+}

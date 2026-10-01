@@ -1,0 +1,81 @@
+<?php 
+	$noPaddingTop = $attributes['noPaddingTop'] ?? false;
+	$enableImage  = $attributes['enableImage'] ?? true;
+	$title        = $attributes['title'] ?? '';
+	$text         = $attributes['text'] ?? '';
+	$items        = $attributes['items'] ?? [];
+	$imageUrl     = $attributes['imageUrl'] ?? '';
+
+	$sectionClass = 'way ' . ( $noPaddingTop ? 'pbs4' : 'pbs2' );
+
+	// A fallback, not a placeholder: with nothing uploaded the front renders the
+	// design's own picture, which is what the canvas shows too. The toggle is
+	// separate — the layer is decorative and sits at `z-index: -1` behind the list.
+	if ( empty( $imageUrl ) ) {
+ $imageUrl = get_template_directory_uri() . '/assets/img/content/way_img_1.png';
+	}
+
+	// Staggered reveal: blocks.css hides the subtitle, every item and the button
+	// (`opacity: 0`) until `.way__body` gets `.is-threshold` from the theme's
+	// threshold.js, which only watches elements carrying `data-threshold-desktop`.
+	// `--i` orders them: subtitle 0, items 1…n, button n + 1 — as in the design.
+	$labels = array_values( array_filter( array_map(
+ static fn( $item ) => $item['label'] ?? '',
+ is_array( $items ) ? $items : []
+	) ) );
+ ?>
+
+<section class="<?php echo \htmlentities(esc_attr( $sectionClass )??'', ENT_QUOTES, 'UTF-8', false); ?>">
+	<div class="way__container">
+ <div class="way__wrap section-wrap">
+ <div class="way__body section-body<?php echo \htmlentities(overchain_blocks_fade_class( $attributes )??'', ENT_QUOTES, 'UTF-8', false); ?>" data-threshold-desktop="0.5">
+ <?php if( ! empty( $title ) || ! empty( $text ) ): ?>
+ <div class="heading aic mbe2">
+ <?php if( ! empty( $title ) ): ?>
+ <h2 class="tl2 anim-txt"><?php echo wp_kses_post( $title ); ?></h2>
+ <?php endif; ?>
+
+ <?php if( ! empty( $text ) ): ?>
+ <div class="txt2 col-alt1" style="--i: 0">
+ <p><?php echo wp_kses_post( $text ); ?></p>
+ </div>
+ <?php endif; ?>
+ </div>
+ <?php endif; ?>
+
+ <div class="way__content">
+ <?php if( $enableImage ): ?>
+ <div class="way__img no-select" aria-hidden="true">
+ <img src="<?php echo \htmlentities(esc_url( $imageUrl )??'', ENT_QUOTES, 'UTF-8', false); ?>" alt="">
+ </div>
+ <?php endif; ?>
+
+ <?php if( ! empty( $labels ) ): ?>
+ <ul class="way__items">
+ <?php $__currentLoopData = $labels; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $index => $label): $loop = $this->incrementLoopIndices();  ?>
+ <li class="item-way" style="--i: <?php echo \htmlentities($index + 1??'', ENT_QUOTES, 'UTF-8', false); ?>">
+ <div class="item-way__box">
+ <h3 class="tl5"><?php echo \htmlentities(esc_html( $label )??'', ENT_QUOTES, 'UTF-8', false); ?></h3>
+ </div>
+ </li>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </ul>
+ <?php endif; ?>
+
+ <?php echo $this->runChild( 'partials.btn-icon', [
+ 'text' => $attributes['buttonText'] ?? '',
+ 'type' => $attributes['buttonType'] ?? 'link',
+ 'link' => $attributes['buttonLink'] ?? '',
+ 'newTab' => $attributes['buttonLinkNewTab'] ?? false,
+ 'anchor' => $attributes['buttonAnchor'] ?? '',
+ 'popupId' => $attributes['buttonPopupId'] ?? '',
+ 'icon' => $attributes['buttonIcon'] ?? 'arrow',
+ 'class' => 'way__btn',
+ 'inlineStyle' => '--i: ' . ( count( $labels ) + 1 ),
+ ] ); ?>
+ </div>
+ </div>
+ </div>
+	</div>
+</section>

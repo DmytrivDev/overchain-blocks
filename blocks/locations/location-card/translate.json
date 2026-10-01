@@ -1,0 +1,9 @@
+{
+  "name": "overchain/location-card",
+  "attributes": {
+    "imageId":  { "translate": "ignore" },
+    "imageUrl": { "translate": "ignore" },
+    "label":    { "translate": "string" },
+    "tag":      { "translate": "string" }
+  }
+}

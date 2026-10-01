@@ -1,0 +1,57 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/logo-grid",
+  "title": "Logo Grid",
+  "category": "overchain",
+  "icon": "screenoptions",
+  "description": "Heading with a centred grid of partner or platform logos.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Regulated. Audited. <br />Enterprise-Ready.",
+      "text": "Overchain combines institutional-grade security, built-in KYC/AML compliance, and enterprise custody infrastructure in one regulated platform.",
+      "platforms": [
+        { "imageId": 0, "imageUrl": "" },
+        { "imageId": 0, "imageUrl": "" },
+        { "imageId": 0, "imageUrl": "" }
+      ]
+    }
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "enableBg": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    },
+    "platforms": {
+      "type": "array",
+      "default": [
+        { "imageId": 0, "imageUrl": "" },
+        { "imageId": 0, "imageUrl": "" },
+        { "imageId": 0, "imageUrl": "" }
+      ]
+    }
+  },
+  "editorScript": "file:../../build/logo-grid/index.js",
+  "render": "file:./render.php"
+}

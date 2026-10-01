@@ -11,20 +11,54 @@
     "align": false
   },
   "example": {
-    "viewportWidth": 1200
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Section title goes here",
+      "subtitle": "Short subtitle goes here.",
+      "text": "Supporting text goes here. Describe your value proposition in a few sentences.",
+      "buttonText": "See how it works"
+    }
   },
   "attributes": {
     "noPaddingTop": {
       "type": "boolean",
       "default": false
     },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "mediaLayout": {
+      "type": "string",
+      "default": "single"
+    },
+    "enableBlur": {
+      "type": "boolean",
+      "default": false
+    },
+    "subtitleStyle": {
+      "type": "string",
+      "default": "medium"
+    },
+    "listStyle": {
+      "type": "string",
+      "default": "steps"
+    },
+    "steps": {
+      "type": "array",
+      "default": []
+    },
+    "items": {
+      "type": "array",
+      "default": []
+    },
     "title": {
       "type": "string",
-      "default": "Section title goes here"
+      "default": ""
     },
     "subtitle": {
       "type": "string",
-      "default": "Short subtitle goes here."
+      "default": ""
     },
     "imageId": {
       "type": "number",
@@ -36,11 +70,11 @@
     },
     "text": {
       "type": "string",
-      "default": "Supporting text goes here. Describe your value proposition in a few sentences."
+      "default": ""
     },
     "buttonText": {
       "type": "string",
-      "default": "See how it works"
+      "default": ""
     },
     "buttonType": {
       "type": "string",
@@ -56,7 +90,7 @@
     },
     "buttonLinkTitle": {
       "type": "string",
-      "default": "" 
+      "default": ""
     },
     "buttonLinkNewTab": {
       "type": "boolean",

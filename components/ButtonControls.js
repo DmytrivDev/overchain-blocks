@@ -138,6 +138,10 @@ export default function ButtonControls({ attributes, setAttributes }) {
             label: __("Arrow", "overchain-blocks"),
             value: "arrow",
           },
+          {
+            label: __("Transparent", "overchain-blocks"),
+            value: "transparent",
+          },
         ]}
         onChange={(value) => setAttributes({ buttonIcon: value })}
       />

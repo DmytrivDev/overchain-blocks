@@ -11,12 +11,65 @@
     "align": false
   },
   "example": {
-    "viewportWidth": 1000
+    "viewportWidth": 1000,
+    "attributes": {
+      "title": "High Value Shouldn't <br />Mean High Friction."
+    },
+    "innerBlocks": [
+      {
+        "name": "overchain/feature-card",
+        "attributes": {
+          "title": "Feature title",
+          "text": "Short feature description goes here."
+        }
+      },
+      {
+        "name": "overchain/feature-card",
+        "attributes": {
+          "title": "Feature title",
+          "text": "Short feature description goes here."
+        }
+      },
+      {
+        "name": "overchain/feature-card",
+        "attributes": {
+          "title": "Feature title",
+          "text": "Short feature description goes here."
+        }
+      },
+      {
+        "name": "overchain/feature-card",
+        "attributes": {
+          "title": "Feature title",
+          "text": "Short feature description goes here."
+        }
+      }
+    ]
   },
   "attributes": {
     "noPaddingTop": {
       "type": "boolean",
       "default": false
+    },
+    "topSpacing": {
+      "type": "string",
+      "default": ""
+    },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "enableBlur": {
+      "type": "boolean",
+      "default": true
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
     }
   },
   "allowedBlocks": [

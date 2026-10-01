@@ -55,7 +55,7 @@ export default function Edit({ attributes, setAttributes }) {
       <div {...blockProps}>
         <section className={sectionClass}>
           <div className="control__container">
-            <div className="control__wrap">
+            <div className="control__wrap section-wrap">
               <div
                 className="control__decor no-select"
                 aria-hidden="true"

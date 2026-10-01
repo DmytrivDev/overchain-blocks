@@ -2,14 +2,16 @@
   "name": "overchain/steps",
   "attributes": {
     "noPaddingTop": { "translate": "ignore" },
+    "disableWhiteFade": { "translate": "ignore" },
     "title":        { "translate": "rich" },
     "subtitle":     { "translate": "string" },
     "steps": {
       "translate": "repeater",
       "items": {
-        "iconUrl": { "translate": "ignore" },
-        "iconId":  { "translate": "ignore" },
-        "label":   { "translate": "string" }
+        "iconUrl":   { "translate": "ignore" },
+        "iconId":    { "translate": "ignore" },
+        "label":     { "translate": "string" },
+        "swapWords": { "translate": "string" }
       }
     }
   }

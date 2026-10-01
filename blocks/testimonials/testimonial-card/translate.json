@@ -1,0 +1,10 @@
+{
+  "name": "overchain/testimonial-card",
+  "attributes": {
+    "quote":     { "translate": "rich" },
+    "avatarId":  { "translate": "ignore" },
+    "avatarUrl": { "translate": "ignore" },
+    "name":      { "translate": "string" },
+    "role":      { "translate": "string" }
+  }
+}

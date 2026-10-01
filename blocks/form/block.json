@@ -22,6 +22,10 @@
       "type": "boolean",
       "default": false
     },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
     "title": {
       "type": "string",
       "default": "Beyond Access<br />Built for Operation"

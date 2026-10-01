@@ -56,35 +56,32 @@ export default function Edit({ attributes, setAttributes }) {
       <div {...blockProps}>
         <section className={sectionClass}>
           <div className="preview__container">
-            <div className="preview__body section-body">
-              <h2 className="tl2 visually-hidden">
-                {__("Video Preview", "overchain-blocks")}
-              </h2>
+            <div className="preview__wrap section-wrap">
+              <div className="preview__body section-body">
+                <h2 className="tl2 visually-hidden">
+                  {__("Video Preview", "overchain-blocks")}
+                </h2>
 
-              <div className="preview__video media-box ibg">
-                {videoUrl ? (
-                  <video
-                    poster={posterUrl || undefined}
-                    preload="auto"
-                    muted
-                    onLoadedMetadata={(e) => {
-                      e.target.currentTime = 0.1;
-                    }}
-                  >
-                    <source src={videoUrl} type={videoType || "video/mp4"} />
-                  </video>
-                ) : (
-                  <img src={previewPoster} alt="" />
-                )}
-
-                <button
-                  type="button"
-                  className="video-play"
-                  aria-label={__("Video play", "overchain-blocks")}
-                  onClick={(event) => event.preventDefault()}
-                >
-                  <span></span>
-                </button>
+                {/* The front loops the video muted on its own (autoplay). The canvas
+                    shows a still frame instead, so editing is not a moving target. */}
+                <div className="preview__video ibg">
+                  {videoUrl ? (
+                    <video
+                      poster={posterUrl || undefined}
+                      preload="auto"
+                      muted
+                      loop
+                      playsInline
+                      onLoadedMetadata={(e) => {
+                        e.target.currentTime = 0.1;
+                      }}
+                    >
+                      <source src={videoUrl} type={videoType || "video/mp4"} />
+                    </video>
+                  ) : (
+                    <img src={previewPoster} alt="" />
+                  )}
+                </div>
               </div>
             </div>
           </div>

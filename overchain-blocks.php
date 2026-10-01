@@ -29,7 +29,8 @@ add_action( 'init', 'overchain_blocks_register_blocks' );
 add_action( 'wp_enqueue_scripts', 'overchain_blocks_enqueue_frontend' );
 add_action( 'enqueue_block_editor_assets', 'overchain_blocks_enqueue_editor' );
 add_action( 'enqueue_block_editor_assets', 'overchain_blocks_localize_editor' );
-add_filter( 'block_categories_all', 'overchain_blocks_register_category' );
+add_filter( 'block_categories_all', 'overchain_blocks_register_category', 20, 2 );
+add_filter( 'allowed_block_types_all', 'overchain_blocks_restrict_post_blocks', 10, 2 );
 add_action( 'plugins_loaded', 'overchain_blocks_load_textdomain' );
 add_action( 'wp_footer', 'overchain_blocks_tabs_script' );
 
@@ -37,35 +38,143 @@ if ( class_exists( '\OverchainBlocks\Plugin' ) ) {
 	\OverchainBlocks\Plugin::init();
 }
 
-function overchain_blocks_register_category( $categories ) {
-	return array_merge(
-		array(
-			array(
-				'slug' => 'overchain',
-				'title' => 'Overchain',
-			),
-		),
-		$categories
+/**
+ * Blocks that only make sense inside an article.
+ *
+ * They depend on the single-post context — the `--post-*` custom properties and the
+ * `.post__main` wrapper — so they render wrong anywhere else, preview included.
+ *
+ * @return string[]
+ */
+function overchain_blocks_post_only() {
+	return array(
+		'overchain/quote',
 	);
+}
+
+/**
+ * Post types whose editor is an article body.
+ *
+ * These share the single-post context the post-only blocks need: the same
+ * `.post__main … .embeded` wrapper and the `--post-*` custom properties (the
+ * theme gives their edit screen the `post-type-post` body class for exactly
+ * that reason). A post type listed here gets the post inserter — the
+ * "Post blocks" category and everything in overchain_blocks_post_only().
+ *
+ * @return string[]
+ */
+function overchain_blocks_article_post_types() {
+	return array( 'post', 'cases' );
+}
+
+/**
+ * Is the editor currently editing an article-like post type?
+ *
+ * @param WP_Block_Editor_Context|null $context Editor context.
+ *
+ * @return bool
+ */
+function overchain_blocks_is_post_context( $context ) {
+	return isset( $context->post )
+		&& $context->post instanceof WP_Post
+		&& in_array( $context->post->post_type, overchain_blocks_article_post_types(), true );
+}
+
+function overchain_blocks_register_category( $categories, $context = null ) {
+	$own = array(
+		array(
+			'slug' => 'overchain',
+			'title' => 'Overchain',
+		),
+	);
+
+	// Article-only category: offered on article-like edit screens and nowhere else.
+	if ( overchain_blocks_is_post_context( $context ) ) {
+		$own[] = array(
+			'slug' => 'overchain-post-blocks',
+			'title' => __( 'Post blocks', 'overchain-blocks' ),
+		);
+	}
+
+	// This function is the single owner of the plugin's categories. The guard is a
+	// safety net in case anything else registers the same slug — that is what used
+	// to list "Overchain" twice in the inserter.
+	$existing = wp_list_pluck( $categories, 'slug' );
+
+	$own = array_values(
+		array_filter(
+			$own,
+			function ( $category ) use ( $existing ) {
+				return ! in_array( $category['slug'], $existing, true );
+			}
+		)
+	);
+
+	return array_merge( $own, $categories );
+}
+
+/**
+ * Keep article-only blocks out of the inserter on pages and other post types.
+ *
+ * Without this they would still be offered, just under a category that does not
+ * exist there — which is how the broken Quote preview showed up on pages.
+ *
+ * @param bool|string[]                $allowed Allowed block types, or true for all.
+ * @param WP_Block_Editor_Context|null $context Editor context.
+ *
+ * @return bool|string[]
+ */
+function overchain_blocks_restrict_post_blocks( $allowed, $context = null ) {
+	if ( overchain_blocks_is_post_context( $context ) ) {
+		return $allowed;
+	}
+
+	if ( ! is_array( $allowed ) ) {
+		$allowed = array_keys( WP_Block_Type_Registry::get_instance()->get_all_registered() );
+	}
+
+	return array_values( array_diff( $allowed, overchain_blocks_post_only() ) );
 }
 
 function overchain_blocks_register_blocks() {
 	// Батьківські блоки в потрібному порядку
 	$order = array(
 		'white-section',
+		'lead',
+		'intro',
 		'hero',
 		'video',
 		'features',
 		'split',
+		'statement',
+		'showcase',
+		'everything',
 		'steps',
+		'integration-steps',
 		'tabs',
 		'badges',
+		'tag-list',
 		'accordion',
+		'faq',
+		'mosaic',
+		'moves',
 		'cards',
+		'control-list',
+		'manage',
+		'locations',
 		'logos',
 		'spotlight',
+		'connect',
 		'duo',
+		'logo-grid',
 		'promo',
+		'flow-promo',
+		'promo-slider',
+		'process-slider',
+		'callout',
+		'highlight',
+		'team',
+		'testimonials',
 		'slider-cards',
 		'form',
 		'subscribe',
@@ -219,6 +328,117 @@ function overchain_resolve_button_data( array $data ): array {
 	}
 
 	return compact( 'href', 'attrs' );
+}
+
+/**
+ * Mark every block that sits right before a White Section.
+ *
+ * The design fades a section's body out as it scrolls away (`.anim-scroll`) exactly
+ * when the next section is a `.frame-colored` White Section. A block's render
+ * callback cannot see its siblings, so this runs on the raw content before
+ * `do_blocks()` (priority 9) — the same parse → mark → serialize pass core's block
+ * hooks make at this priority — and flags each such block with the internal
+ * `overchainBeforeWhite` attribute. It is not in any block.json: WordPress passes
+ * comment attributes through to the render callback regardless, and the flag never
+ * reaches saved content. Read it with overchain_blocks_fade_class().
+ *
+ * @param string $content Post content.
+ * @return string
+ */
+function overchain_blocks_mark_before_white( $content ) {
+	if ( ! is_string( $content ) || ! has_block( 'overchain/white-section', $content ) ) {
+		return $content;
+	}
+
+	$blocks = parse_blocks( $content );
+	overchain_blocks_mark_before_white_siblings( $blocks );
+
+	return serialize_blocks( $blocks );
+}
+add_filter( 'the_content', 'overchain_blocks_mark_before_white', 8 );
+
+/**
+ * Walk one list of sibling blocks (and, recursively, every inner list).
+ *
+ * Whitespace-only freeform chunks between blocks are skipped; a freeform chunk with
+ * real HTML in it breaks the adjacency, since it renders between the two.
+ *
+ * @param array $blocks Parsed blocks, modified in place.
+ */
+function overchain_blocks_mark_before_white_siblings( array &$blocks ) {
+	$previous = null;
+
+	foreach ( array_keys( $blocks ) as $index ) {
+		$name = $blocks[ $index ]['blockName'] ?? null;
+
+		if ( empty( $name ) ) {
+			if ( '' !== trim( (string) ( $blocks[ $index ]['innerHTML'] ?? '' ) ) ) {
+				$previous = null;
+			}
+
+			continue;
+		}
+
+		if ( 'overchain/white-section' === $name && null !== $previous ) {
+			$blocks[ $previous ]['attrs']['overchainBeforeWhite'] = true;
+		}
+
+		if ( ! empty( $blocks[ $index ]['innerBlocks'] ) ) {
+			overchain_blocks_mark_before_white_siblings( $blocks[ $index ]['innerBlocks'] );
+		}
+
+		$previous = $index;
+	}
+}
+
+/**
+ * The scroll-fade class for a section body, or an empty string.
+ *
+ * On when overchain_blocks_mark_before_white() flagged the block (a White Section
+ * follows it), unless the editor switched it off with `disableWhiteFade`.
+ *
+ * @param array $attributes Block attributes.
+ * @return string ` anim-scroll` or ``.
+ */
+function overchain_blocks_fade_class( array $attributes ): string {
+	return ! empty( $attributes['overchainBeforeWhite'] ) && empty( $attributes['disableWhiteFade'] )
+		? ' anim-scroll'
+		: '';
+}
+
+/**
+ * Number InnerBlocks cards for a staggered reveal.
+ *
+ * The design's reveal animations (`.anim-cards`, threshold lists) delay each card by
+ * `calc(var(--i) * …)`, with `style="--i: N"` written on every card. A child block's
+ * render callback cannot know its own position among siblings, so the parent numbers
+ * them here, in the already rendered `$content`. Without `--i` the `calc()` is invalid
+ * and the card simply does not animate.
+ *
+ * Matches `<li>` elements carrying `$class_name`; an existing inline style is kept.
+ *
+ * @param string $html       Rendered inner blocks.
+ * @param string $class_name Root class of the child card, e.g. `card-feature`.
+ * @param int    $start      Value of the first card.
+ * @return string
+ */
+function overchain_blocks_stagger( string $html, string $class_name, int $start = 0 ): string {
+	if ( '' === $html || ! class_exists( 'WP_HTML_Tag_Processor' ) ) {
+		return $html;
+	}
+
+	$processor = new WP_HTML_Tag_Processor( $html );
+	$index     = $start;
+
+	while ( $processor->next_tag( array( 'tag_name' => 'LI', 'class_name' => $class_name ) ) ) {
+		$style = trim( (string) $processor->get_attribute( 'style' ) );
+		$var   = '--i: ' . $index;
+
+		$processor->set_attribute( 'style', '' === $style ? $var : rtrim( $style, '; ' ) . '; ' . $var );
+		++$index;
+	}
+
+	return $processor->get_updated_html();
 }
 
 add_action( 'init', function () {

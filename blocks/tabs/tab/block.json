@@ -17,21 +17,22 @@
   "example": {
     "attributes": {
       "heading": "Tab heading example",
-      "buttonText": "Book a Demo"
+      "buttonText": "Book a Demo",
+      "tabLabel": "Tab title"
     }
   },
   "attributes": {
     "tabLabel": {
       "type": "string",
-      "default": "Tab title"
+      "default": ""
     },
     "heading": {
       "type": "string",
-      "default": "Tab heading"
+      "default": ""
     },
     "buttonText": {
       "type": "string",
-      "default": "Book a Demo"
+      "default": ""
     },
     "buttonType": {
       "type": "string",

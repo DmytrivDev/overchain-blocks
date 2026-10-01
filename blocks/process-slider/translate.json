@@ -1,0 +1,7 @@
+{
+  "name": "overchain/process-slider",
+  "attributes": {
+    "noPaddingTop": { "translate": "ignore" },
+    "disableWhiteFade": { "translate": "ignore" }
+  }
+}

@@ -94,9 +94,11 @@ overchain-blocks/
 │   ├── IconListControls.js
 │   ├── ImageControls.js
 │   ├── ImageField.js
+│   ├── ImageListControls.js
 │   ├── LinkControlPanel.js
 │   ├── LinkFields.js
 │   ├── SectionSettingsControls.js
+│   ├── TagListControls.js
 │   ├── TextSettingsControls.js
 │   └── VideoControls.js
 ├── resources/
@@ -119,6 +121,7 @@ overchain-blocks/
 │       │   ├── card.blade.php
 │       │   └── ...
 │       └── partials/              # Reusable Blade partials
+│           ├── btn-def.blade.php
 │           ├── btn-icon.blade.php
 │           └── checkbox.blade.php
 ├── src/                           # PHP classes (PSR-4)
@@ -178,7 +181,13 @@ $data = overchain_resolve_button_data([
 // Returns: ['href' => 'https://example.com', 'attrs' => ' target="_blank" rel="noopener noreferrer"']
 ```
 
-Supported button types: `link`, `anchor`, `popup`.
+Supported button types: `link`, `anchor`, `popup`. These control the **href**, nothing else.
+
+### Button icon — `calendar`, `arrow`, `transparent`
+
+`buttonIcon` controls the button's **appearance** and is orthogonal to `buttonType`; any icon works with any type.
+
+`transparent` is the odd one out: instead of an icon it switches the whole button to the plain theme style, `btn-def stl-trn`, with no icon span. `partials/btn-icon` detects it and delegates to `partials/btn-def`, so every block that already includes `btn-icon` supports it with no template change, and `ButtonPreview` mirrors the plain markup in the canvas. Nothing about href resolution changes — `overchain_resolve_button_data()` never sees it.
 
 ---
 
@@ -311,6 +320,47 @@ Renders a theme button with icon. Calls `overchain_resolve_button_data()` intern
 
 Output: `<a class="btn-icon [class]" href="..." ...>...</a>`
 
+### `partials/btn-def`
+
+Renders the theme's plain (non-icon) button. Also calls `overchain_resolve_button_data()`, so it accepts the same link attributes as `btn-icon`.
+
+| Variable | Default | Description |
+|---|---|---|
+| `$text` | — | Button label (renders nothing if empty) |
+| `$type` | `'link'` | `'link'`, `'anchor'`, or `'popup'` |
+| `$link` / `$newTab` / `$anchor` / `$popupId` | — | Same as `btn-icon` |
+| `$style` | `''` | Style modifier: `'stl-trn'`, `'stl-trn-clw'`, `'stl-clb'` |
+| `$class` | `''` | Extra CSS class on the `<a>` |
+
+Output: `<a class="btn-def [style] [class]" href="...">…</a>`
+
+### `partials/subscribe-form`
+
+The HubSpot subscribe embed, extracted verbatim. The `subscribe` block places it in **two different parents** depending on layout — inside `.infrastruct__content` for the side-image layout, inside `.infrastruct__bottom` for the slider layout — and the partial exists so that markup is not duplicated.
+
+Variables: `$labelEmail`, `$labelSubmit`, `$successTitle`, `$successDesc`.
+
+Do not reformat the HubSpot attributes (`data-hsfc-id`, `hs_context`, the submission `<iframe>` target): they are copied from the embed and the integration depends on them.
+
+### `partials/splide-arrows`
+
+Prev/next buttons for a Splide slider: `.arrows > .arrows__body >
+button.arrows__prev` / `button.arrows__next`. Takes one optional variable,
+`$class`, added to the wrapper.
+
+It exists because the design ships this markup **byte-for-byte identical** in
+`.accept` (move-money) and `.testimonials` (platform-overview) — verified by diff,
+not assumed.
+
+The design's own `aria-label`s are `"Arrows prev"` / `"Arrows next"`; the partial
+replaces them with `Previous slide` / `Next slide`, registered as Polylang strings
+in the theme. A screen reader announces the label, not the class, so keeping the
+design's wording would have shipped the class name to assistive tech.
+
+Do **not** emit it from `edit.js`: Splide never initialises in the canvas, so the
+buttons would be dead controls. Every other slider block already omits it, and
+`editor.scss` hides `.drag-arrow` globally for the same reason.
+
 ### `partials/checkbox`
 
 Renders an accessible HubSpot-compatible checkbox field.
@@ -341,7 +391,21 @@ Renders the standard "Settings" panel with the `noPaddingTop` toggle.
 />
 ```
 
-Props: `attributes`, `setAttributes`, `showNoPaddingTop` (bool, default `true`), `noPaddingTopAttribute` (string, default `'noPaddingTop'`), `title`, `noPaddingTopLabel`, `initialOpen`.
+Props: `attributes`, `setAttributes`, `showNoPaddingTop` (bool, default `true`), `noPaddingTopAttribute` (string, default `'noPaddingTop'`), `showTopSpacing` (bool, default `false`), `topSpacingAttribute` (string, default `'topSpacing'`), `title`, `noPaddingTopLabel`, `topSpacingLabel`, `initialOpen`.
+
+`showTopSpacing` swaps the boolean toggle for a three-state select — `none` / `pbs4`
+(3rem) / `pbs2` (8.5rem) — because the design uses sections with **no** top padding
+utility at all, which the toggle cannot express. It **replaces** the toggle rather
+than joining it, so a section never has two controls for the same thing.
+
+The component derives its value as `attributes[topSpacingAttribute] || (noPaddingTop ? 'pbs4' : 'pbs2')`,
+so a block saved before the attribute existed opens on what it actually renders. Give
+the attribute a `""` default in `block.json`, never `"pbs2"`: WordPress merges
+`block.json` defaults into `$attributes` before render, so a non-empty default would
+mask the legacy boolean and silently re-pad every already-saved block. Mirror the same
+fallback in the Blade template.
+
+Currently used by: Features.
 
 ### `ImageControls`
 
@@ -469,6 +533,35 @@ Renders a dynamic repeater of icon+label items. Each item gets its own `PanelBod
 />
 ```
 
+### `ImageListControls`
+
+Repeater of images only — no labels, no links. Items are objects (`{ imageId, imageUrl }`) so the DeepL `repeater` hint can walk them.
+
+```jsx
+<ImageListControls
+    items={slides}
+    itemsAttribute="slides"
+    setAttributes={setAttributes}
+/>
+```
+
+Props: `items`, `itemsAttribute`, `setAttributes`, `title`, `itemLabel`, `addItemText`, `removeItemText`, `idKey`, `urlKey`, `minItems`, `maxItems`, `initialOpen`.
+
+### `TagListControls`
+
+Repeater for a plain list of text tags — no icons. Items are stored as objects with a single `label` key, **not** as bare strings: the DeepL Translator `repeater` hint only walks array-of-object attributes and silently skips flat string arrays.
+
+```jsx
+<TagListControls
+    items={tags}
+    itemsAttribute="tags"
+    setAttributes={setAttributes}
+    defaultItem={{ label: 'New tag' }}
+/>
+```
+
+Props: `items`, `itemsAttribute`, `setAttributes`, `title`, `labelText`, `addItemText`, `removeItemText`, `defaultItem`, `minItems`, `maxItems`, `initialOpen`.
+
 ### `TextSettingsControls`
 
 Renders multiple `TextControl` fields inside a single `PanelBody`.
@@ -530,13 +623,15 @@ npm run build    # Production build + fix-asset.js
 
 ### `fix-asset.js`
 
-Runs after every build. Recursively finds all `build/*/index.js` files and writes correct `index.asset.php` with WordPress dependencies:
+Runs after every build. Recursively finds all `build/*/index.js` files and writes an `index.asset.php` with the WordPress dependencies and a **content hash** as the version:
 
 ```
 react-jsx-runtime, wp-block-editor, wp-blocks, wp-components, wp-i18n
 ```
 
 This is necessary because `DependencyExtractionWebpackPlugin` does not correctly detect WP externals when `output.path` differs from the default.
+
+**The version must stay content-derived.** It used to be hard-coded as `'1.0.0'` for every block, so WordPress enqueued each editor script at the same URL forever — browsers kept serving a stale bundle and rebuilds appeared to do nothing, while CSS (versioned by `filemtime()`) updated normally. The symptom is nasty to debug: the editor half-updates, and only the JS half is frozen. If you touch `fix-asset.js`, keep the hash.
 
 ### SCSS architecture
 
@@ -570,27 +665,54 @@ const placeholderIcon = window.ovchBlocks?.url + 'resources/placeholders/icon.sv
 
 ## Existing Blocks
 
+> Lead, Statement, Split, Features, Promo Slider, Locations and Team have their own
+> deep-dive in [BLOCKS.md](BLOCKS.md) — attributes, the design sections they map to,
+> their fixed theme assets and the editor-canvas rules each one depends on.
+
+
 | Block name | Slug | Type | Notes |
 |---|---|---|---|
 | White Section | `overchain/white-section` | InnerBlocks container | Accepts any block |
+| Lead | `overchain/lead` | Simple | Page hero — background (blur / bg1-bg3), heading, text, optional button |
+| Intro | `overchain/intro` | Simple | Second page hero — own section class, background outside the container, **two** buttons; layouts text-left / centred / with image |
 | Hero | `overchain/hero` | Simple | Background image, title, subtitle, button |
-| Video | `overchain/video` | Simple | MP4/WebM, poster, no-padding toggle |
-| Features | `overchain/features` | InnerBlocks | Grid of `overchain/feature-card` |
-| Split | `overchain/split` | Simple | Two-column with image, button |
-| Steps | `overchain/steps` | Repeater | Up to 4 steps with icon+label |
+| Video | `overchain/video` | Simple | MP4/WebM, poster, no-padding toggle. On pages it is the design's ambient `.preview` (`autoplay muted loop playsinline`, no play button); inside a post it is the click-to-play `.emb-video` |
+| Features | `overchain/features` | InnerBlocks | Grid of `overchain/feature-card`; optional section heading; blur decor toggle; three-state top spacing |
+| Split | `overchain/split` | Simple | Two-column with image, button; media layout single / decor+image (the decor shape is a fixed theme asset, not uploadable); optional glow, subtitle style; bottom list is either numbered steps or icon items |
+| Statement | `overchain/statement` | Simple | Side image, lead paragraph and two text columns (`.exists`) |
+| Showcase | `overchain/showcase` | InnerBlocks | Two large cards of `overchain/showcase-card` |
+| Everything Grid | `overchain/everything` | InnerBlocks | Centred heading over a bordered 4-column grid of `overchain/everything-card` (`.everything`) |
+| Steps | `overchain/steps` | Repeater | Up to 4 steps with icon+label (`.oneflow`); per-step `swapWords` (comma-separated) cycles words after the label, and the icon with them (`data-swap-group`) |
+| Integration Steps | `overchain/integration-steps` | Repeater | Optional section heading and text over numbered steps with icon, title and description, plus a button (`.steps`) — **not** the block above |
 | Tabs | `overchain/tabs` | InnerBlocks | Switchable `overchain/tab` children |
 | Badges | `overchain/badges` | Repeater | Icon+text badge list, deco images |
-| Accordion | `overchain/accordion` | Repeater | Image right, accordion items left |
-| Cards | `overchain/cards` | InnerBlocks | Grid of `overchain/card` |
+| Tag List | `overchain/tag-list` | Repeater | Centred heading over a wrapping row of text tags (`.modern`) |
+| Accordion | `overchain/accordion` | Repeater | Image right, accordion items left; standard / wide tab column |
+| FAQ | `overchain/faq` | Repeater | Question/answer accordion (`.faq`); numbering is a CSS counter, decor toggle |
+| Mosaic | `overchain/mosaic` | InnerBlocks | Mixed-size grid of `overchain/mosaic-card` |
+| Moves Mosaic | `overchain/moves` | InnerBlocks | Mixed-size mosaic of `overchain/moves-card` (`.moves`); variant picks the grid cell |
+| Cards | `overchain/cards` | InnerBlocks | Grid of `overchain/card`; optional description under the heading, and a second one under the cards. `columns` (`"4"` / `"5"`) picks the desktop column count — `"5"` adds the design's `.cards-column-5` and `grid-5` on the canvas |
+| Manage Cards | `overchain/manage` | InnerBlocks | Two large `overchain/manage-card` with buttons (`.manage`); background toggle |
+| Control List | `overchain/control-list` | Repeater | Heading over a staggered list of short capability labels, with a side image and a button (`.way`); the image defaults to the design asset and can be replaced |
+| Locations | `overchain/locations` | InnerBlocks | Office locations — decor, heading, `overchain/location-card` row (`.operations`) |
 | Logos | `overchain/logos` | Repeater | Logo images with optional links |
 | Spotlight | `overchain/spotlight` | InnerBlocks | Background image, `overchain/spotlight-card` |
-| Duo | `overchain/duo` | InnerBlocks | Two-column header + `overchain/duo-card` grid |
-| Promo | `overchain/promo` | Simple | Image, title, text, button |
-| Slider Cards | `overchain/slider-cards` | InnerBlocks | Grid/future-slider of `overchain/slider-card` |
+| Connect | `overchain/connect` | InnerBlocks | Grid of `overchain/connect-card` (`.connect`); per-card decor select |
+| Duo | `overchain/duo` | InnerBlocks | Two-column header + `overchain/duo-card` grid (`.funds__cards`) |
+| Logo Grid | `overchain/logo-grid` | Repeater | Same `.funds` shell as Duo, but a centred strip of logos (`.funds__platforms`) instead of cards — used to be Duo's `platforms` layout; `enableBg` adds the fixed `.funds__bg` backdrop |
+| Promo | `overchain/promo` | Simple | Image, title, text, button; media layout picks the image geometry (`img1` small + parallax, `img2` large with the content offset) |
+| Promo Slider | `overchain/promo-slider` | Simple | Promo band with an image slider instead of one picture |
+| Flow Promo | `overchain/flow-promo` | Simple | Heading, subtitle, description and button beside an illustration (`.introflow`); background toggle |
+| Process Slider | `overchain/process-slider` | InnerBlocks | Step slider of `overchain/process-card` (`.accept`); no section heading by design |
+| Callout | `overchain/callout` | Simple | Closing call to action — image, title, text, button (`.rightfit`) |
+| Highlight | `overchain/highlight` | Simple | Closing highlight with an inline image between heading and text (`.never`); decor toggle |
+| Team | `overchain/team` | InnerBlocks | People slider (`.understand__splide`, own initialiser) of `overchain/team-card` — photo or placeholder icon, name, role |
+| Testimonials | `overchain/testimonials` | InnerBlocks | Testimonial slider with a side photo; `overchain/testimonial-card` children, default avatar when an author has no photo |
+| Slider Cards | `overchain/slider-cards` | InnerBlocks | Slider of `overchain/slider-card`; title, optional subtitle (`text`), `centerHeading` (default on, as in the design) |
 | Form | `overchain/form` | Simple | Hardcoded HTML form, editable title/subtitle |
-| Subscribe | `overchain/subscribe` | Simple | Email subscribe form, image, privacy RichText |
+| Subscribe | `overchain/subscribe` | Simple | HubSpot email form; side-image or slider layout |
 | Related Posts | `overchain/related-posts` | Simple | Latest/random/manual WP posts |
-| Quote | `overchain/quote` | Simple | Pull quote with author name and position |
+| Designed Quote | `overchain/quote` | Simple | Pull quote with author name and position — **Post blocks** category. The slug stays `quote`: renaming it would orphan every saved block |
 
 **Child blocks** (not shown in inserter):
 
@@ -602,6 +724,16 @@ const placeholderIcon = window.ovchBlocks?.url + 'resources/placeholders/icon.sv
 | `overchain/spotlight-card` | `overchain/spotlight` |
 | `overchain/duo-card` | `overchain/duo` |
 | `overchain/slider-card` | `overchain/slider-cards` |
+| `overchain/showcase-card` | `overchain/showcase` |
+| `overchain/everything-card` | `overchain/everything` |
+| `overchain/mosaic-card` | `overchain/mosaic` |
+| `overchain/location-card` | `overchain/locations` |
+| `overchain/team-card` | `overchain/team` |
+| `overchain/testimonial-card` | `overchain/testimonials` |
+| `overchain/process-card` | `overchain/process-slider` |
+| `overchain/manage-card` | `overchain/manage` |
+| `overchain/connect-card` | `overchain/connect` |
+| `overchain/moves-card` | `overchain/moves` |
 
 ---
 
@@ -1009,6 +1141,32 @@ The child block's Blade template is a standalone file at `resources/views/blocks
 
 ---
 
+## Block Categories
+
+The plugin registers two, both from `overchain_blocks_register_category()` in `overchain-blocks.php` — that function is the **single owner**; nothing else should hook `block_categories_all` here.
+
+| Slug | Title | Shown |
+|---|---|---|
+| `overchain` | Overchain | everywhere |
+| `overchain-post-blocks` | Post blocks | only while editing an article-like post type |
+
+`overchain-post-blocks` holds blocks that only work inside an article, because they depend on the single-post context — the `--post-*` custom properties and the `.post__main` wrapper. Outside it they render wrong, **including the inserter preview**. Currently: `overchain/quote`.
+
+"Article-like" is the list in `overchain_blocks_article_post_types()` — currently `post` and `cases`. Both wrap their body in the same `.post__main … .embeded` block, which is the whole condition these blocks depend on. The theme's `overchain_article_like_editor_body_class()` keys on the same idea for the editor canvas styling, so the two lists should stay in step: a post type given the `post-type-post` canvas and not the post inserter (or the reverse) ends up with an editor that looks like an article but cannot build one. `careers` is deliberately in the theme's list only — its body is article-styled, but it is a vacancy, not an article.
+
+Two pieces make this work, and both are needed:
+
+1. `block_categories_all` adds the category only when `$block_editor_context->post` is an article-like post type.
+2. `allowed_block_types_all` strips `overchain_blocks_post_only()` from the inserter everywhere else. Without this the blocks would still be offered, just filed under a category that does not exist on that screen.
+
+To add a post-only block: set `"category": "overchain-post-blocks"` in its `block.json` **and** list it in `overchain_blocks_post_only()`. To give another post type the post inserter, add its slug to `overchain_blocks_article_post_types()` — no block change needed. The category is baked into the editor bundle by `registerBlockType( metadata.name, { ...metadata } )`, so a `npm run build` is required after changing it.
+
+The filter runs at priority **20** so the plugin's categories land ahead of the theme's `overchain-theme-blocks`.
+
+Note `overchain/video` is *not* post-only: it renders `.preview` on pages and `.emb emb-video` on single posts, so it belongs in `overchain`.
+
+---
+
 ## Block Registration Order
 
 Blocks are registered in `overchain_blocks_register_blocks()` in `overchain-blocks.php`. The `$order` array controls the display order in the Gutenberg inserter:
@@ -1016,19 +1174,41 @@ Blocks are registered in `overchain_blocks_register_blocks()` in `overchain-bloc
 ```php
 $order = array(
     'white-section',
+    'lead',
+    'intro',
     'hero',
     'video',
     'features',
     'split',
+    'statement',
+    'showcase',
+    'everything',
     'steps',
+    'integration-steps',
     'tabs',
     'badges',
+    'tag-list',
     'accordion',
+    'faq',
+    'mosaic',
+    'moves',
     'cards',
+    'control-list',
+    'manage',
+    'locations',
     'logos',
     'spotlight',
+    'connect',
     'duo',
+    'logo-grid',
     'promo',
+    'flow-promo',
+    'promo-slider',
+    'process-slider',
+    'callout',
+    'highlight',
+    'team',
+    'testimonials',
     'slider-cards',
     'form',
     'subscribe',
@@ -1037,7 +1217,7 @@ $order = array(
 );
 ```
 
-To add a new block, insert its folder name at the desired position in this array. **A block missing from `$order` is skipped by this function** — though `BlocksService::register_blocks()` will still pick it up by glob, in an undefined position and without the build-artifact guard below.
+To add a new block, insert its folder name at the desired position in this array. It currently holds 40 parent blocks; child blocks are not listed here. **A block missing from `$order` is skipped by this function** — though `BlocksService::register_blocks()` will still pick it up by glob, in an undefined position and without the build-artifact guard below.
 
 Each entry is registered only if `build/<name>/index.js` **and** its `index.asset.php` exist. A block whose assets have not been built is silently skipped here — so a forgotten `npm run build` shows up as "the block vanished from the inserter", not as an error.
 
@@ -1117,13 +1297,15 @@ Array attributes declare their item shape:
 ```json
 "items": {
   "translate": "repeater",
-  "attributes": {
+  "items": {
     "iconUrl": { "translate": "ignore" },
     "iconId":  { "translate": "ignore" },
     "label":   { "translate": "string" }
   }
 }
 ```
+
+The nested key is **`items`**, not `attributes`. The docblock at the top of `deepl-translator.php` shows `attributes`, but `dt_collect_by_hint()` reads `$field['items']` — trust the code. Getting it wrong fails silently: the repeater is walked, finds an empty schema, and none of its strings are ever sent for translation.
 
 ### Rules
 
@@ -1147,6 +1329,115 @@ To add new frontend JS for a block, append it to `resources/js/blocks.js`.
 
 ## Known Conventions
 
+### Section shell — `section-wrap` (required)
+
+Every **parent** section block wraps its `__body` in a positioning context. This is not optional: `.section-wrap` carries `position: relative`, and all the absolutely-positioned decor inside a section (`__bg`, `__decor`, `__blur`, `__img`) anchors to it. Omit it and the decor escapes to the nearest positioned ancestor.
+
+```html
+<section class="{section} {pbs2|pbs4}">
+  <div class="{section}__container">
+    <div class="{section}__wrap section-wrap">   <!-- required -->
+      ...decor...
+      <div class="{section}__body section-body">
+        ...content...
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+The same three-level shell must exist in **both** `*.blade.php` and `edit.js`, or the editor canvas drifts from the frontend.
+
+Exceptions, both deliberate: the `emb` family (`quote`, and `video`'s single-post branch) goes `emb__container` → `emb__body` with no wrap, and child blocks never have one.
+
+### Geometry modifier classes (`img1`, `img2`)
+
+Several image wrappers split their rules: the base class sets only `position: absolute`, while **every offset and width lives on a numbered modifier**. Dropping the modifier leaves the image absolutely positioned with no coordinates.
+
+```css
+.settlement__img      { position: absolute; z-index: -1 }
+.settlement__img.img1 { inset-block-end: -9.75rem; inset-inline-end: 0; width: 42rem }
+```
+
+Affected: `.settlement__img`, `.infrastruct__img`, `.operation__img`. Always emit the modifier alongside the base class.
+
+
+
+### One block, two design layouts
+
+`subscribe` is the reference for a block whose layout changes wholesale, not just a class. `mediaType` switches between the two shapes the design build uses:
+
+| | `image` (blogs.html, about.html) | `slider` (events.html) |
+|---|---|---|
+| `__body` | `section-body` | `section-body with-splide pis2` |
+| media | `__img img1 mouse-prllx` | `__splide > .splide > … > li.splide__slide.splide-infrastruct.ibg` |
+| form sits in | `__content` | `__bottom`, above `.text` |
+
+The form **moves between parents**, which is why it lives in a partial. When porting a variant, diff the whole section rather than just the media element — a design variant can re-flow elements that look unrelated.
+
+`duo` **used to be** the second instance and is now the counter-example: where the
+two variants differ in more than an element's position, they belong in two blocks.
+
+Its `platforms` layout swapped the whole list — `.funds__cards` with
+`overchain/duo-card` children became `.funds__platforms` built from an image
+repeater, with no children at all. Nothing but the section shell and the heading was
+shared, the InnerBlocks half of the block sat unused in one of the two states, and
+the editor had to know that picking a layout silently parked the cards it could no
+longer see. That became `overchain/logo-grid`; saved content was converted in place.
+
+The line to draw: a variant that re-skins or re-places the **same** content
+(`subscribe`, `promo`'s `img1` / `img2`, `split`'s media layouts) is an attribute. A
+variant that changes **what the content is** — different children, a different data
+source — is a separate block.
+
+Logo Grid keeps the one rule the old branch had: Blade filters out rows with an empty
+`imageUrl` and skips the `<ul>` entirely when none are left, so a half-filled repeater
+never emits a bare list for the design's flex rules to stretch.
+
+### Numbered decor assets cycle by index
+
+Several sections ship a set of numbered backdrops rather than one shared image — `paid_bg_1..4.jpg` (accordion), `feature_blur_1..4.webp` (features). The design simply uses them in order, so the block derives the filename from the item index instead of exposing an editor field:
+
+```php
+$cardBgUrl = get_template_directory_uri()
+	. '/assets/img/decor/paid_bg_' . ( ( $index % 4 ) + 1 ) . '.jpg';
+```
+
+The modulo matters: an editor can add a fifth item, and without it the image 404s.
+
+Where the editor should be able to override the backdrop — as `accordion` does — keep the cycle as the fallback rather than replacing it, so untouched content keeps the design's look:
+
+```php
+$cardBgUrl = $item['backgroundUrl'] ?? '';
+
+if ( empty( $cardBgUrl ) ) {
+	$cardBgUrl = get_template_directory_uri()
+		. '/assets/img/decor/paid_bg_' . ( ( $index % 4 ) + 1 ) . '.jpg';
+}
+```
+
+Mirror the same expression in `edit.js` so the canvas matches the frontend:
+
+```js
+src={`${themeUrl}assets/img/decor/paid_bg_${(index % 4) + 1}.jpg`}
+```
+
+### `.ibg` is styled by an attribute selector, not a class
+
+The design markup puts `ibg` ("image background") on containers that hold a full-bleed `<img>` — `card-layer__bg ibg`, `card-businesses__bg ibg`, `card-catalog__img ibg`, `preview__video media-box ibg`. It makes the container a positioning context and stretches the image to cover it.
+
+The catch is **where** that lives. There is no `.ibg { … }` rule anywhere; the theme's `css/main.css` matches it by substring:
+
+```css
+[class*=ibg]              { position: relative }
+[class*=ibg] > video,
+[class*=ibg] > img        { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover }
+```
+
+So grepping for `\.ibg` finds nothing and the class looks dead — it is not. Do **not** add your own `width/height/object-fit` for an `ibg` container: it is already handled, and a duplicate rule only hides the real cause when something looks wrong. Note the `>` too — the `<img>` must be a direct child.
+
+The rule lives in the theme, which the editor loads into the canvas via `add_editor_style()`, so it applies in both contexts.
+
 ### Section classes
 
 Blocks use theme utility classes for spacing. The `noPaddingTop` toggle switches between two padding classes:
@@ -1161,6 +1452,35 @@ const sectionClass = `my-section ${ noPaddingTop ? 'pbs4' : 'pbs2' }`;
 @php $sectionClass = 'my-section ' . ($noPaddingTop ? 'pbs4' : 'pbs2'); @endphp
 ```
 
+`SectionSettingsControls` renders that toggle, and it is **always the first panel**
+in `InspectorControls` — every block that has it puts spacing first, so an editor
+does not have to hunt for the same control in a different place on each block.
+
+### Control labels say what the CSS does
+
+A label that describes intent rather than effect is worse than no label. Three that
+had to be rewritten, as a warning:
+
+- Lead's bottom spacing offered "No bottom spacing", which was 5.5rem — the base rule
+  already sets it, and the option only skipped the mobile step-down.
+- Lead's "Larger bottom spacing" was identical to it on desktop; the two differ only
+  below 992px.
+- Split's subtitle style said "Small, muted", but `col-alt1` is the accent colour and
+  the size change applies only below 992px.
+
+Put the real value in the label (`Small — 3.5rem (4rem on mobile)`) and the condition
+in `help`. And give every `SelectControl` a `label` — Lead's background picker went a
+long time as an unnamed dropdown.
+
+### Do not ship an option the design never uses
+
+Before adding a variant, grep the design build for the class it emits. Lead's `bg3`
+existed as a fourth background option that no page in `_desigh/dist` used, and whose
+desktop rule was shared with `bg2` — it was removed from the picker while the Blade
+template kept honouring the class for already-saved content. Locations' "Show decor"
+toggle had the same problem in reverse: the design's only `.operations` section
+always carries the decor, so the attribute went away entirely.
+
 ### Button attributes
 
 Every block with a button uses the same set of attributes for consistency:
@@ -1171,6 +1491,109 @@ buttonLinkNewTab, buttonAnchor, buttonPopupId, buttonIcon
 ```
 
 Always use `ButtonControls` in the editor and `partials/btn-icon` in the Blade template.
+
+### A second button on one block — the `secondary*` set
+
+`intro` is the first block in the project with **two** buttons. The primary one keeps
+the standard `button*` set and `ButtonControls`; the second uses a parallel set with
+a `secondary` prefix and the same field names after it:
+
+```
+secondaryText, secondaryType, secondaryLink, secondaryLinkId, secondaryLinkTitle,
+secondaryLinkNewTab, secondaryAnchor, secondaryPopupId
+```
+
+There is no `secondaryIcon`: the design's second button is always the plain
+`btn-def stl-trn-clw`, so the Blade side calls `partials/btn-def` with a fixed
+`style` instead of `partials/btn-icon`.
+
+`ButtonControls` is hard-wired to the `button*` names and is **not** parameterised —
+it is used by a dozen blocks and adding a prefix prop there would touch all of them.
+Build the second panel from `LinkFields` instead, which is already the inline,
+reusable half, and remap its output:
+
+```js
+// LinkFields writes the shared `button*` keys, which the primary set already owns.
+const SECONDARY_KEYS = { buttonType: "secondaryType", buttonLink: "secondaryLink", ... };
+```
+
+Note `LinkFields` emits `buttonNewTab`, while the standard attribute set spells it
+`buttonLinkNewTab` — the remap is also where that inconsistency gets absorbed.
+
+### Splide sliders are invisible in the editor
+
+Splide ships `.splide { position: relative; visibility: hidden }` and only reveals the track once its JS initialises. That JS never runs in the block editor, so any slider block renders as an empty gap — the markup is there, it is just hidden.
+
+Every slider block needs an `editor.scss` counterpart. Three exist already (`section.paid`, `.related__splide`, `.infrastruct__splide`); follow whichever fits:
+
+```scss
+.infrastruct__splide {
+	.splide       { visibility: visible; }
+	.splide__list { display: block; }          // base rule is flex; stack instead
+
+	.splide__slide {
+		display: none;
+		&.is-editor-active { display: block; }
+	}
+}
+```
+
+Show one slide (`subscribe`, `accordion`) or lay them all out in a grid (`related-posts`) — whichever reads better at editor width.
+
+To make the preview switchable, keep the active index in React state in `edit.js` and render an editor-only control. Prefix such classes (`ovch-editor-dots`) so they cannot collide with a design class, and keep the markup in `edit.js` only — it must never reach the frontend.
+
+Note `.splide__track--fade > .splide__list > .splide__slide { opacity: 0 }`: that one is scoped to the fade variant, so a plain `.splide__track` needs no opacity override.
+
+### InnerBlocks breaks the parent's flex/grid context
+
+Gutenberg injects a `.block-editor-block-list__layout` div between a parent's list element and its children. Any `display: flex` / `display: grid` set on the `<ul>` therefore applies to that wrapper, not to the cards, and the editor renders them stacked while the frontend looks correct.
+
+Fix in `resources/scss/editor.scss` by neutralising the list and moving the layout onto the injected wrapper:
+
+```scss
+.powerful__cards {
+	display: block !important;
+
+	& > .block-editor-block-list__layout {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1.5rem;
+	}
+}
+```
+
+For simple even columns there is a shortcut — add `grid-settings grid-2` / `grid-4` / `grid-5` to the `<ul>` in `edit.js` and the generic rule at the top of `editor.scss` handles it (`grid-5` is used by Cards when `columns` is `"5"`; it drops to 2 columns at 992px like the others). Bespoke grids (`.layer__cards`) need their own rule, and should also push `.block-list-appender` to `grid-column: 1 / -1` so it does not consume a card cell.
+
+#### Mirror the design's breakpoints, do not skip them
+
+The rewritten grid must step down at the same widths the design does. `editor.scss`
+used to be deliberately breakpoint-free on the argument that the canvas iframe is
+narrower than the screen; the result was a desktop grid at every width, and for
+`.everything__list` it was actively wrong — its cell borders come from
+`:nth-child(4n+1)` / `(4n+4)` in `blocks.css`, swapped for `3n` and `odd`/`2n` inside
+media queries that **do** reach the canvas. A column count that disagreed with them
+drew borders in the middle of a row.
+
+The breakpoint overrides live in the two blocks at the bottom of `editor.scss`, next
+to the ones that were always there:
+
+| List | Desktop | ≤992 | ≤768 |
+|---|---|---|---|
+| `.powerful__cards` | 2 | 2 | 1 |
+| `.everything__list` | 4 | 3 | 2 |
+| `.connect__cards` | 3 | 2 | 1 |
+| `.accept__splide` | 4 | 2 | 1 |
+| `.operations__cards` | 4 | 2 | 1 |
+| `.manage__cards` | 2 | 1 | — |
+| `.moves__list` · `.layer__cards` | design template | 1 column | — |
+
+The values come from the design: `blocks.css` for the flex/grid rules, and
+`js/main.js` for the sliders, whose column count is a Splide `perPage` rather than
+CSS (`.accept__splide` is `perPage: 4 / 2 / 1`).
+
+The caveat is real but small: with the sidebar open the canvas is narrower than the
+screen, so a desktop editor can see the tablet grid. The trade is worth it — the
+device-preview buttons now work, which they could not before.
 
 ### `useBlockProps` wrapper
 
@@ -1193,9 +1616,82 @@ return (
 
 Exception: child blocks pass a BEM class directly to `useBlockProps` since their root element is the block element itself.
 
+### Placeholders, not dummy defaults
+
+Text attributes default to `""`. Never ship copy from the design build as an attribute `default` — a freshly inserted block would arrive pre-filled with someone else's words that the editor then has to delete.
+
+Show the hint through `RichText`'s `placeholder` prop instead, which renders as grey hint text and is never saved:
+
+```jsx
+<RichText
+    tagName="h2"
+    className="tl2"
+    placeholder={__( 'Section title', 'overchain-blocks' )}
+    value={title}
+    onChange={( value ) => setAttributes( { title: value } )}
+/>
+```
+
+The full rule has three parts, and dropping any one of them breaks something:
+
+| Where | What goes there |
+|---|---|
+| `block.json` `default` | `""` |
+| `edit.js` | `placeholder` — the hint, never saved |
+| `block.json` `example.attributes` | the copy, so the inserter preview is not blank |
+
+For a repeater the sidebar control needs the hint too — `TagListControls`,
+`IconListControls` and `TextSettingsControls` all take a `placeholder` prop, without
+which an empty row is a nameless empty field.
+
+#### Clearing a default changes live pages — migrate first
+
+WordPress serialises only the attributes that **differ** from the default, so an
+attribute the editor never touched is absent from `post_content` and is filled in
+from `block.json` at render time. Emptying that default therefore deletes text from
+every saved block that relied on it.
+
+Before clearing anything, check what depends on it, and write the current value into
+those blocks first. The pass used for this project is in the session scratchpad
+(`migrate-defaults.php`): it reads the values **from `block.json`** so the script
+cannot drift, rebuilds only the opening delimiter with WordPress's own
+`serialize_block_attributes()`, and refuses to write unless a dry run proves that no
+line outside a block delimiter changes.
+
+#### Two exceptions to the empty default
+
+**A repeater's starter rows keep their copy.** `badges` and `tag-list` ship three
+rows with visible labels, because Blade skips rows with an empty label and the Tag
+List canvas skips them too — three empty rows made a freshly inserted block look
+like it had no content at all.
+
+**An InnerBlocks parent's `example.innerBlocks` needs explicit attributes.** An empty
+`"attributes": {}` there overrides the child's own example, so the preview renders
+empty cards:
+
+```json
+"innerBlocks": [
+  { "name": "overchain/card", "attributes": { "title": "Card title", "text": "…" } }
+]
+```
+
 ### Editor preview (`example`)
 
-Every block should have `"example": { "viewportWidth": 1400 }` in `block.json` so Gutenberg shows a scaled preview in the inserter. Blocks with default text attributes will show those defaults in the preview automatically.
+Every block should have `"example": { "viewportWidth": 1200 }` in `block.json` so Gutenberg shows a scaled preview in the inserter.
+
+Because defaults are empty, the preview needs its own sample content — that is what `example.attributes` is for, and it never reaches a real post:
+
+```json
+"example": {
+  "viewportWidth": 1200,
+  "attributes": { "title": "One Platform.<br />Two Powerful Capabilities." },
+  "innerBlocks": [
+    { "name": "overchain/showcase-card", "attributes": { "title": "Money Movement" } }
+  ]
+}
+```
+
+An InnerBlocks parent **must** declare `example.innerBlocks`, otherwise the inserter shows an empty shell.
 
 ### Blade cache
 
@@ -1225,7 +1721,9 @@ Because the main file adds its hooks before `Plugin::init()` does, the procedura
 - `BlocksService` registers blocks with **no** build-artifact guard, so on an unbuilt checkout blocks are registered server-side with an `editorScript` pointing at a missing file. The frontend still renders via Blade, but the editor shows "this block contains unexpected or invalid content".
 - `register_block_type()` on an already-registered name triggers a `_doing_it_wrong()` notice with `WP_DEBUG` on.
 
-**Fix:** pick one owner. Recommended: delete `register_blocks()` and `register_category()` from `BlocksService` (keeping the class as the place block registration *would* move to), since the procedural path has the ordering control and the build guard. Then `BlocksService::init()` becomes a no-op and `Plugin::boot_blocks()` can go too.
+**Partly fixed.** The category half is done: `BlocksService::register_category()` and its hook are gone, so `overchain_blocks_register_category()` in the main file is now the single owner and the inserter no longer lists "Overchain" twice. `BlocksService::CATEGORY_SLUG` / `CATEGORY_NAME` remain as the canonical names but are no longer used.
+
+**Still open:** `BlocksService::register_blocks()` continues to glob and register every block with **no** build-artifact guard, duplicating what the guarded, ordered loop in `overchain-blocks.php` already did. Deleting it is the remaining fix — then `BlocksService::init()` becomes a no-op and `Plugin::boot_blocks()` can go too. Do not instead delete the procedural path: that silently loses both the inserter ordering and the guard.
 
 Do not "fix" this by deleting the procedural path — that silently loses both the inserter ordering and the guard.
 
@@ -1266,3 +1764,24 @@ It is a single minified line of generated CSS, imported by `blocks.scss`. The SC
 ### 7. Version bumps are manual and triple-entry
 
 `ob-updater.php` compares the GitHub release tag against the plugin header. The `Version:` header, the `OVERCHAIN_BLOCKS_VERSION` constant, and the git tag must be changed together; nothing enforces it. A mismatch means either a perpetual "update available" nag or a silently skipped update.
+
+### 8. ~~`auto-swap-items` rotating text has no block attribute~~ — resolved
+
+Resolved for the 2026-10 design drop: each step has a `swapWords` string
+(comma-separated, edited through `IconListControls`' `extraFields`). With two or more
+words the Blade template prints the cycler below and repeats the step icon once per
+word inside its own `.auto-swap-items`, with `data-swap-group` on the `li` so both
+tracks share one timer. The original note is kept for context.
+
+The design's `steps` section (`.oneflow`) renders a rotating word cycler inside each step title:
+
+```html
+<h3 class="item-oneflow__tl">
+  Client Pays in
+  <span class="auto-swap-items"><span><span>USDT</span><span>BTC</span></span></span>
+</h3>
+```
+
+`js/main.js` in the theme animates `.auto-swap-items`, but the `steps` block has no attribute for the word list — its step `label` is a single RichText field, and nested spans cannot practically be authored through RichText.
+
+Porting this needs a new repeater sub-attribute on `steps` (e.g. `swapWords: string[]` per step) plus matching `edit.js` controls and Blade output. Until then the block renders the static label only, and the design's cycling effect is unavailable to editors.

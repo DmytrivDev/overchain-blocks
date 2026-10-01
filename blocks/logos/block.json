@@ -25,6 +25,10 @@
       "type": "boolean",
       "default": false
     },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
     "logos": {
       "type": "array",
       "default": [

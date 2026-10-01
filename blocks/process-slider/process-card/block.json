@@ -1,0 +1,38 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/process-card",
+  "title": "Process Step",
+  "category": "overchain",
+  "icon": "index-card",
+  "description": "One step in the Process Slider.",
+  "textdomain": "overchain-blocks",
+  "parent": [
+    "overchain/process-slider"
+  ],
+  "supports": {
+    "html": false,
+    "align": false,
+    "reusable": false
+  },
+  "example": {},
+  "attributes": {
+    "iconId": {
+      "type": "number",
+      "default": 0
+    },
+    "iconUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "editorScript": "file:../../../build/process-slider/process-card/index.js",
+  "render": "file:./render.php"
+}

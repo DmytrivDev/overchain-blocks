@@ -30,15 +30,15 @@
 
 <section id="form" class="{{ esc_attr( $sectionClass ) }}">
 	<div class="intouch__container">
-		<div class="intouch__wrap">
+		<div class="intouch__wrap section-wrap">
 			<div class="intouch__decor no-select" aria-hidden="true">
 				<img src="{{ esc_url( $decorUrl ) }}" alt="">
 			</div>
 
-			<div class="intouch__body section-body">
+			<div class="intouch__body section-body{{ overchain_blocks_fade_class( $attributes ) }}">
 				<div class="heading aic">
 					@if ( ! empty( $title ) )
-						<h2 class="tl2">{!! wp_kses_post( $title ) !!}</h2>
+						<h2 class="tl2 anim-txt">{!! wp_kses_post( $title ) !!}</h2>
 					@endif
 
 					@if ( ! empty( $subtitle ) )

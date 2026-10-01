@@ -1,0 +1,100 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/promo-slider",
+  "title": "Promo Slider",
+  "category": "overchain",
+  "icon": "images-alt2",
+  "description": "Promo band with a heading, text, button and an image slider.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Help Build the Future of Global Money Movement",
+      "text": "We&#8217;re building infrastructure for a financial system in motion.",
+      "buttonText": "Explore Careers",
+      "slides": [
+        {
+          "imageId": 0,
+          "imageUrl": ""
+        }
+      ]
+    }
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "enableBackground": {
+      "type": "boolean",
+      "default": true
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    },
+    "textAlt": {
+      "type": "string",
+      "default": ""
+    },
+    "slides": {
+      "type": "array",
+      "default": [
+        {
+          "imageId": 0,
+          "imageUrl": ""
+        }
+      ]
+    },
+    "buttonText": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonType": {
+      "type": "string",
+      "default": "link"
+    },
+    "buttonLink": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkId": {
+      "type": "number",
+      "default": 0
+    },
+    "buttonLinkTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkNewTab": {
+      "type": "boolean",
+      "default": false
+    },
+    "buttonAnchor": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonPopupId": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonIcon": {
+      "type": "string",
+      "default": "arrow"
+    }
+  },
+  "editorScript": "file:../../build/promo-slider/index.js",
+  "render": "file:./render.php"
+}

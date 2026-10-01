@@ -1,0 +1,81 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/showcase",
+  "title": "Showcase",
+  "category": "overchain",
+  "icon": "slides",
+  "description": "Two large capability cards with image, tags and a link.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "One Platform.<br />Two Powerful Capabilities."
+    },
+    "innerBlocks": [
+      {
+        "name": "overchain/showcase-card",
+        "attributes": {
+          "title": "Money Movement",
+          "text": "Move money globally across fiat and stablecoins.",
+          "tags": [
+            {
+              "label": "Send"
+            },
+            {
+              "label": "Receive"
+            },
+            {
+              "label": "Convert"
+            },
+            {
+              "label": "Mass Payouts"
+            }
+          ],
+          "buttonText": "See how it works"
+        }
+      },
+      {
+        "name": "overchain/showcase-card",
+        "attributes": {
+          "title": "Control & Treasury",
+          "text": "Manage every balance, payment and treasury flow from one place.",
+          "tags": [
+            {
+              "label": "Reconcile"
+            },
+            {
+              "label": "Report"
+            },
+            {
+              "label": "Audit"
+            }
+          ],
+          "buttonText": "See how it works"
+        }
+      }
+    ]
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "allowedBlocks": [
+    "overchain/showcase-card"
+  ],
+  "editorScript": "file:../../build/showcase/index.js",
+  "render": "file:./render.php"
+}

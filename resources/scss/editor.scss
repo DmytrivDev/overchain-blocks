@@ -17,6 +17,12 @@
 			grid-template-columns: repeat(2, 1fr);
 		}
 	}
+
+	&.grid-5 {
+		.block-editor-block-list__layout {
+			grid-template-columns: repeat(5, 1fr);
+		}
+	}
 }
 
 // ─── Section padding reset ────────────────────────────────
@@ -155,6 +161,437 @@ section .block-list-appender {
 	padding-block-start: 3rem;
 }
 
+// ─── Showcase / Powerful block ────────────────────────────
+//
+// Two things are needed, mirroring the Mosaic rule below:
+//   1. put the 2-column grid on the injected .block-editor-block-list__layout
+//      (descendant selector — .block-editor-inner-blocks sits in between);
+//   2. drop .card-powerful's own `max-width: calc(50% - gap)`, which would
+//      otherwise halve the card inside its own grid cell.
+//
+// The column count follows the design: `.card-powerful` is `calc((100% - 1.5rem)/2)`
+// down to 768px and `max-width: 100%` below it — so 2 columns, then 1. The mobile
+// step lives in the Mobile block at the bottom of this file.
+//
+// Still not the `grid-settings` helper: that one cannot drop `.card-powerful`'s own
+// max-width, so each card would sit at half the width of its cell.
+
+.powerful__cards {
+	display: block !important;
+
+	.block-editor-block-list__layout {
+		width: 100%;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1.5rem;
+	}
+
+	.card-powerful {
+		max-width: none;
+	}
+}
+
+// ─── Everything grid ──────────────────────────────────────
+//
+// `.everything__list` is already a grid on the front, but Gutenberg injects
+// `.block-editor-inner-blocks > .block-editor-block-list__layout` between the list
+// and the cards, so the grid ends up with a single item. Move it onto the injected
+// wrapper — the same rewrite Locations and Showcase use.
+//
+// The column count has to mirror the design exactly (4 → 3 at 992 → 2 at 768), and
+// not for looks: the cell borders come from `:nth-child(4n+1)` / `(4n+4)`, swapped
+// for `3n` and `odd`/`2n` inside the same media queries in blocks.css. Those
+// selectors match inside the injected wrapper too, so a column count that disagrees
+// with them leaves borders in the middle of a row. The steps live in the Tablet and
+// Mobile blocks at the bottom of this file.
+
+.everything__list {
+	display: block !important;
+
+	.block-editor-block-list__layout {
+		width: 100%;
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+
+		// The appender is a sibling of the cards; left in the flow it would claim a
+		// cell and shift the border arithmetic by one. Same fix as `.layer__cards`.
+		& > .block-list-appender {
+			grid-column: 1 / -1;
+		}
+	}
+}
+
+// ─── Locations cards ─────────────────────────────
+//
+// The frontend lays these out with flex + `max-width` percentages, which the editor
+// cannot reuse: the injected .block-editor-block-list__layout sits between the list
+// and the cards. Rebuild it as a grid and drop .card-operations' own max-width so it
+// cannot win, mirroring the frontend's own steps — 4 columns, 2 at 992px, 1 at 768px.
+
+.operations__cards {
+	display: block !important;
+
+	.block-editor-block-list__layout {
+		width: 100%;
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 1rem;
+	}
+
+	.card-operations {
+		max-width: none;
+	}
+
+	// The editor's own block stylesheets reset `position` on the block wrapper, which
+	// drops the absolutely-positioned photo into the flow and pushes the badge down.
+	.card-operations__img {
+		position: absolute !important;
+	}
+}
+
+// ─── Manage cards ─────────────────────────────────────────
+//
+// Deliberately NOT the `grid-settings grid-2` helper: it does not touch
+// `.card-manage`'s own `max-width: calc((100% - 1rem) / 2)`, so each card would sit
+// at half the width of its own grid cell.
+//
+// Two columns, dropping to one at 992px — `.card-manage` goes `max-width: 100%`
+// there on the front. The step lives in the Tablet block at the bottom of this file.
+
+.manage__cards {
+	display: block !important;
+
+	.block-editor-block-list__layout {
+		width: 100%;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1rem;
+
+		& > .block-list-appender {
+			grid-column: 1 / -1;
+		}
+	}
+
+	.card-manage {
+		max-width: none;
+	}
+}
+
+// ─── Process slider (.accept) ─────────────────────────────
+//
+// Seven slides at `perPage: 4 / 2 / 1` on the front. The canvas gets a plain grid:
+// Splide never initialises here, so the arrows would be dead buttons and `edit.js`
+// does not render them at all (same call as Testimonials).
+//
+// The column count mirrors the slider's own `perPage`, which is set in the theme's
+// js/main.js: `perPage: 4, gap: 1.5rem`, stepping to `2 / 1rem` at 992 and `1` at
+// 768. blocks.css agrees — `.card-accept` is `calc(50% - 3rem)` at 992 and
+// `calc(100% - 6rem)` at 768. The steps live in the Tablet and Mobile blocks at the
+// bottom of this file.
+
+.accept__splide {
+	.splide {
+		visibility: visible;
+	}
+
+	.splide__list {
+		display: block;
+	}
+
+	.block-editor-block-list__layout {
+		width: 100%;
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 1.5rem;
+
+		& > .block-list-appender {
+			grid-column: 1 / -1;
+		}
+	}
+
+	// Splide sizes the slides on the front; without it the card keeps the width cap
+	// blocks.css gives it below 992px and would sit at half its own grid cell.
+	.card-accept {
+		max-width: none;
+	}
+
+	// The editor's own block stylesheets reset `position` on the block wrapper,
+	// which drops the full-bleed background into the flow.
+	.card-accept__bg {
+		position: absolute !important;
+	}
+}
+
+// ─── Team slider ───────────────────────────────
+//
+// `.splide` is only revealed once Splide initialises, which never happens in the
+// editor. Reveal it and show every slide side by side instead, so the cards can be
+// edited in place. `.card-understand__img` / `__icon` sit at negative z-index and rely
+// on the card's own stacking context, so pin that down explicitly (see Mosaic below).
+
+// Testimonials runs `perPage: 1` on the front, but the slides are InnerBlocks
+// children, so the parent cannot tag one of them `.is-editor-active` the way the
+// repeater-driven sliders (Promo Slider, Accordion) do — a parent has no hook into
+// how InnerBlocks renders each child. The editor therefore stacks every slide, the
+// same resolution Team and Related Posts use.
+// `.testimonials__main` is a flex row, so the side photo stretches to the height of
+// its tallest sibling. On the front that sibling is a single slide; in the canvas
+// every slide is stacked, so the photo grew with the number of testimonials and a
+// long list turned it into a metres-tall column.
+//
+// Pin it to the top instead. `.testimonials__img` already carries
+// `min-height: 17.25rem` in blocks.css — the same height one card has — so dropping
+// the stretch leaves it at exactly the size it has on the front.
+//
+// This only holds while the two sit side by side. Below 992px blocks.css turns
+// `.testimonials__main` into a column, and there `stretch` is what gives the photo
+// and the slider their full width — so the Tablet block at the bottom of this file
+// hands it back.
+
+.testimonials__main {
+	align-items: flex-start;
+}
+
+.testimonials__splide {
+	.splide {
+		visibility: visible;
+	}
+
+	.splide__list {
+		display: block;
+	}
+
+	.block-editor-block-list__layout {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	// Both card layers are absolutely positioned; the editor's own block styles
+	// reset `position` on the block wrapper and drop them into the flow.
+	.card-testimonials__bg,
+	.card-testimonials__decor {
+		position: absolute !important;
+	}
+}
+
+.understand__splide {
+	padding-inline-end: 0 !important;
+
+	.splide {
+		visibility: visible;
+	}
+
+	.splide__list {
+		display: block;
+	}
+
+	// Mirrors the frontend slider: `.understand__splide` runs perPage 4, dropping to 2
+	// at mqTouch (992) and 1 at mqTablet (768) — see the breakpoint steps below.
+	.block-editor-block-list__layout {
+		width: 100%;
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 1.5rem;
+	}
+
+	// Below 992px blocks.css narrows each slide (`max-width: calc(50% - 4rem)`) so the
+	// next one peeks in; in the grid that only shrinks the card inside its column.
+	.card-understand {
+		max-width: none;
+	}
+
+	// The editor's block stylesheets reset `position` on the block wrapper, which
+	// drops the photo and the placeholder icon into the flow instead of filling the card.
+	.card-understand__img,
+	.card-understand__icon {
+		position: absolute !important;
+	}
+}
+
+.card-understand {
+	isolation: isolate;
+}
+
+// ─── Mosaic card layers ───────────────────────────────────
+//
+// On the frontend .card-layer__bg and .card-layer__img both sit at z-index:-1 and
+// depend on .card-layer's own stacking context (position:relative; z-index:2) to
+// stay above the card's background-color. Anything in the editor that flattens
+// that context drops the negative layers behind the card and they vanish.
+//
+// Don't depend on it: stack the layers explicitly with non-negative values, in the
+// same paint order the frontend produces (bg -> img -> content).
+
+.card-layer {
+	isolation: isolate;
+
+	// `position` has to be restated here: the editor's own stylesheets reset it on
+	// this element, so the `position: absolute` from blocks.css does not survive and
+	// the background collapses out of the card. Nothing in our CSS touches it.
+	.card-layer__bg {
+		position: absolute;
+		z-index: 0;
+	}
+
+	.card-layer__img {
+		z-index: 1;
+	}
+
+	.card-layer__icon,
+	.card-layer__box,
+	.card-layer__bpttom {
+		position: relative;
+		z-index: 2;
+	}
+}
+
+// ─── Mosaic / Layer block ─────────────────────────────────
+//
+// Same problem, but the frontend layout is a fixed 3x2 grid where .card-layer.big
+// spans the centre column (grid-area: 1/2/3/3). The grid definition is mirrored
+// onto the injected wrapper; the appender is pushed to its own full-width row so
+// it never steals a card cell.
+//
+// Below 992px blocks.css collapses the list to `grid-template-columns: 1fr;
+// grid-template-rows: none` and resets `.big` / `.img-top` to `grid-area: auto` —
+// the Tablet block at the bottom of this file mirrors the template half of that.
+
+.layer__cards {
+	display: block !important;
+
+	.block-editor-block-list__layout {
+		width: 100%;
+		display: grid;
+		grid-template-columns: 71fr 143fr 80fr;
+		grid-template-rows: minmax(11rem, auto) minmax(10rem, auto);
+		gap: 1.5rem;
+
+		& > .block-list-appender {
+			grid-column: 1 / -1;
+		}
+	}
+}
+
+// ─── Connect cards ────────────────────────────────────────
+//
+// `.connect__cards` is a flex-wrap row on the front; rebuild it as a grid on the
+// injected wrapper and drop `.card-connect`'s own `max-width: calc((100% - 3rem)/3)`
+// so it cannot halve the card inside its cell. Three columns, stepping to 2 at 992
+// and 1 at 768 the way `.card-connect`'s own max-width does on the front; those
+// steps live in the Tablet and Mobile blocks at the bottom of this file.
+
+.connect__cards {
+	display: block !important;
+
+	.block-editor-block-list__layout {
+		width: 100%;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1.5rem;
+
+		& > .block-list-appender {
+			grid-column: 1 / -1;
+		}
+	}
+
+	.card-connect {
+		max-width: none;
+	}
+}
+
+// Both card layers sit at a negative z-index and rely on `.card-connect`'s own
+// stacking context to stay above its background-color. The editor flattens that
+// context and resets `position` on the block wrapper, so state both explicitly, in
+// the frontend's paint order (bg -> decor -> content). Precedent: `.card-layer`.
+
+.card-connect {
+	isolation: isolate;
+
+	.card-connect__bg {
+		position: absolute;
+		z-index: 0;
+	}
+
+	.card-connect__img {
+		position: absolute;
+		z-index: 1;
+	}
+
+	.card-connect__icon,
+	.card-connect__content {
+		position: relative;
+		z-index: 2;
+	}
+}
+
+// ─── Moves mosaic ─────────────────────────────────────────
+//
+// The most placement-sensitive grid in the plugin. The frontend template is
+// `1fr 1fr 1fr 20rem` and the variants are placed explicitly:
+//
+//   .card-moves.wide       { grid-column: span 2 }
+//   .card-moves.tall-first { grid-column: 1; grid-row: 1 / span 2 }
+//   .card-moves.tall-last  { grid-column: 4; grid-row: 1 / span 2 }
+//
+// Those rules already reach the canvas (they are in our own blocks.css), but only
+// the column *template* makes them mean anything — without it every variant
+// collapses into one column. So the template is restated here verbatim.
+//
+// Below 992px blocks.css resets all three variants to `grid-column: auto` and the
+// list to a single column; the Tablet block at the bottom of this file mirrors that
+// template change, otherwise the four-column grid would survive into the canvas
+// after the placements have already been dropped.
+
+.moves__list {
+	display: block !important;
+
+	.block-editor-block-list__layout {
+		width: 100%;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr 20rem;
+		gap: 1.5rem;
+
+		// Full-width row of its own, so it can never take a cell a variant is
+		// explicitly placed into. Same fix as `.layer__cards`.
+		& > .block-list-appender {
+			grid-column: 1 / -1;
+		}
+	}
+}
+
+// Same negative-z-index problem as Connect above.
+
+.card-moves {
+	isolation: isolate;
+
+	.card-moves__bg {
+		position: absolute;
+		z-index: 0;
+	}
+
+	// Editor only. The `wide` variant's fixed backdrop (moves_bg_1.jpg) is a busy
+	// photo that sits under the title and description and makes them hard to read
+	// while editing. Hidden here rather than dropped from moves-card/edit.js, so the
+	// canvas DOM keeps matching what Blade renders — the front is untouched, and so
+	// is the inserter preview's own markup.
+	&.wide .card-moves__bg {
+		display: none;
+	}
+
+	.card-moves__img {
+		position: absolute;
+		z-index: 1;
+	}
+
+	.card-moves__icon,
+	.card-moves__content {
+		position: relative;
+		z-index: 2;
+	}
+}
+
 // ─── Steps block ──────────────────────────────────────────
 
 .oneflow__layout .oneflow__line {
@@ -194,10 +631,104 @@ section.paid .splide {
 	max-height: unset !important;
 }
 
+// ─── Subscribe slider (editor preview) ────────────────────
+//
+// Splide sets `.splide { visibility: hidden }` and only reveals the track once its
+// JS initialises — which never happens in the editor, so the slides are invisible.
+// Same workaround as `section.paid` and `.related__splide` above: reveal it, then
+// show one slide at a time. `edit.js` keeps the active index in React state and
+// renders the dots below, so the editor behaves like the real slider.
+
+.infrastruct__splide {
+	.splide {
+		visibility: visible;
+	}
+
+	.splide__list {
+		display: block;
+	}
+
+	.splide__slide {
+		display: none;
+
+		&.is-editor-active {
+			display: block;
+		}
+	}
+
+	// Editor-only control, styled to match the block's real Splide pagination
+	// (.infrastruct__splide .splide__pagination + .splide__pagination__page in
+	// blocks.css) so the preview reads like the live slider. The class is prefixed
+	// so it can never collide with a design class, and the markup lives in edit.js
+	// — it never reaches the front.
+	.ovch-editor-dots {
+		position: absolute;
+		inset-block-end: 0.75rem;
+		inset-inline-start: 50%;
+		transform: translate(calc(-50% * var(--dir, 1)));
+		z-index: 5;
+
+		display: flex;
+		gap: 0.5rem;
+
+		button {
+			width: 0.5rem;
+			height: auto;
+			aspect-ratio: 1;
+			padding: 0;
+			border: 0.0625rem solid rgba(229, 234, 236, 0.24);
+			border-radius: 50%;
+			background-color: #e5eaec3d;
+			cursor: pointer;
+			transition: background-color 0.15s ease;
+
+			&:hover {
+				background-color: rgba(229, 234, 236, 0.55);
+			}
+
+			&.is-active {
+				background-color: var(--cw2, #fff);
+			}
+		}
+	}
+}
+
+// ─── FAQ accordion ────────────────────────────────────────
+//
+// No rule here on purpose — the accordion's canvas styles live in the THEME, in
+// `css/editor.css` § Accordion (.ac). They are a verbatim copy of main.css's
+// `.wrapper .ac …` block with the prefix stripped, because `.wrapper` comes from
+// header.php and never exists in the canvas. Putting them theme-side means any
+// block emitting `.ac` gets them, not just FAQ.
+//
+// Nothing has to undo the collapsed state: that is
+// `.ac.js-enabled .ac-panel { visibility: hidden }` from vendor.css (not an editor
+// style) plus an inline `height` accordion-js writes at runtime. Contrast
+// `.tab-paid__dropdown` below, whose `max-height: 0` lives in our own blocks.css
+// and therefore does reach the canvas.
+
 // ─── Slider drag arrow ────────────────────────────────────
 
 .drag-arrow {
 	display: none !important;
+}
+
+// ─── Threshold reveals (design drop 2026-10) ──────────────
+//
+// blocks.css hides or offsets these until `.is-threshold` lands on their container,
+// and only the theme's threshold.js adds it — main.js never runs in the canvas. The
+// selectors match classes edit.js already emits, so without this Control List is
+// invisible and the Accordion tabs / Showcase tags sit permanently shifted down.
+// Generic reveal classes (`.anim-txt`, `.anim-block`, `.anim-cards`) are neutralised
+// theme-side in css/editor.css.
+
+.way__body .heading .txt2,
+.way__body .item-way,
+.way__body .way__btn,
+.paid__tabs .tab-paid,
+.card-powerful__tags li {
+	opacity: 1 !important;
+	transform: none !important;
 }
 
 .related__splide {
@@ -230,6 +761,21 @@ li:not(ul li) {
 	}
 }
 
+// ─── Statement bottom clearance ─────────────────
+//
+// `.exists__img` is `position:absolute; z-index:1` and much taller than the section
+// itself (51rem wide, anchored at the top), so it spills far below `.exists` and
+// covers whatever sits underneath — in the editor that is the appender and the next
+// block, which become unclickable. The front doesn't care because the following
+// section paints over it; the editor canvas does.
+//
+// Reserve the overflow as bottom margin. It goes on `.exists`, not on the block
+// wrapper: `edit.js` sets `margin: 0` inline there and inline styles would win.
+
+.exists {
+	margin-block-end: 13.75rem; // 220px
+}
+
 // ─── Tablet ───────────────────────────────────────────────
 
 @media screen and (max-width: 992px) {
@@ -257,7 +803,8 @@ li:not(ul li) {
 			gap: 1rem;
 		}
 
-		&.grid-2 {
+		&.grid-2,
+		&.grid-5 {
 			.block-editor-block-list__layout {
 				grid-template-columns: repeat(2, 1fr);
 			}
@@ -270,11 +817,64 @@ li:not(ul li) {
 			}
 		}
 	}
+
+	.operations__cards .block-editor-block-list__layout {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.understand__splide .block-editor-block-list__layout {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.everything__list .block-editor-block-list__layout {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	.connect__cards .block-editor-block-list__layout {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1rem;
+	}
+
+	.accept__splide .block-editor-block-list__layout {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1rem;
+	}
+
+	.manage__cards .block-editor-block-list__layout {
+		grid-template-columns: 1fr;
+	}
+
+	// blocks.css drops the explicit placements (`wide`, `tall-first`, `tall-last`)
+	// here; the template has to collapse with them or the cards keep sitting in a
+	// four-column grid they are no longer placed into.
+	.moves__list .block-editor-block-list__layout {
+		grid-template-columns: 1fr;
+	}
+
+	.layer__cards .block-editor-block-list__layout {
+		grid-template-columns: 1fr;
+		grid-template-rows: none;
+	}
+
+	// `.testimonials__main` is a column here, and the desktop `align-items:
+	// flex-start` above would leave the photo and the slider at their content width.
+	.testimonials__main {
+		align-items: stretch;
+	}
+
+	.testimonials__window,
+	.testimonials__splide {
+		width: 100%;
+	}
 }
 
 // ─── Mobile ───────────────────────────────────────────────
 
 @media screen and (max-width: 768px) {
+	.exists {
+		margin-block-end: 23.125rem; // 370px
+	}
+
 	.grid-settings {
 		.block-editor-block-list__layout {
 			grid-template-columns: 1fr !important;
@@ -286,5 +886,29 @@ li:not(ul li) {
 				grid-template-columns: 1fr;
 			}
 		}
+	}
+
+	.operations__cards .block-editor-block-list__layout {
+		grid-template-columns: 1fr;
+	}
+
+	.understand__splide .block-editor-block-list__layout {
+		grid-template-columns: 1fr;
+	}
+
+	.everything__list .block-editor-block-list__layout {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.powerful__cards .block-editor-block-list__layout {
+		grid-template-columns: 1fr;
+	}
+
+	.connect__cards .block-editor-block-list__layout {
+		grid-template-columns: 1fr;
+	}
+
+	.accept__splide .block-editor-block-list__layout {
+		grid-template-columns: 1fr;
 	}
 }

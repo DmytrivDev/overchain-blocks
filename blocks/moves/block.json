@@ -1,0 +1,51 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/moves",
+  "title": "Moves Mosaic",
+  "category": "overchain",
+  "icon": "layout",
+  "description": "Heading beside a lead paragraph, over a mosaic of mixed-size cards.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Built for Every Way Money Moves",
+      "text": "From customer funding to enterprise treasury, Overchain adapts to the way your business operates."
+    },
+    "innerBlocks": [
+      { "name": "overchain/moves-card", "attributes": { "title": "Global Payouts", "text": "Pay customers and counterparties worldwide." } },
+      { "name": "overchain/moves-card", "attributes": { "title": "Customer Deposits", "text": "Accept and settle client funds." } },
+      { "name": "overchain/moves-card", "attributes": { "title": "Treasury Transfers", "text": "Move internal liquidity across entities." } },
+      { "name": "overchain/moves-card", "attributes": { "variant": "wide", "title": "Merchant Collections", "text": "Collect payments through hosted experiences." } },
+      { "name": "overchain/moves-card", "attributes": { "title": "Cross-Border Payments", "text": "Replace slow international payment workflows." } },
+      { "name": "overchain/moves-card", "attributes": { "variant": "tall-last", "title": "Internal Money Movement", "text": "Move funds between accounts and wallets." } }
+    ]
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "allowedBlocks": [
+    "overchain/moves-card"
+  ],
+  "editorScript": "file:../../build/moves/index.js",
+  "render": "file:./render.php"
+}

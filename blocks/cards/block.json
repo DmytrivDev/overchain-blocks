@@ -11,10 +11,48 @@
     "align": false
   },
   "example": {
-    "viewportWidth": 1200
+    "viewportWidth": 1200,
+    "innerBlocks": [
+      {
+        "name": "overchain/card",
+        "attributes": {
+          "title": "Card title",
+          "text": "Short card description goes here."
+        }
+      },
+      {
+        "name": "overchain/card",
+        "attributes": {
+          "title": "Card title",
+          "text": "Short card description goes here."
+        }
+      },
+      {
+        "name": "overchain/card",
+        "attributes": {
+          "title": "Card title",
+          "text": "Short card description goes here."
+        }
+      },
+      {
+        "name": "overchain/card",
+        "attributes": {
+          "title": "Card title",
+          "text": "Short card description goes here."
+        }
+      }
+    ],
+    "attributes": {
+      "title": "Built for Secure, <br />Compliant Operations",
+      "buttonText": "Book a Demo"
+    }
   },
   "attributes": {
     "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "disableWhiteFade": {
       "type": "boolean",
       "default": false
     },
@@ -22,13 +60,26 @@
       "type": "boolean",
       "default": false
     },
+    "columns": {
+      "type": "string",
+      "enum": [ "4", "5" ],
+      "default": "4"
+    },
     "title": {
       "type": "string",
-      "default": "Built for Secure, <br />Compliant Operations"
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    },
+    "descText": {
+      "type": "string",
+      "default": ""
     },
     "buttonText": {
       "type": "string",
-      "default": "Book a Demo"
+      "default": ""
     },
     "buttonType": {
       "type": "string",

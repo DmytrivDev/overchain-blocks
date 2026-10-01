@@ -11,20 +11,44 @@
     "align": false
   },
   "example": {
-    "viewportWidth": 1200
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Move Funds Globally -<br />Without Friction",
+      "text": "Send individual or bulk crypto payments from Overchain to maximise the flexibility of your business operations."
+    },
+    "innerBlocks": [
+      {
+        "name": "overchain/duo-card",
+        "attributes": {
+          "title": "Card title",
+          "text": "Short card description goes here."
+        }
+      },
+      {
+        "name": "overchain/duo-card",
+        "attributes": {
+          "title": "Card title",
+          "text": "Short card description goes here."
+        }
+      }
+    ]
   },
   "attributes": {
     "noPaddingTop": {
       "type": "boolean",
       "default": false
     },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
     "title": {
       "type": "string",
-      "default": "Move Funds Globally -<br />Without Friction"
+      "default": ""
     },
     "text": {
       "type": "string",
-      "default": "Send individual or bulk crypto payments from Overchain to maximise the flexibility of your business operations."
+      "default": ""
     }
   },
   "allowedBlocks": [

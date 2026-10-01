@@ -2,6 +2,8 @@
   "name": "overchain/promo",
   "attributes": {
     "noPaddingTop":    { "translate": "ignore" },
+    "disableWhiteFade": { "translate": "ignore" },
+    "mediaLayout":     { "translate": "ignore" },
     "title":           { "translate": "rich" },
     "text":            { "translate": "rich" },
     "imageId":         { "translate": "ignore" },

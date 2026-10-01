@@ -17,7 +17,7 @@
       "subtitle": "Unlock Seamless Crypto Transactions",
       "items": [
         {
-          "heading": "Widgets",
+          "heading": "",
           "text": "Enable crypto deposits instantly: embed our widget to accept major cryptocurrencies with 15-minute rate locks and secure, unique wallets for every transaction.",
           "imageId": 0,
           "imageUrl": "",
@@ -30,7 +30,7 @@
           "buttonPopupId": ""
         },
         {
-          "heading": "Payment Links",
+          "heading": "",
           "text": "Enable crypto deposits instantly: embed our widget to accept major cryptocurrencies with 15-minute rate locks and secure, unique wallets for every transaction.",
           "imageId": 0,
           "imageUrl": "",
@@ -43,7 +43,7 @@
           "buttonPopupId": ""
         },
         {
-          "heading": "Invoices",
+          "heading": "",
           "text": "Enable crypto deposits instantly: embed our widget to accept major cryptocurrencies with 15-minute rate locks and secure, unique wallets for every transaction.",
           "imageId": 0,
           "imageUrl": "",
@@ -63,22 +63,32 @@
       "type": "boolean",
       "default": false
     },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "tabsLayout": {
+      "type": "string",
+      "default": "default"
+    },
     "title": {
       "type": "string",
-      "default": "Get Paid in Crypto"
+      "default": ""
     },
     "subtitle": {
       "type": "string",
-      "default": "Unlock Seamless Crypto Transactions"
+      "default": ""
     },
     "items": {
       "type": "array",
       "default": [
         {
-          "heading": "Widgets",
+          "heading": "",
           "text": "",
           "imageId": 0,
           "imageUrl": "",
+          "backgroundId": 0,
+          "backgroundUrl": "",
           "buttonType": "link",
           "buttonLink": "",
           "buttonLinkId": 0,
@@ -88,10 +98,12 @@
           "buttonPopupId": ""
         },
         {
-          "heading": "Payment Links",
+          "heading": "",
           "text": "",
           "imageId": 0,
           "imageUrl": "",
+          "backgroundId": 0,
+          "backgroundUrl": "",
           "buttonType": "link",
           "buttonLink": "",
           "buttonLinkId": 0,
@@ -101,10 +113,12 @@
           "buttonPopupId": ""
         },
         {
-          "heading": "Invoices",
+          "heading": "",
           "text": "",
           "imageId": 0,
           "imageUrl": "",
+          "backgroundId": 0,
+          "backgroundUrl": "",
           "buttonType": "link",
           "buttonLink": "",
           "buttonLinkId": 0,

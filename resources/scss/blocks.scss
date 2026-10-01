@@ -26,3 +26,32 @@
         border-color: var(--cr1) !important;
     }
 }
+
+// Accordion (.paid) — tab column width below the desktop grid.
+//
+// The design's own CSS pins the tab column with `.paid__tabs { grid-area: 2/1/3/2;
+// align-self: end }`. Below 992px it turns `.paid__layout` into a flex column and
+// resets `grid-area: auto` on every child — but not `align-self`, which then wins
+// over the container's `align-items: stretch` and shrinks the tabs to their content
+// width instead of the full row.
+//
+// styles.scss is generated from the design drop and must not be hand-edited, so the
+// reset lives here. It reaches the front and the editor canvas alike.
+@media screen and (max-width: 992px) {
+    .paid__tabs {
+        align-self: stretch;
+    }
+}
+
+// Intro — narrower desktop content column.
+//
+// The design's CSS gives `.intro__content` a 30rem inline-end padding on desktop
+// (reset to 0 below 992px and inside `.sec-content-center`). Product asked for
+// 20rem. styles.scss is generated, so the override lives here; same specificity,
+// later in the cascade, and it stays below the `.sec-content-center` reset.
+@media screen and (min-width: 993px) {
+    .intro__content {
+        padding-inline-end: 20rem;
+    }
+}
+

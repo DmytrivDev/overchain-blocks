@@ -30,6 +30,7 @@ export default function Edit({ attributes, setAttributes }) {
             {
               attribute: "tabLabel",
               label: __("Tab label", "overchain-blocks"),
+              placeholder: __("Tab title", "overchain-blocks"),
               value: tabLabel,
               onChange: (value) => setAttributes({ tabLabel: value }),
             },
@@ -72,7 +73,7 @@ export default function Edit({ attributes, setAttributes }) {
           )}
         </div>
 
-        <div className="settlement__img">
+        <div className="settlement__img img1">
           <img
             src={imageUrl || placeholderImage}
             alt=""

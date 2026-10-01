@@ -5,7 +5,7 @@ import {
   InnerBlocks,
   InspectorControls,
 } from "@wordpress/block-editor";
-import { PanelBody, ToggleControl } from "@wordpress/components";
+import { PanelBody, SelectControl, ToggleControl } from "@wordpress/components";
 
 import SectionSettingsControls from "../../components/SectionSettingsControls";
 import ButtonControls from "../../components/ButtonControls";
@@ -23,7 +23,16 @@ const TEMPLATE = [
 const themeUrl = window.ovchBlocks?.themeUrl || "/wp-content/themes/overchain/";
 
 export default function Edit({ attributes, setAttributes }) {
-  const { noPaddingTop, enableDecor, title, buttonText, buttonIcon } = attributes;
+  const {
+    noPaddingTop,
+    enableDecor,
+    columns,
+    title,
+    text,
+    descText,
+    buttonText,
+    buttonIcon,
+  } = attributes;
 
   const blockProps = useBlockProps({
     style: {
@@ -33,6 +42,10 @@ export default function Edit({ attributes, setAttributes }) {
   });
 
   const sectionClass = `compliant ${noPaddingTop ? "pbs4" : "pbs2"}`;
+  // Same modifier the front uses, plus the editor-canvas grid helper (editor.scss).
+  const cardsClass = `compliant__cards grid-settings ${
+    columns === "5" ? "cards-column-5 grid-5" : "grid-4"
+  }`;
 
   return (
     <>
@@ -41,6 +54,22 @@ export default function Edit({ attributes, setAttributes }) {
           attributes={attributes}
           setAttributes={setAttributes}
         />
+
+        <PanelBody title={__("Layout", "overchain-blocks")} initialOpen={true}>
+          <SelectControl
+            label={__("Cards per row", "overchain-blocks")}
+            help={__(
+              "Desktop only; tablet and mobile keep the design's 2 / 1 columns.",
+              "overchain-blocks",
+            )}
+            value={columns}
+            options={[
+              { label: __("4 per row", "overchain-blocks"), value: "4" },
+              { label: __("5 per row", "overchain-blocks"), value: "5" },
+            ]}
+            onChange={(value) => setAttributes({ columns: value })}
+          />
+        </PanelBody>
 
         <PanelBody title={__("Decor", "overchain-blocks")} initialOpen={true}>
           <ToggleControl
@@ -56,7 +85,7 @@ export default function Edit({ attributes, setAttributes }) {
       <div {...blockProps}>
         <section className={sectionClass}>
           <div className="compliant__container">
-            <div className="compliant__wrap">
+            <div className="compliant__wrap section-wrap">
               {enableDecor && (
                 <div className="compliant__decor decor1 no-select" aria-hidden="true">
                   <img
@@ -74,9 +103,17 @@ export default function Edit({ attributes, setAttributes }) {
                     value={title}
                     onChange={(value) => setAttributes({ title: value })}
                   />
+
+                  <RichText
+                    tagName="div"
+                    className="txt2"
+                    placeholder={__("Supporting text (optional)", "overchain-blocks")}
+                    value={text}
+                    onChange={(value) => setAttributes({ text: value })}
+                  />
                 </div>
 
-                <ul className="compliant__cards grid-settings grid-4">
+                <ul className={cardsClass}>
                   <InnerBlocks
                     allowedBlocks={ALLOWED_BLOCKS}
                     template={TEMPLATE}
@@ -84,6 +121,17 @@ export default function Edit({ attributes, setAttributes }) {
                     renderAppender={InnerBlocks.ButtonBlockAppender}
                   />
                 </ul>
+
+                <RichText
+                  tagName="div"
+                  className="compliant__desc txt3 light"
+                  placeholder={__(
+                    "Closing paragraph (optional)",
+                    "overchain-blocks"
+                  )}
+                  value={descText}
+                  onChange={(value) => setAttributes({ descText: value })}
+                />
 
                 <ButtonPreview
                   text={buttonText}

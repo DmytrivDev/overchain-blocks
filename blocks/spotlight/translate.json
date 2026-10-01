@@ -2,6 +2,7 @@
   "name": "overchain/spotlight",
   "attributes": {
     "noPaddingTop":  { "translate": "ignore" },
+    "disableWhiteFade": { "translate": "ignore" },
     "title":         { "translate": "rich" },
     "backgroundId":  { "translate": "ignore" },
     "backgroundUrl": { "translate": "ignore" }

@@ -10,6 +10,15 @@ export default function ButtonPreview({
     return null;
   }
 
+  // "Transparent" is the plain theme button — no icon, different base class.
+  if (icon === "transparent") {
+    return (
+      <span className={`btn-def stl-trn${className ? ` ${className}` : ""}`}>
+        {text}
+      </span>
+    );
+  }
+
   const iconUrl =
     icon === "arrow"
       ? `${themeUrl}assets/img/icons/btn_2.svg`

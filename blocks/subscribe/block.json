@@ -23,6 +23,14 @@
       "type": "boolean",
       "default": false
     },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "mediaType": {
+      "type": "string",
+      "default": "image"
+    },
     "title": {
       "type": "string",
       "default": "Track Our Event Schedule & Announcements"
@@ -42,6 +50,10 @@
     "imageUrl": {
       "type": "string",
       "default": ""
+    },
+    "slides": {
+      "type": "array",
+      "default": []
     },
     "successTitle": {
       "type": "string",

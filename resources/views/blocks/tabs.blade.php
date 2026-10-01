@@ -10,15 +10,15 @@
 
 <section class="{{ esc_attr( $sectionClass ) }}">
 	<div class="settlement__container">
-		<div class="settlement__wrap">
+		<div class="settlement__wrap section-wrap">
 			<div class="settlement__blur no-select" aria-hidden="true">
 				<img src="{{ esc_url( $blurUrl ) }}" alt="">
 			</div>
 
-			<div class="settlement__body section-body">
+			<div class="settlement__body section-body{{ overchain_blocks_fade_class( $attributes ) }}">
 				@if ( ! empty( $title ) )
 					<div class="heading">
-						<h2 class="tl2">{!! wp_kses_post( $title ) !!}</h2>
+						<h2 class="tl2 anim-txt">{!! wp_kses_post( $title ) !!}</h2>
 					</div>
 				@endif
 
@@ -29,7 +29,15 @@
 								@foreach ( $innerBlocks as $index => $innerBlock )
 									@php
 										$tabId = 'tb-block' . ( $index + 1 );
-										$tabLabel = $innerBlock->attributes['tabLabel'] ?? 'Tab ' . ( $index + 1 );
+
+										// `??` is not enough: the attribute now defaults to an empty
+										// string, so an unnamed tab would render a blank button that
+										// still has to be clickable. Mirrors the fallback in edit.js.
+										$tabLabel = $innerBlock->attributes['tabLabel'] ?? '';
+
+										if ( '' === trim( (string) $tabLabel ) ) {
+											$tabLabel = 'Tab ' . ( $index + 1 );
+										}
 									@endphp
 
 									<li>

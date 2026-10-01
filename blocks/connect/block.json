@@ -1,0 +1,51 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/connect",
+  "title": "Connect",
+  "category": "overchain",
+  "icon": "networking",
+  "description": "Heading over a grid of integration cards.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Connect Your Way",
+      "text": "Connect Overchain in the way that works best for your business."
+    },
+    "innerBlocks": [
+      { "name": "overchain/connect-card", "attributes": { "title": "API", "text": "Build directly into your platform" } },
+      { "name": "overchain/connect-card", "attributes": { "title": "Hosted Payment Pages", "text": "Launch branded payment experiences" } },
+      { "name": "overchain/connect-card", "attributes": { "title": "Payment Links", "text": "Create secure payment requests in seconds", "decor": "img1" } },
+      { "name": "overchain/connect-card", "attributes": { "title": "Embedded Widgets", "text": "Deliver native payment experiences" } },
+      { "name": "overchain/connect-card", "attributes": { "title": "White Label", "text": "Launch under your own brand", "decor": "img2" } },
+      { "name": "overchain/connect-card", "attributes": { "title": "Bespoke Integrations", "text": "Designed around your existing infrastructure" } }
+    ]
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "allowedBlocks": [
+    "overchain/connect-card"
+  ],
+  "editorScript": "file:../../build/connect/index.js",
+  "render": "file:./render.php"
+}

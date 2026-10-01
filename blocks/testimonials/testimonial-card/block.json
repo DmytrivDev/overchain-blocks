@@ -1,0 +1,42 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/testimonial-card",
+  "title": "Testimonial",
+  "category": "overchain",
+  "icon": "admin-comments",
+  "description": "One testimonial slide.",
+  "textdomain": "overchain-blocks",
+  "parent": [
+    "overchain/testimonials"
+  ],
+  "supports": {
+    "html": false,
+    "align": false,
+    "reusable": false
+  },
+  "example": {},
+  "attributes": {
+    "quote": {
+      "type": "string",
+      "default": ""
+    },
+    "avatarId": {
+      "type": "number",
+      "default": 0
+    },
+    "avatarUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "name": {
+      "type": "string",
+      "default": ""
+    },
+    "role": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "editorScript": "file:../../../build/testimonials/testimonial-card/index.js",
+  "render": "file:./render.php"
+}

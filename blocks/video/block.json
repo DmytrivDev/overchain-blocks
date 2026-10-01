@@ -18,6 +18,10 @@
       "type": "boolean",
       "default": false
     },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
     "videoId": {
       "type": "number",
       "default": 0

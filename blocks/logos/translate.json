@@ -2,6 +2,7 @@
   "name": "overchain/logos",
   "attributes": {
     "noPaddingTop": { "translate": "ignore" },
+    "disableWhiteFade": { "translate": "ignore" },
     "logos": {
       "translate": "repeater",
       "items": {

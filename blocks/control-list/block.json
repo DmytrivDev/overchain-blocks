@@ -1,0 +1,100 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/control-list",
+  "title": "Control List",
+  "category": "overchain",
+  "icon": "editor-ul",
+  "description": "Heading over a staggered list of short capability labels, with a side image and a button.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Keep Control Beyond <br />Settlement",
+      "text": "The transaction doesn't end when funds arrive.",
+      "items": [
+        { "label": "Real-time balances" },
+        { "label": "Transaction reporting" },
+        { "label": "Automated reconciliation" },
+        { "label": "Treasury visibility" },
+        { "label": "Complete audit trails" }
+      ],
+      "buttonText": "Explore Control & Treasury"
+    }
+  },
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "enableImage": {
+      "type": "boolean",
+      "default": true
+    },
+    "imageId": {
+      "type": "number",
+      "default": 0
+    },
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    },
+    "items": {
+      "type": "array",
+      "default": []
+    },
+    "buttonText": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonType": {
+      "type": "string",
+      "default": "link"
+    },
+    "buttonLink": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkId": {
+      "type": "number",
+      "default": 0
+    },
+    "buttonLinkTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkNewTab": {
+      "type": "boolean",
+      "default": false
+    },
+    "buttonAnchor": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonPopupId": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonIcon": {
+      "type": "string",
+      "default": "arrow"
+    }
+  },
+  "editorScript": "file:../../build/control-list/index.js",
+  "render": "file:./render.php"
+}

@@ -4,7 +4,12 @@ import {
   RichText,
   InspectorControls,
 } from "@wordpress/block-editor";
-import { PanelBody, Button, TextControl } from "@wordpress/components";
+import {
+  PanelBody,
+  Button,
+  TextControl,
+  SelectControl,
+} from "@wordpress/components";
 
 import SectionSettingsControls from "../../components/SectionSettingsControls";
 import ImageField from "../../components/ImageField";
@@ -15,10 +20,12 @@ const placeholderUrl =
   window.ovchBlocks?.url + "resources/placeholders/image.png";
 
 const createItem = () => ({
-  heading: "Item title",
+  heading: "",
   text: "",
   imageId: 0,
   imageUrl: "",
+  backgroundId: 0,
+  backgroundUrl: "",
   buttonType: "link",
   buttonLink: "",
   buttonLinkId: 0,
@@ -29,7 +36,13 @@ const createItem = () => ({
 });
 
 export default function Edit({ attributes, setAttributes }) {
-  const { noPaddingTop, title, subtitle, items = [] } = attributes;
+  const {
+    noPaddingTop,
+    tabsLayout = "default",
+    title,
+    subtitle,
+    items = [],
+  } = attributes;
 
   const blockProps = useBlockProps({
     style: {
@@ -39,6 +52,8 @@ export default function Edit({ attributes, setAttributes }) {
   });
 
   const sectionClass = `paid ${noPaddingTop ? "pbs4" : "pbs2"}`;
+
+  const layoutClass = `paid__layout${tabsLayout === "wide" ? " wide-tabs" : ""}`;
 
   const updateItem = (index, fields) => {
     setAttributes({
@@ -80,6 +95,24 @@ export default function Edit({ attributes, setAttributes }) {
           setAttributes={setAttributes}
         />
 
+        <PanelBody title={__("Layout", "overchain-blocks")}>
+          <SelectControl
+            label={__("Tabs width", "overchain-blocks")}
+            value={tabsLayout}
+            options={[
+              {
+                label: __("Standard", "overchain-blocks"),
+                value: "default",
+              },
+              {
+                label: __("Wide tabs", "overchain-blocks"),
+                value: "wide",
+              },
+            ]}
+            onChange={(value) => setAttributes({ tabsLayout: value })}
+          />
+        </PanelBody>
+
         {items.map((item, index) => (
           <PanelBody
             key={index}
@@ -90,11 +123,13 @@ export default function Edit({ attributes, setAttributes }) {
           >
             <TextControl
               label={__("Heading", "overchain-blocks")}
+              placeholder={__("Item title", "overchain-blocks")}
               value={item.heading || ""}
               onChange={(value) => updateItem(index, { heading: value })}
             />
 
             <ImageField
+              label={__("Image", "overchain-blocks")}
               imageId={item.imageId}
               imageUrl={item.imageUrl}
               onSelect={(media) =>
@@ -107,6 +142,24 @@ export default function Edit({ attributes, setAttributes }) {
                 updateItem(index, {
                   imageId: 0,
                   imageUrl: "",
+                })
+              }
+            />
+
+            <ImageField
+              label={__("Background", "overchain-blocks")}
+              imageId={item.backgroundId}
+              imageUrl={item.backgroundUrl}
+              onSelect={(media) =>
+                updateItem(index, {
+                  backgroundId: media.id,
+                  backgroundUrl: media.url,
+                })
+              }
+              onRemove={() =>
+                updateItem(index, {
+                  backgroundId: 0,
+                  backgroundUrl: "",
                 })
               }
             />
@@ -148,114 +201,119 @@ export default function Edit({ attributes, setAttributes }) {
       <div {...blockProps}>
         <section className={sectionClass}>
           <div className="paid__container">
-            <div className="paid__body section-body">
-              <div className="paid__layout">
-                <div className="paid__heading">
-                  <RichText
-                    tagName="h2"
-                    className="tl2"
-                    placeholder={__("Section title", "overchain-blocks")}
-                    value={title}
-                    onChange={(value) => setAttributes({ title: value })}
-                  />
+            <div className="paid__wrap section-wrap">
+              <div className="paid__body section-body">
+                <div className={layoutClass}>
+                  <div className="paid__heading">
+                    <RichText
+                      tagName="h2"
+                      className="tl2"
+                      placeholder={__("Section title", "overchain-blocks")}
+                      value={title}
+                      onChange={(value) => setAttributes({ title: value })}
+                    />
 
-                  <RichText
-                    tagName="div"
-                    className="txt2"
-                    placeholder={__("Short subtitle", "overchain-blocks")}
-                    value={subtitle}
-                    onChange={(value) => setAttributes({ subtitle: value })}
-                  />
-                </div>
+                    <RichText
+                      tagName="div"
+                      className="txt2"
+                      placeholder={__("Short subtitle", "overchain-blocks")}
+                      value={subtitle}
+                      onChange={(value) => setAttributes({ subtitle: value })}
+                    />
+                  </div>
 
-                <div className="paid__splide splide">
-                  <div className="splide__track">
-                    <ul className="splide__list">
-                      {items.map((item, index) => {
-                        const hasLink = !!getItemHref(item);
+                  <div className="paid__splide splide">
+                    <div className="splide__track">
+                      <ul className="splide__list">
+                        {items.map((item, index) => {
+                          const hasLink = !!getItemHref(item);
 
-                        return (
-                          <li key={index} className="splide__slide card-paid">
-                            {hasLink && (
-                              <span className="card-paid__link">
+                          return (
+                            <li key={index} className="splide__slide card-paid">
+                              {hasLink && (
+                                <span className="card-paid__link">
+                                  <img
+                                    src={`${themeUrl}assets/img/icons/vec_1b.svg`}
+                                    alt=""
+                                  />
+                                </span>
+                              )}
+
+                              <div
+                                className="card-paid__bg ibg no-select"
+                                aria-hidden="true"
+                              >
                                 <img
-                                  src={`${themeUrl}assets/img/icons/vec_1b.svg`}
+                                  src={
+                                    item.backgroundUrl ||
+                                    `${themeUrl}assets/img/decor/paid_bg_${(index % 4) + 1}.jpg`
+                                  }
                                   alt=""
                                 />
-                              </span>
-                            )}
+                              </div>
 
-                            <div
-                              className="card-paid__bg ibg no-select"
-                              aria-hidden="true"
-                            >
-                              <img
-                                src={`${themeUrl}assets/img/decor/paid_bg_1.jpg`}
-                                alt=""
-                              />
-                            </div>
-
-                            <div className="card-paid__img">
-                              <img
-                                src={item.imageUrl || placeholderUrl}
-                                alt=""
-                              />
-                            </div>
-                          </li>
-                        );
-                      })}
-                    </ul>
+                              <div className="card-paid__img">
+                                <img
+                                  src={item.imageUrl || placeholderUrl}
+                                  alt=""
+                                />
+                              </div>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
                   </div>
-                </div>
 
-                <ul className="paid__tabs">
-                  {items.map((item, index) => {
-                    const hasLink = !!getItemHref(item);
+                  <ul className="paid__tabs">
+                    {items.map((item, index) => {
+                      const hasLink = !!getItemHref(item);
 
-                    return (
-                      <li key={index} className="tab-paid">
-                        <span className="progress" aria-hidden="true">
-                          <span></span>
-                        </span>
+                      return (
+                        <li key={index} className="tab-paid">
+                          <span className="progress" aria-hidden="true">
+                            <span></span>
+                          </span>
 
-                        <div className="tab-paid__head">
-                          <RichText
-                            tagName="h3"
-                            className="tl5"
-                            placeholder={__("Item title", "overchain-blocks")}
-                            value={item.heading}
-                            onChange={(value) =>
-                              updateItem(index, { heading: value })
-                            }
-                          />
-                        </div>
-
-                        <div className="tab-paid__dropdown">
-                          <div className="tab-paid__content">
+                          <div className="tab-paid__head">
                             <RichText
-                              tagName="div"
-                              className="txt3 light"
-                              placeholder={__(
-                                "Item description",
-                                "overchain-blocks",
-                              )}
-                              value={item.text}
+                              tagName="h3"
+                              className="tl5"
+                              placeholder={__("Item title", "overchain-blocks")}
+                              value={item.heading}
                               onChange={(value) =>
-                                updateItem(index, { text: value })
+                                updateItem(index, { heading: value })
                               }
                             />
-
-                            {hasLink && (
-                              <a href="#" className="link-more">
-                                {__("Discover More", "overchain-blocks")}
-                              </a>
-                            )}
                           </div>
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
+
+                          <div className="tab-paid__dropdown">
+                            <div className="tab-paid__content">
+                              <RichText
+                                tagName="div"
+                                className="txt3 light"
+                                placeholder={__(
+                                  "Item description",
+                                  "overchain-blocks",
+                                )}
+                                value={item.text}
+                                onChange={(value) =>
+                                  updateItem(index, { text: value })
+                                }
+                              />
+
+                              {hasLink && (
+                                <a href="#" className="link-more">
+                                  {__("Discover More", "overchain-blocks")}
+                                </a>
+                              )}
+                            </div>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>

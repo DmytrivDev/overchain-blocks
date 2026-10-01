@@ -15,9 +15,21 @@
     "attributes": {
       "title": "Built for <span style=\"color:#39d98a\">Real-World</span> Financial Operations",
       "badges": [
-        { "iconUrl": "", "iconId": 0, "label": "Instant Settlement" },
-        { "iconUrl": "", "iconId": 0, "label": "Unified Conversion" },
-        { "iconUrl": "", "iconId": 0, "label": "Treasury Control" }
+        {
+          "iconUrl": "",
+          "iconId": 0,
+          "label": "Instant Settlement"
+        },
+        {
+          "iconUrl": "",
+          "iconId": 0,
+          "label": "Unified Conversion"
+        },
+        {
+          "iconUrl": "",
+          "iconId": 0,
+          "label": "Treasury Control"
+        }
       ]
     }
   },
@@ -26,9 +38,13 @@
       "type": "boolean",
       "default": false
     },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
     "title": {
       "type": "string",
-      "default": "Section title goes here"
+      "default": ""
     },
     "decoLeftId": {
       "type": "number",
@@ -49,9 +65,21 @@
     "badges": {
       "type": "array",
       "default": [
-        { "iconUrl": "", "iconId": 0, "label": "Badge title" },
-        { "iconUrl": "", "iconId": 0, "label": "Badge title" },
-        { "iconUrl": "", "iconId": 0, "label": "Badge title" }
+        {
+          "iconUrl": "",
+          "iconId": 0,
+          "label": "Badge title"
+        },
+        {
+          "iconUrl": "",
+          "iconId": 0,
+          "label": "Badge title"
+        },
+        {
+          "iconUrl": "",
+          "iconId": 0,
+          "label": "Badge title"
+        }
       ]
     }
   },

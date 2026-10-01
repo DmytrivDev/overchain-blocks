@@ -35,6 +35,14 @@ export default function Edit({ attributes, setAttributes }) {
 
   const formatStepNumber = (index) => String(index + 1).padStart(2, "0");
 
+  // Same split the Blade template does. The canvas has no main.js, so it shows the
+  // first word only — exactly where the frontend cycle starts.
+  const firstSwapWord = (step) =>
+    (step.swapWords || "")
+      .split(",")
+      .map((word) => word.trim())
+      .filter(Boolean)[0] || "";
+
   return (
     <>
       <InspectorControls>
@@ -50,11 +58,24 @@ export default function Edit({ attributes, setAttributes }) {
           removeItemText={__("Remove step", "overchain-blocks")}
           addItemText={__("+ Add step", "overchain-blocks")}
           maxItems={4}
+          placeholder={__("Step title", "overchain-blocks")}
           defaultItem={{
             iconUrl: "",
             iconId: 0,
-            label: "Step title",
+            label: "",
+            swapWords: "",
           }}
+          extraFields={[
+            {
+              key: "swapWords",
+              label: __("Rotating words", "overchain-blocks"),
+              placeholder: __("USDT, BTC, ETH", "overchain-blocks"),
+              help: __(
+                "Comma-separated. Two or more words cycle after the title, and the icon cycles with them.",
+                "overchain-blocks",
+              ),
+            },
+          ]}
           setAttributes={setAttributes}
         />
       </InspectorControls>
@@ -62,7 +83,7 @@ export default function Edit({ attributes, setAttributes }) {
       <div {...blockProps}>
         <section className={sectionClass}>
           <div className="oneflow__container">
-            <div className="oneflow__wrap">
+            <div className="oneflow__wrap section-wrap">
               <div
                 className="oneflow__decor decor1 no-select"
                 aria-hidden="true"
@@ -103,15 +124,17 @@ export default function Edit({ attributes, setAttributes }) {
                         </div>
 
                         <div className="item-oneflow__box">
-                          <RichText
-                            tagName="h3"
-                            className="item-oneflow__tl"
-                            placeholder={__("Step title", "overchain-blocks")}
-                            value={step.label}
-                            onChange={(value) =>
-                              updateStep(index, "label", value)
-                            }
-                          />
+                          <h3 className="item-oneflow__tl">
+                            <RichText
+                              tagName="span"
+                              placeholder={__("Step title", "overchain-blocks")}
+                              value={step.label}
+                              onChange={(value) =>
+                                updateStep(index, "label", value)
+                              }
+                            />
+                            {firstSwapWord(step) && ` ${firstSwapWord(step)}`}
+                          </h3>
 
                           <p className="item-oneflow__step">
                             {formatStepNumber(index)}

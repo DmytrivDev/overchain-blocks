@@ -1,0 +1,31 @@
+{
+  "name": "overchain/intro",
+  "attributes": {
+    "disableWhiteFade": { "translate": "ignore" },
+    "layout":              { "translate": "ignore" },
+    "coverBackground":     { "translate": "ignore" },
+    "backgroundId":        { "translate": "ignore" },
+    "backgroundUrl":       { "translate": "ignore" },
+    "title":               { "translate": "rich" },
+    "text":                { "translate": "rich" },
+    "imageId":             { "translate": "ignore" },
+    "imageUrl":            { "translate": "ignore" },
+    "buttonText":          { "translate": "string" },
+    "buttonType":          { "translate": "ignore" },
+    "buttonLink":          { "translate": "url" },
+    "buttonLinkId":        { "translate": "postobject" },
+    "buttonLinkTitle":     { "translate": "string" },
+    "buttonLinkNewTab":    { "translate": "ignore" },
+    "buttonAnchor":        { "translate": "ignore" },
+    "buttonPopupId":       { "translate": "ignore" },
+    "buttonIcon":          { "translate": "ignore" },
+    "secondaryText":       { "translate": "string" },
+    "secondaryType":       { "translate": "ignore" },
+    "secondaryLink":       { "translate": "url" },
+    "secondaryLinkId":     { "translate": "postobject" },
+    "secondaryLinkTitle":  { "translate": "string" },
+    "secondaryLinkNewTab": { "translate": "ignore" },
+    "secondaryAnchor":     { "translate": "ignore" },
+    "secondaryPopupId":    { "translate": "ignore" }
+  }
+}

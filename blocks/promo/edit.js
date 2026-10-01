@@ -4,6 +4,7 @@ import {
   RichText,
   InspectorControls,
 } from "@wordpress/block-editor";
+import { PanelBody, SelectControl } from "@wordpress/components";
 
 import SectionSettingsControls from "../../components/SectionSettingsControls";
 import ImageControls from "../../components/ImageControls";
@@ -18,6 +19,7 @@ const themeUrl = window.ovchBlocks?.themeUrl || "/wp-content/themes/overchain/";
 export default function Edit({ attributes, setAttributes }) {
   const {
     noPaddingTop,
+    mediaLayout,
     title,
     text,
     imageId,
@@ -36,6 +38,16 @@ export default function Edit({ attributes, setAttributes }) {
   const sectionClass = `infrastruct ${noPaddingTop ? "pbs4" : "pbs2"}`;
   const previewImage = imageUrl || placeholderImage;
 
+  // The base class only sets `position: absolute` — every offset and width lives
+  // on the numbered modifier, and `img2` additionally pushes the content across
+  // with `pis1`. Compared rather than interpolated so no stray value can reach
+  // the class attribute.
+  const isWide = mediaLayout === "img2";
+  const bodyClass = `infrastruct__body section-body${isWide ? " pis1" : ""}`;
+  const imgClass = isWide
+    ? "infrastruct__img img2"
+    : "infrastruct__img img1 mouse-prllx";
+
   return (
     <>
       <InspectorControls>
@@ -43,6 +55,24 @@ export default function Edit({ attributes, setAttributes }) {
           attributes={attributes}
           setAttributes={setAttributes}
         />
+
+        <PanelBody title={__("Layout", "overchain-blocks")}>
+          <SelectControl
+            label={__("Media", "overchain-blocks")}
+            value={mediaLayout}
+            options={[
+              {
+                label: __("Small image, with parallax", "overchain-blocks"),
+                value: "img1",
+              },
+              {
+                label: __("Large image, content offset right", "overchain-blocks"),
+                value: "img2",
+              },
+            ]}
+            onChange={(value) => setAttributes({ mediaLayout: value })}
+          />
+        </PanelBody>
 
         <ImageControls
           type="image"
@@ -63,7 +93,7 @@ export default function Edit({ attributes, setAttributes }) {
       <div {...blockProps}>
         <section className={sectionClass}>
           <div className="infrastruct__container">
-            <div className="infrastruct__wrap">
+            <div className="infrastruct__wrap section-wrap">
               <div className="infrastruct__bg no-select" aria-hidden="true">
                 <img
                   src={`${themeUrl}assets/img/decor/infrastruct_bg_1.jpg`}
@@ -71,8 +101,8 @@ export default function Edit({ attributes, setAttributes }) {
                 />
               </div>
 
-              <div className="infrastruct__body section-body">
-                <div className="infrastruct__img mouse-prllx">
+              <div className={bodyClass}>
+                <div className={imgClass}>
                   <img
                     src={previewImage}
                     alt=""

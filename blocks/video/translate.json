@@ -2,6 +2,7 @@
   "name": "overchain/video",
   "attributes": {
     "noPaddingTop": { "translate": "ignore" },
+    "disableWhiteFade": { "translate": "ignore" },
     "videoId":      { "translate": "ignore" },
     "videoUrl":     { "translate": "ignore" },
     "videoType":    { "translate": "ignore" },
