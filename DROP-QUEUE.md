@@ -107,5 +107,6 @@ index — `video[autoplay][muted][loop][playsinline]`, Slider Cards — `heading
 
 ## Відкат
 
-Тема: `themes/overchain/_backup-2026-10-01/` (`css/`, `js/`, `php/` — копії змінених
-шаблонів, `THEME.md`, кореневий `CLAUDE.md`, `plugin-scss/styles.scss`). Плагін — git.
+Плагін — git (коміт `Port 2026-10 design drop…`). Бекап теми
+(`themes/overchain/_backup-2026-10-01/`) видалено 01.10.2026 після перевірки на сайті: тема
+не під git, тож її відкат тепер — лише повторний синк попереднього дропу.
