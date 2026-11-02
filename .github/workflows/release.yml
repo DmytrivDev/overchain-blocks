@@ -23,6 +23,11 @@ jobs:
           npm ci
           npm run build
 
+      # Without vendor/ (BladeOne) the blocks register but render nothing on the
+      # front end; vendor/ is gitignored, so it has to be installed here.
+      - name: Install PHP dependencies
+        run: composer install --no-dev --optimize-autoloader --no-interaction
+
       - name: Build plugin zip
         run: |
           mkdir -p build-zip/overchain-blocks
