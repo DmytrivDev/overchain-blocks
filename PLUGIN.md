@@ -678,11 +678,11 @@ const placeholderIcon = window.ovchBlocks?.url + 'resources/placeholders/icon.sv
 | Hero | `overchain/hero` | Simple | Background image, title, subtitle, button |
 | Video | `overchain/video` | Simple | MP4/WebM, poster, no-padding toggle. On pages it is the design's ambient `.preview` (`autoplay muted loop playsinline`, no play button); inside a post it is the click-to-play `.emb-video` |
 | Features | `overchain/features` | InnerBlocks | Grid of `overchain/feature-card`; optional section heading; blur decor toggle; three-state top spacing |
-| Split | `overchain/split` | Simple | Two-column with image, button; media layout single / decor+image (the decor shape is a fixed theme asset, not uploadable); optional glow, subtitle style; bottom list is either numbered steps or icon items |
+| Split | `overchain/split` | Simple | Two-column with image, button; media layout single / decor+image (the decor shape is a fixed theme asset, not uploadable); optional glow, subtitle style; bottom list is numbered steps, icon items or **points** (FM London: the same `steps` rows as a dotted title + text list, `.actually__points`) |
 | Statement | `overchain/statement` | Simple | Side image, lead paragraph and two text columns (`.exists`) |
 | Showcase | `overchain/showcase` | InnerBlocks | Two large cards of `overchain/showcase-card` |
 | Everything Grid | `overchain/everything` | InnerBlocks | Centred heading over a bordered 4-column grid of `overchain/everything-card` (`.everything`) |
-| Steps | `overchain/steps` | Repeater | Up to 4 steps with icon+label (`.oneflow`); per-step `swapWords` (comma-separated) cycles words after the label, and the icon with them (`data-swap-group`) |
+| Steps | `overchain/steps` | Repeater | Up to 4 steps with icon+label (`.oneflow`); per-step `swapWords` (comma-separated) cycles words after the label (the icon is static; step numbers and `data-swap-group` were dropped by the 2026-10-07 design fix) |
 | Integration Steps | `overchain/integration-steps` | Repeater | Optional section heading and text over numbered steps with icon, title and description, plus a button (`.steps`) — **not** the block above |
 | Tabs | `overchain/tabs` | InnerBlocks | Switchable `overchain/tab` children |
 | Badges | `overchain/badges` | Repeater | Icon+text badge list, deco images |
@@ -691,28 +691,35 @@ const placeholderIcon = window.ovchBlocks?.url + 'resources/placeholders/icon.sv
 | FAQ | `overchain/faq` | Repeater | Question/answer accordion (`.faq`); numbering is a CSS counter, decor toggle |
 | Mosaic | `overchain/mosaic` | InnerBlocks | Mixed-size grid of `overchain/mosaic-card` |
 | Moves Mosaic | `overchain/moves` | InnerBlocks | Mixed-size mosaic of `overchain/moves-card` (`.moves`); variant picks the grid cell |
-| Cards | `overchain/cards` | InnerBlocks | Grid of `overchain/card`; optional description under the heading, and a second one under the cards. `columns` (`"4"` / `"5"`) picks the desktop column count — `"5"` adds the design's `.cards-column-5` and `grid-5` on the canvas |
+| Cards | `overchain/cards` | InnerBlocks | Grid of `overchain/card`; optional description under the heading, and a second one under the cards. `columns` (`"4"` / `"5"`) picks the desktop column count — `"5"` adds the design's `.cards-column-5` and `grid-5` on the canvas. `compact` → `.cards-compact` (smaller, title-only cards), `headingLeft` drops `aic` (both FM London) |
 | Manage Cards | `overchain/manage` | InnerBlocks | Two large `overchain/manage-card` with buttons (`.manage`); background toggle |
 | Control List | `overchain/control-list` | Repeater | Heading over a staggered list of short capability labels, with a side image and a button (`.way`); the image defaults to the design asset and can be replaced |
 | Locations | `overchain/locations` | InnerBlocks | Office locations — decor, heading, `overchain/location-card` row (`.operations`) |
 | Logos | `overchain/logos` | Repeater | Logo images with optional links |
 | Spotlight | `overchain/spotlight` | InnerBlocks | Background image, `overchain/spotlight-card` |
 | Connect | `overchain/connect` | InnerBlocks | Grid of `overchain/connect-card` (`.connect`); per-card decor select |
-| Duo | `overchain/duo` | InnerBlocks | Two-column header + `overchain/duo-card` grid (`.funds__cards`) |
+| Duo | `overchain/duo` | InnerBlocks | Two-column header + `overchain/duo-card` grid (`.funds__cards`). `threeColumns` → `.columns-card-3` (cards learn it through block context and drop the `light` text weight), `enableDecor` → fixed `funds_bg_1.jpg` (both FM London) |
 | Logo Grid | `overchain/logo-grid` | Repeater | Same `.funds` shell as Duo, but a centred strip of logos (`.funds__platforms`) instead of cards — used to be Duo's `platforms` layout; `enableBg` adds the fixed `.funds__bg` backdrop |
 | Promo | `overchain/promo` | Simple | Image, title, text, button; media layout picks the image geometry (`img1` small + parallax, `img2` large with the content offset) |
 | Promo Slider | `overchain/promo-slider` | Simple | Promo band with an image slider instead of one picture |
 | Flow Promo | `overchain/flow-promo` | Simple | Heading, subtitle, description and button beside an illustration (`.introflow`); background toggle |
 | Process Slider | `overchain/process-slider` | InnerBlocks | Step slider of `overchain/process-card` (`.accept`); no section heading by design |
 | Callout | `overchain/callout` | Simple | Closing call to action — image, title, text, button (`.rightfit`) |
-| Highlight | `overchain/highlight` | Simple | Closing highlight with an inline image between heading and text (`.never`); decor toggle |
-| Team | `overchain/team` | InnerBlocks | People slider (`.understand__splide`, own initialiser) of `overchain/team-card` — photo or placeholder icon, name, role |
+| Highlight | `overchain/highlight` | Simple | Closing highlight with an inline image between heading and text (`.never`); decor toggle; optional `note` (`.never__note`) and a `secondary*` button — with it both buttons sit in `.never__btns` (FM London) |
+| Team | `overchain/team` | InnerBlocks | People slider (`.understand__splide`, own initialiser) of `overchain/team-card` — photo or placeholder icon, name, role. `centerHeading` → `heading aic`; `lightPlaceholders` (block context) gives photo-less cards `.card-understand-def` and `ava_def_2.svg`, for a Team inside a White Section (FM London) |
 | Testimonials | `overchain/testimonials` | InnerBlocks | Testimonial slider with a side photo; `overchain/testimonial-card` children, default avatar when an author has no photo |
 | Slider Cards | `overchain/slider-cards` | InnerBlocks | Slider of `overchain/slider-card`; title, optional subtitle (`text`), `centerHeading` (default on, as in the design) |
 | Form | `overchain/form` | Simple | Hardcoded HTML form, editable title/subtitle |
+| Booking Form | `overchain/book` | Simple | Title (RichText, full formatting) + embedded booking form (`.book`). Sidebar: `code` — the form's embed code (textarea; an iframe or a script snippet, filtered by overchain_blocks_embed_code(), ported from the landing plugin) — and the form link `iframeUrl`, used only when no code is pasted (main site); canvas shows a placeholder instead of the live iframe; iframe `title` is the Polylang string "Book a meeting with Overchain". `topSpacing` (three-state, empty = `pbs2`) — FM London's form-only page uses `none` |
 | Subscribe | `overchain/subscribe` | Simple | HubSpot email form; side-image or slider layout |
 | Related Posts | `overchain/related-posts` | Simple | Latest/random/manual WP posts |
 | Designed Quote | `overchain/quote` | Simple | Pull quote with author name and position — **Post blocks** category. The slug stays `quote`: renaming it would orphan every saved block |
+| Event Hero | `overchain/event-hero` | Simple | FM London `welcome`: h1, text, primary + `secondary*` button, countdown (`countdownTo`, datetime-local read as UTC → `data-readout`, ticked by the design's readout.js; unit labels are Polylang strings). Background `welcome_bg_1d/1m.jpg` fixed |
+| Event List | `overchain/event-list` | InnerBlocks | FM London `summits`: list of `overchain/event-card` (`.card-events`) — date, place, headline (a link when `link` is set), text, logo; backdrop and glow fixed |
+| Benefit Cards | `overchain/benefits` | InnerBlocks | FM London `delays`: centred heading, 3-column grid of `overchain/benefit-card` (`wide` spans two columns and shows its image), button |
+| Use Case Cards | `overchain/use-cases` | InnerBlocks | FM London `institution`: heading + `overchain/use-case-card` (title, text, image rising from the bottom; glow fixed) |
+| Reasons List | `overchain/reasons` | InnerBlocks | FM London `brokers`: heading + two-column list of `overchain/reason` (icon, title, short line); background `brokers_decor_1.jpg` fixed |
+| Onboarding Steps | `overchain/onboarding` | InnerBlocks | FM London `startright`: centred heading, round-icon `overchain/onboarding-step` row joined by a line drawn in on `.is-threshold` (drawn in the canvas, editor.scss) |
 
 **Child blocks** (not shown in inserter):
 
@@ -734,6 +741,29 @@ const placeholderIcon = window.ovchBlocks?.url + 'resources/placeholders/icon.sv
 | `overchain/manage-card` | `overchain/manage` |
 | `overchain/connect-card` | `overchain/connect` |
 | `overchain/moves-card` | `overchain/moves` |
+| `overchain/event-card` | `overchain/event-list` |
+| `overchain/benefit-card` | `overchain/benefits` |
+| `overchain/use-case-card` | `overchain/use-cases` |
+| `overchain/reason` | `overchain/reasons` |
+| `overchain/onboarding-step` | `overchain/onboarding` |
+
+**Section anchor (all top-level blocks).** Any `overchain/*` block without a
+`parent` has an `anchor` attribute — Advanced panel, "Section anchor (id)" —
+printed as the `id` of its first element. It is not in any block.json: an inline
+`blocks.registerBlockType` filter (after `wp-blocks`, so before every block
+script) adds the attribute and an `editor.BlockEdit` filter the field
+(overchain_blocks_section_anchor_editor()); `render_block` writes the id with
+`WP_HTML_Tag_Processor` (overchain_blocks_section_anchor_render()), so no Blade
+template changes. The FM London menu links to `#<block>-fm-london` ids.
+
+**FM London landing** (`D:\Work\OSPanel6\home\OverchainLondon`, design
+`landings/fm-london/` in the main design repo) runs on this same plugin — locally
+its `wp-content/plugins/overchain-blocks` is a directory junction to this folder,
+so the two sites can never drift apart. Its sections map to: welcome → Event Hero,
+summits → Event List, actually → Split (points), understand → Team, compliant →
+Cards (compact), delays → Benefit Cards, institution → Use Case Cards, brokers →
+Reasons List, funds → Duo (three columns), startright → Onboarding Steps, never →
+Highlight (note + two buttons), book → Booking Form (empty title).
 
 ---
 
@@ -1211,13 +1241,14 @@ $order = array(
     'testimonials',
     'slider-cards',
     'form',
+    'book',
     'subscribe',
     'related-posts',
     'quote',
 );
 ```
 
-To add a new block, insert its folder name at the desired position in this array. It currently holds 40 parent blocks; child blocks are not listed here. **A block missing from `$order` is skipped by this function** — though `BlocksService::register_blocks()` will still pick it up by glob, in an undefined position and without the build-artifact guard below.
+To add a new block, insert its folder name at the desired position in this array. It currently holds 41 parent blocks; child blocks are not listed here. **A block missing from `$order` is skipped by this function** — though `BlocksService::register_blocks()` will still pick it up by glob, in an undefined position and without the build-artifact guard below.
 
 Each entry is registered only if `build/<name>/index.js` **and** its `index.asset.php` exist. A block whose assets have not been built is silently skipped here — so a forgotten `npm run build` shows up as "the block vanished from the inserter", not as an error.
 
@@ -1475,7 +1506,7 @@ long time as an unnamed dropdown.
 ### Do not ship an option the design never uses
 
 Before adding a variant, grep the design build for the class it emits. Lead's `bg3`
-existed as a fourth background option that no page in `_desigh/dist` used, and whose
+existed as a fourth background option that no page in `OverchainMain2.0/dist` used, and whose
 desktop rule was shared with `bg2` — it was removed from the picker while the Blade
 template kept honouring the class for already-saved content. Locations' "Show decor"
 toggle had the same problem in reverse: the design's only `.operations` section
@@ -1769,9 +1800,9 @@ It is a single minified line of generated CSS, imported by `blocks.scss`. The SC
 
 Resolved for the 2026-10 design drop: each step has a `swapWords` string
 (comma-separated, edited through `IconListControls`' `extraFields`). With two or more
-words the Blade template prints the cycler below and repeats the step icon once per
-word inside its own `.auto-swap-items`, with `data-swap-group` on the `li` so both
-tracks share one timer. The original note is kept for context.
+words the Blade template prints the cycler below. (The icon swap and `data-swap-group`
+from that drop were removed again by design commit `55b5106`, 2026-10-07: the icon is a
+plain `<img>` and the `01–04` step numbers are gone.) The original note is kept for context.
 
 The design's `steps` section (`.oneflow`) renders a rotating word cycler inside each step title:
 

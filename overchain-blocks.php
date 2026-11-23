@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Overchain Blocks
  * Description: Custom Gutenberg blocks for Overchain sites.
- * Version:     1.1.0
+ * Version:     1.2.0
  * Author:      DmytrivDev
  * Author URI:  https://github.com/DmytrivDev
  * GitHub Plugin URI: DmytrivDev/overchain-blocks
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'OVERCHAIN_BLOCKS_VERSION', '1.1.0' );
+define( 'OVERCHAIN_BLOCKS_VERSION', '1.2.0' );
 define( 'OVERCHAIN_BLOCKS_FILE', __FILE__ );
 define( 'OVERCHAIN_BLOCKS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'OVERCHAIN_BLOCKS_URL', plugin_dir_url( __FILE__ ) );
@@ -33,6 +33,8 @@ add_filter( 'block_categories_all', 'overchain_blocks_register_category', 20, 2 
 add_filter( 'allowed_block_types_all', 'overchain_blocks_restrict_post_blocks', 10, 2 );
 add_action( 'plugins_loaded', 'overchain_blocks_load_textdomain' );
 add_action( 'wp_footer', 'overchain_blocks_tabs_script' );
+add_action( 'enqueue_block_editor_assets', 'overchain_blocks_section_anchor_editor' );
+add_filter( 'render_block', 'overchain_blocks_section_anchor_render', 10, 2 );
 
 if ( class_exists( '\OverchainBlocks\Plugin' ) ) {
 	\OverchainBlocks\Plugin::init();
@@ -177,9 +179,18 @@ function overchain_blocks_register_blocks() {
 		'testimonials',
 		'slider-cards',
 		'form',
+		'book',
 		'subscribe',
 		'related-posts',
 		'quote',
+		// FM London landing (the design's welcome, summits, delays, institution,
+		// brokers and startright sections) — available to the main site too.
+		'event-hero',
+		'event-list',
+		'benefits',
+		'use-cases',
+		'reasons',
+		'onboarding',
 	);
 
 	foreach ( $order as $block_name ) {
@@ -463,7 +474,167 @@ add_action( 'init', function () {
 		'Phone Number',
 		'CEO, designer, manager',
 		'(optional)',
+		'Book a meeting with Overchain',
+		'Days',
+		'Hours',
+		'Min',
+		'Sec',
 	) as $string ) {
 		pll_register_string( $string, $string, 'Overchain Blocks', false );
 	}
 } );
+
+
+/**
+ * Section anchor: an `id` on any top-level Overchain block, for anchor menus
+ * (the FM London landing links `#understand-fm-london`, `#delays-fm-london`, …).
+ *
+ * One mechanism for every section block instead of an attribute per block.json:
+ * - editor: a `blocks.registerBlockType` filter adds the `anchor` attribute to
+ *   every `overchain/*` block that has no `parent`, and an `editor.BlockEdit`
+ *   filter adds an "Anchor" field to its sidebar. Printed inline after `wp-blocks`
+ *   so it runs before any block script registers (each index.js spreads its own
+ *   block.json, which would otherwise replace server-side attributes);
+ * - front end: overchain_blocks_section_anchor_render() writes the id onto the
+ *   block's first element (the `<section>` or Frame wrapper) — no Blade changes.
+ */
+function overchain_blocks_section_anchor_editor() {
+	wp_add_inline_script(
+		'wp-blocks',
+		<<<'JS'
+( function () {
+	var isSection = function ( name, settings ) {
+		return 0 === name.indexOf( 'overchain/' ) && ! ( settings.parent && settings.parent.length );
+	};
+
+	wp.hooks.addFilter( 'blocks.registerBlockType', 'overchain-blocks/section-anchor', function ( settings, name ) {
+		if ( ! isSection( name, settings ) ) {
+			return settings;
+		}
+		return Object.assign( {}, settings, {
+			attributes: Object.assign( {}, settings.attributes, { anchor: { type: 'string', default: '' } } ),
+		} );
+	} );
+
+	wp.hooks.addFilter( 'editor.BlockEdit', 'overchain-blocks/section-anchor', function ( BlockEdit ) {
+		return function ( props ) {
+			var el = wp.element.createElement;
+			var type = wp.blocks.getBlockType( props.name );
+
+			if ( ! type || ! isSection( props.name, type ) ) {
+				return el( BlockEdit, props );
+			}
+
+			return el(
+				wp.element.Fragment,
+				null,
+				el( BlockEdit, props ),
+				el(
+					wp.blockEditor.InspectorControls,
+					{ group: 'advanced' },
+					el( wp.components.TextControl, {
+						label: wp.i18n.__( 'Section anchor (id)', 'overchain-blocks' ),
+						help: wp.i18n.__( 'Without #. Menu links point to it as #anchor.', 'overchain-blocks' ),
+						value: props.attributes.anchor || '',
+						onChange: function ( value ) {
+							props.setAttributes( { anchor: value.replace( /^#/, '' ).trim() } );
+						},
+						__nextHasNoMarginBottom: true,
+					} )
+				)
+			);
+		};
+	} );
+} )();
+JS
+		,
+		'after'
+	);
+}
+
+/**
+ * Print a top-level Overchain block's `anchor` as the `id` of its first element.
+ *
+ * @param string $html  Rendered block.
+ * @param array  $block Parsed block.
+ * @return string
+ */
+function overchain_blocks_section_anchor_render( $html, $block ) {
+	$anchor = sanitize_title( (string) ( $block['attrs']['anchor'] ?? '' ) );
+
+	if ( '' === $anchor || '' === trim( $html ) || 0 !== strpos( (string) ( $block['blockName'] ?? '' ), 'overchain/' ) || ! class_exists( 'WP_HTML_Tag_Processor' ) ) {
+		return $html;
+	}
+
+	$processor = new WP_HTML_Tag_Processor( $html );
+
+	if ( $processor->next_tag() && null === $processor->get_attribute( 'id' ) ) {
+		$processor->set_attribute( 'id', $anchor );
+	}
+
+	return $processor->get_updated_html();
+}
+
+/**
+ * Filter pasted form embed code (Booking Form block) down to embed markup.
+ *
+ * Form services hand out an `<iframe>` or a `<script>` loader with a container
+ * `<div>`. Those tags pass with the attributes embeds use; anything else (event
+ * handlers, `javascript:` URLs, other elements) is stripped. Inline script bodies
+ * are kept — that is how most loaders work — so the block is for trusted editors.
+ *
+ * @param string $code Raw embed code.
+ * @return string Filtered HTML, safe to print as is.
+ */
+function overchain_blocks_embed_code( string $code ): string {
+	if ( '' === trim( $code ) ) {
+		return '';
+	}
+
+	$common = array(
+		'id'    => true,
+		'class' => true,
+		'style' => true,
+		'title' => true,
+	);
+
+	$allowed = array(
+		'iframe'   => $common + array(
+			'src'             => true,
+			'width'           => true,
+			'height'          => true,
+			'name'            => true,
+			'allow'           => true,
+			'allowfullscreen' => true,
+			'frameborder'     => true,
+			'scrolling'       => true,
+			'loading'         => true,
+			'referrerpolicy'  => true,
+			'sandbox'         => true,
+		),
+		'script'   => array(
+			'src'            => true,
+			'type'           => true,
+			'async'          => true,
+			'defer'          => true,
+			'charset'        => true,
+			'id'             => true,
+			'crossorigin'    => true,
+			'integrity'      => true,
+			'referrerpolicy' => true,
+			'data-*'         => true,
+		),
+		'div'      => $common + array( 'data-*' => true ),
+		'span'     => $common + array( 'data-*' => true ),
+		'noscript' => array(),
+		'p'        => $common,
+		'a'        => $common + array(
+			'href'   => true,
+			'target' => true,
+			'rel'    => true,
+		),
+		'br'       => array(),
+	);
+
+	return wp_kses( $code, $allowed );
+}

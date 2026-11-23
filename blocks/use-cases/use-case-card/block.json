@@ -1,0 +1,37 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/use-case-card",
+  "title": "Use Case Card",
+  "category": "overchain",
+  "icon": "format-image",
+  "description": "One card of Use Case Cards: title, text and image.",
+  "textdomain": "overchain-blocks",
+  "parent": [
+    "overchain/use-cases"
+  ],
+  "supports": {
+    "html": false,
+    "align": false,
+    "reusable": false
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    },
+    "imageId": {
+      "type": "number",
+      "default": 0
+    },
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "editorScript": "file:../../../build/use-cases/use-case-card/index.js",
+  "render": "file:./render.php"
+}

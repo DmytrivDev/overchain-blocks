@@ -33,7 +33,6 @@ export default function Edit({ attributes, setAttributes }) {
     setAttributes({ steps: updated });
   };
 
-  const formatStepNumber = (index) => String(index + 1).padStart(2, "0");
 
   // Same split the Blade template does. The canvas has no main.js, so it shows the
   // first word only — exactly where the frontend cycle starts.
@@ -135,10 +134,6 @@ export default function Edit({ attributes, setAttributes }) {
                             />
                             {firstSwapWord(step) && ` ${firstSwapWord(step)}`}
                           </h3>
-
-                          <p className="item-oneflow__step">
-                            {formatStepNumber(index)}
-                          </p>
                         </div>
                       </li>
                     ))}

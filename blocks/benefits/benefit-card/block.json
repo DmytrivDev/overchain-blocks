@@ -1,0 +1,41 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/benefit-card",
+  "title": "Benefit Card",
+  "category": "overchain",
+  "icon": "id-alt",
+  "description": "One card of Benefit Cards: title and text; a wide card spans two columns and shows an image.",
+  "textdomain": "overchain-blocks",
+  "parent": [
+    "overchain/benefits"
+  ],
+  "supports": {
+    "html": false,
+    "align": false,
+    "reusable": false
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    },
+    "wide": {
+      "type": "boolean",
+      "default": false
+    },
+    "imageId": {
+      "type": "number",
+      "default": 0
+    },
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "editorScript": "file:../../../build/benefits/benefit-card/index.js",
+  "render": "file:./render.php"
+}

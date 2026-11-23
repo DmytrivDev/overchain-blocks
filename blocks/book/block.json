@@ -1,0 +1,39 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/book",
+  "title": "Booking Form",
+  "category": "overchain",
+  "icon": "calendar-alt",
+  "description": "Section title with an embedded booking form: pasted embed code (an iframe or a script snippet), or — when none is pasted — an iframe from the form link.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Beyond Access. <br />Built for Operation."
+    }
+  },
+  "attributes": {
+    "topSpacing": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "default": "Beyond Access. <br />Built for Operation."
+    },
+    "iframeUrl": {
+      "type": "string",
+      "default": "https://meet.overchain.io/team?embed=1&step=pick"
+    },
+    "code": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "editorScript": "file:../../build/book/index.js",
+  "render": "file:./render.php"
+}

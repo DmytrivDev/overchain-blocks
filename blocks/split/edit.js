@@ -88,6 +88,9 @@ export default function Edit({ attributes, setAttributes }) {
     setAttributes({ items: items.filter((_, i) => i !== index) });
 
   const isItemList = listStyle === "items";
+  // `points` (FM London) edits the same `steps` array as the numbered list —
+  // title + text per row — and only renders differently.
+  const isPointList = listStyle === "points";
 
   return (
     <>
@@ -133,6 +136,10 @@ export default function Edit({ attributes, setAttributes }) {
                 label: __("Icon items", "overchain-blocks"),
                 value: "items",
               },
+              {
+                label: __("Points (title + text)", "overchain-blocks"),
+                value: "points",
+              },
             ]}
             onChange={(value) => setAttributes({ listStyle: value })}
           />
@@ -169,7 +176,10 @@ export default function Edit({ attributes, setAttributes }) {
         )}
 
         {!isItemList && (
-        <PanelBody title={__("Steps", "overchain-blocks")} initialOpen={false}>
+        <PanelBody
+          title={isPointList ? __("Points", "overchain-blocks") : __("Steps", "overchain-blocks")}
+          initialOpen={false}
+        >
           {steps.map((step, index) => (
             <div key={index} style={{ marginBottom: "16px" }}>
               <TextControl
@@ -284,7 +294,32 @@ export default function Edit({ attributes, setAttributes }) {
                     </ul>
                   )}
 
-                  {!isItemList && steps.length > 0 && (
+                  {isPointList && steps.length > 0 && (
+                    <ul className="actually__points" role="list">
+                      {steps.map((step, index) => (
+                        <li key={index} className="points-actually">
+                          <RichText
+                            tagName="h3"
+                            className="points-actually__tl"
+                            placeholder={__("Point title", "overchain-blocks")}
+                            value={step.title}
+                            onChange={(value) => updateStep(index, { title: value })}
+                          />
+
+                          <div className="points-actually__desc">
+                            <RichText
+                              tagName="p"
+                              placeholder={__("Point description", "overchain-blocks")}
+                              value={step.text}
+                              onChange={(value) => updateStep(index, { text: value })}
+                            />
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {!isItemList && !isPointList && steps.length > 0 && (
                     <ul className="actually__steps">
                       {steps.map((step, index) => (
                         <li key={index} className="steps-actually">

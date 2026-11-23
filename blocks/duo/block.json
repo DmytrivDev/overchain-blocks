@@ -49,11 +49,22 @@
     "text": {
       "type": "string",
       "default": ""
+    },
+    "threeColumns": {
+      "type": "boolean",
+      "default": false
+    },
+    "enableDecor": {
+      "type": "boolean",
+      "default": false
     }
   },
   "allowedBlocks": [
     "overchain/duo-card"
   ],
+  "providesContext": {
+    "overchain/duoThreeColumns": "threeColumns"
+  },
   "editorScript": "file:../../build/duo/index.js",
   "render": "file:./render.php"
 }

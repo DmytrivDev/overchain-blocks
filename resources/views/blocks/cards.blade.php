@@ -7,7 +7,9 @@
 	$columns  = (string) ( $attributes['columns'] ?? '4' );
 
 	$sectionClass = 'compliant ' . ( $noPaddingTop ? 'pbs4' : 'pbs2' );
-	$cardsClass   = 'compliant__cards' . ( '5' === $columns ? ' cards-column-5' : '' ) . ' anim-cards';
+	// `compact` (FM London): smaller title-only cards; `headingLeft` drops `aic`.
+	$cardsClass   = 'compliant__cards' . ( '5' === $columns ? ' cards-column-5' : '' ) . ( ! empty( $attributes['compact'] ) ? ' cards-compact' : '' ) . ' anim-cards';
+	$headingClass = empty( $attributes['headingLeft'] ) ? 'heading aic' : 'heading';
 	$decorUrl     = get_template_directory_uri() . '/assets/img/decor/oneflow_dec_1.jpg';
 @endphp
 
@@ -21,7 +23,7 @@
 			@endif
 			<div class="compliant__body section-body{{ overchain_blocks_fade_class( $attributes ) }}">
 				@if ( ! empty( $title ) )
-					<div class="heading aic">
+					<div class="{{ $headingClass }}">
 						<h2 class="tl2 anim-txt">{!! wp_kses_post( $title ) !!}</h2>
 
 						@if ( ! empty( $text ) )

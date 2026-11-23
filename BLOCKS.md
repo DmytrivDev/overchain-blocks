@@ -25,7 +25,7 @@ still limited to the original seven; everything above it applies to all of them.
 | Locations | `overchain/locations` | `.operations` | `overchain/location-card` | about |
 | Team | `overchain/team` | `.understand` | `overchain/team-card` | about |
 
-Design HTML lives in `wp-content/themes/overchain/_desigh/dist/`.
+Design HTML lives in `D:\Work\Sites\Building\OverchainMain2.0\dist\` (the designer's external Vite project, read in place — the theme's former `_desigh/` copy was removed 2026-10-07; every `OverchainMain2.0/dist|public` path in this file means that folder).
 
 ---
 
@@ -398,7 +398,7 @@ behaviour:
 | `bg2` | top | stays 90rem, crops | Image at the top | about, case, glossary |
 | `bg3` | top | scales to viewport | — (removed from the picker) | none |
 
-`bg3` was dropped from the select: no page in `_desigh/dist` uses it and its desktop
+`bg3` was dropped from the select: no page in `OverchainMain2.0/dist` uses it and its desktop
 rule is shared with `bg2`. The Blade template still emits the class, so content saved
 with it keeps rendering — only the option is gone.
 
@@ -469,7 +469,7 @@ those blocks onto an empty list.
 
 `items` carries no icon field — all four positions on both pages use the same
 glyph, so it is a fixed asset: `actually_icon_2.svg`. That file had to be **merged
-in from `_desigh/public/`**, because the design `dist/` ships only
+in from `OverchainMain2.0/public/`**, because the design `dist/` ships only
 `actually_icon_1.svg` — a reminder that `dist/` is not the whole asset set, and
 that a missing icon may simply not have been synced yet.
 
@@ -602,7 +602,7 @@ the animation. Class-inventory diffs against the design therefore exclude these.
 |---|---|---|
 | `.anim-txt` | section `h2` (and `h2.tl3` in `.infrastruct`) | Words rise in one by one |
 | `.animated-block` › `.anim-block` [`gap-big`] | Hero / Lead / Intro body; Split `__top` / `__bottom` | Children appear in turn |
-| `.anim-scroll` | section `__body`, automatically before a White Section | Fades out as it scrolls under the header |
+| `.anim-scroll` | section `__body`, automatically before a White Section — **except Split (`.actually`), where it goes on `__wrap`** (design commit `9a29949`: decor and picture fade with the text) | Fades out as it scrolls under the header |
 | `.anim-cards` + `data-threshold-desktop="0.3"` + `--i` | card grids | Card text slides in, staggered |
 | `data-threshold-desktop` + `--i` | `.way__body` (0.5), `.paid__tabs` (0.3), `.card-powerful__tags` (0.8) | Block-specific reveals in blocks.css |
 
@@ -649,7 +649,7 @@ revealed.
 
 On top of the checklist in `CLAUDE.md`:
 
-1. Pull the section's markup straight out of `_desigh/dist/*.html` and reproduce
+1. Pull the section's markup straight out of `OverchainMain2.0/dist/*.html` and reproduce
    it class-for-class in both Blade and `edit.js`.
 2. Grep every page in the drop for the section — a class that varies between
    pages is an attribute; one that never varies is a fixed asset.

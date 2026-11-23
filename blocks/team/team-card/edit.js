@@ -9,15 +9,19 @@ import ImageControls from "../../../components/ImageControls";
 
 const themeUrl = window.ovchBlocks?.themeUrl || "/wp-content/themes/overchain/";
 
-export default function Edit({ attributes, setAttributes }) {
+export default function Edit({ attributes, setAttributes, context }) {
   const { role, name, avatarId, avatarUrl } = attributes;
 
+  // Team's "Light photo placeholders" (a Team inside a White Section): a person
+  // without a photo gets the light card and the dark icon.
+  const light = !avatarUrl && !!context?.["overchain/teamLightPlaceholders"];
+
   const blockProps = useBlockProps({
-    className: "splide__slide card-understand",
+    className: `splide__slide card-understand${light ? " card-understand-def" : ""}`,
   });
 
   // Design asset used when no photo is picked: a centred placeholder icon.
-  const defaultIcon = `${themeUrl}assets/img/icons/ava_def_1.svg`;
+  const defaultIcon = `${themeUrl}assets/img/icons/${light ? "ava_def_2" : "ava_def_1"}.svg`;
 
   return (
     <>

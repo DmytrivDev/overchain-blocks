@@ -1,0 +1,89 @@
+<?php 
+	$title = $attributes['title'] ?? '';
+	$text  = $attributes['text'] ?? '';
+
+	$buttonText    = $attributes['buttonText'] ?? '';
+	$secondaryText = $attributes['secondaryText'] ?? '';
+	$hasButtons    = ! empty( $buttonText ) || ! empty( $secondaryText );
+
+	// `countdownTo` is a datetime-local value ("2026-12-03T09:00") read as UTC; the
+	// design's readout.js wants ISO 8601 with an offset. A value that already has
+	// seconds or an offset is passed through.
+	$countdownTo = trim( (string) ( $attributes['countdownTo'] ?? '' ) );
+	if ( preg_match( '/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/', $countdownTo ) ) {
+ $countdownTo .= ':00+00:00';
+	}
+
+	$units = array(
+ 'days'  => function_exists( 'pll__' ) ? pll__( 'Days' ) : __( 'Days', 'overchain-blocks' ),
+ 'hours' => function_exists( 'pll__' ) ? pll__( 'Hours' ) : __( 'Hours', 'overchain-blocks' ),
+ 'min'   => function_exists( 'pll__' ) ? pll__( 'Min' ) : __( 'Min', 'overchain-blocks' ),
+ 'sec'   => function_exists( 'pll__' ) ? pll__( 'Sec' ) : __( 'Sec', 'overchain-blocks' ),
+	);
+
+	// The background is the design's fixed artwork, shipped in the theme.
+	$decor = get_template_directory_uri() . '/assets/img/decor/';
+ ?>
+
+<section class="welcome">
+	<div class="welcome__container">
+ <div class="welcome__wrap section-wrap">
+ <picture class="welcome__bg bg-1 no-select" aria-hidden="true">
+ <source srcset="<?php echo \htmlentities(esc_url( $decor . 'welcome_bg_1m.jpg' )??'', ENT_QUOTES, 'UTF-8', false); ?>" media="(max-width: 992px)">
+ <img src="<?php echo \htmlentities(esc_url( $decor . 'welcome_bg_1d.jpg' )??'', ENT_QUOTES, 'UTF-8', false); ?>" alt="">
+ </picture>
+
+ <div class="welcome__body welcome-body-1 section-body animated-block">
+ <div class="welcome__content">
+ <?php if( ! empty( $title ) ): ?>
+ <h1 class="tl1 anim-block"><?php echo wp_kses_post( $title ); ?></h1>
+ <?php endif; ?>
+
+ <?php if( ! empty( $text ) ): ?>
+ <div class="txt1 medium anim-block">
+ <p><?php echo wp_kses_post( $text ); ?></p>
+ </div>
+ <?php endif; ?>
+
+ <?php if( $hasButtons ): ?>
+ <div class="welcome__btns anim-block">
+ <?php echo $this->runChild( 'partials.btn-icon', [
+ 'text' => $buttonText,
+ 'type' => $attributes['buttonType'] ?? 'link',
+ 'link' => $attributes['buttonLink'] ?? '',
+ 'newTab' => $attributes['buttonLinkNewTab'] ?? false,
+ 'anchor' => $attributes['buttonAnchor'] ?? '',
+ 'popupId' => $attributes['buttonPopupId'] ?? '',
+ 'icon' => $attributes['buttonIcon'] ?? 'calendar',
+ ] ); ?>
+
+ <?php echo $this->runChild( 'partials.btn-def', [
+ 'text' => $secondaryText,
+ 'type' => $attributes['secondaryType'] ?? 'link',
+ 'link' => $attributes['secondaryLink'] ?? '',
+ 'newTab' => $attributes['secondaryLinkNewTab'] ?? false,
+ 'anchor' => $attributes['secondaryAnchor'] ?? '',
+ 'popupId' => $attributes['secondaryPopupId'] ?? '',
+ 'style' => 'stl-trn-clw',
+ 'class' => '',
+ ] ); ?>
+ </div>
+ <?php endif; ?>
+
+ <?php if( '' !== $countdownTo ): ?>
+ <?php /* readout.js (theme main.js) counts down to `data-readout`. */ ?>
+ <div class="readout-welcome anim-block" data-readout="<?php echo \htmlentities(esc_attr( $countdownTo )??'', ENT_QUOTES, 'UTF-8', false); ?>" role="timer">
+ <?php $__currentLoopData = $units; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $unit => $label): $loop = $this->incrementLoopIndices();  ?>
+ <div class="readout-welcome__item">
+ <span class="readout-welcome__value" data-readout-unit="<?php echo \htmlentities(esc_attr( $unit )??'', ENT_QUOTES, 'UTF-8', false); ?>">00</span>
+ <span class="readout-welcome__label"><?php echo \htmlentities(esc_html( $label )??'', ENT_QUOTES, 'UTF-8', false); ?></span>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </div>
+ <?php endif; ?>
+ </div>
+ </div>
+ </div>
+	</div>
+</section>

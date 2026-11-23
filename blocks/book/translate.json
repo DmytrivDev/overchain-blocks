@@ -1,0 +1,17 @@
+{
+  "name": "overchain/book",
+  "attributes": {
+    "topSpacing": {
+      "translate": "ignore"
+    },
+    "title": {
+      "translate": "rich"
+    },
+    "iframeUrl": {
+      "translate": "ignore"
+    },
+    "code": {
+      "translate": "ignore"
+    }
+  }
+}

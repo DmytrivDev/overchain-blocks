@@ -1,21 +1,59 @@
 {
   "name": "overchain/cards",
   "attributes": {
-    "noPaddingTop":    { "translate": "ignore" },
-    "disableWhiteFade": { "translate": "ignore" },
-    "enableDecor":     { "translate": "ignore" },
-    "columns":         { "translate": "ignore" },
-    "title":           { "translate": "rich" },
-    "text":            { "translate": "rich" },
-    "descText":        { "translate": "rich" },
-    "buttonText":      { "translate": "string" },
-    "buttonType":      { "translate": "ignore" },
-    "buttonLink":      { "translate": "url" },
-    "buttonLinkId":    { "translate": "postobject" },
-    "buttonLinkTitle": { "translate": "string" },
-    "buttonLinkNewTab":{ "translate": "ignore" },
-    "buttonAnchor":    { "translate": "ignore" },
-    "buttonPopupId":   { "translate": "ignore" },
-    "buttonIcon":      { "translate": "ignore" }
+    "noPaddingTop": {
+      "translate": "ignore"
+    },
+    "disableWhiteFade": {
+      "translate": "ignore"
+    },
+    "enableDecor": {
+      "translate": "ignore"
+    },
+    "columns": {
+      "translate": "ignore"
+    },
+    "title": {
+      "translate": "rich"
+    },
+    "text": {
+      "translate": "rich"
+    },
+    "descText": {
+      "translate": "rich"
+    },
+    "buttonText": {
+      "translate": "string"
+    },
+    "buttonType": {
+      "translate": "ignore"
+    },
+    "buttonLink": {
+      "translate": "url"
+    },
+    "buttonLinkId": {
+      "translate": "postobject"
+    },
+    "buttonLinkTitle": {
+      "translate": "string"
+    },
+    "buttonLinkNewTab": {
+      "translate": "ignore"
+    },
+    "buttonAnchor": {
+      "translate": "ignore"
+    },
+    "buttonPopupId": {
+      "translate": "ignore"
+    },
+    "buttonIcon": {
+      "translate": "ignore"
+    },
+    "compact": {
+      "translate": "ignore"
+    },
+    "headingLeft": {
+      "translate": "ignore"
+    }
   }
 }

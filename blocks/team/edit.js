@@ -5,6 +5,7 @@ import {
   InnerBlocks,
   InspectorControls,
 } from "@wordpress/block-editor";
+import { PanelBody, ToggleControl } from "@wordpress/components";
 
 import SectionSettingsControls from "../../components/SectionSettingsControls";
 
@@ -19,7 +20,7 @@ const TEMPLATE = [
 ];
 
 export default function Edit({ attributes, setAttributes }) {
-  const { noPaddingTop, title, text } = attributes;
+  const { noPaddingTop, title, text, centerHeading, lightPlaceholders } = attributes;
 
   const blockProps = useBlockProps({
     style: {
@@ -37,6 +38,23 @@ export default function Edit({ attributes, setAttributes }) {
           attributes={attributes}
           setAttributes={setAttributes}
         />
+
+        <PanelBody title={__("Layout", "overchain-blocks")}>
+          <ToggleControl
+            label={__("Centre the heading", "overchain-blocks")}
+            checked={!!centerHeading}
+            onChange={(value) => setAttributes({ centerHeading: value })}
+          />
+          <ToggleControl
+            label={__("Light photo placeholders", "overchain-blocks")}
+            help={__(
+              "For a Team inside a White Section: people without a photo get the light card and the dark icon.",
+              "overchain-blocks",
+            )}
+            checked={!!lightPlaceholders}
+            onChange={(value) => setAttributes({ lightPlaceholders: value })}
+          />
+        </PanelBody>
       </InspectorControls>
 
       <div {...blockProps}>
@@ -44,7 +62,7 @@ export default function Edit({ attributes, setAttributes }) {
           <div className="understand__container">
             <div className="understand__wrap section-wrap">
               <div className="understand__body section-body">
-                <div className="heading">
+                <div className={centerHeading ? "heading aic" : "heading"}>
                   <RichText
                     tagName="h2"
                     className="tl2"

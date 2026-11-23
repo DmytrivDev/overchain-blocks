@@ -18,6 +18,12 @@
 		}
 	}
 
+	&.grid-3 {
+		.block-editor-block-list__layout {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
 	&.grid-5 {
 		.block-editor-block-list__layout {
 			grid-template-columns: repeat(5, 1fr);
@@ -776,6 +782,38 @@ li:not(ul li) {
 	margin-block-end: 13.75rem; // 220px
 }
 
+// ─── Booking Form iframe stand-in ─────────────────────────
+//
+// The front renders a ~940px third-party iframe; the canvas shows this box
+// instead so the block stays light and selectable (see book/edit.js).
+
+.book__placeholder {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	min-height: 16rem;
+	padding: 2rem;
+	border: 0.0625rem dashed currentColor;
+	border-radius: 1rem;
+	text-align: center;
+	opacity: 0.6;
+
+	p {
+		margin: 0;
+	}
+}
+
+.book__placeholder-label {
+	font-weight: 600;
+}
+
+.book__placeholder-url {
+	font-size: 0.875rem;
+	word-break: break-all;
+}
+
 // ─── Tablet ───────────────────────────────────────────────
 
 @media screen and (max-width: 992px) {
@@ -910,5 +948,18 @@ li:not(ul li) {
 
 	.accept__splide .block-editor-block-list__layout {
 		grid-template-columns: 1fr;
+	}
+}
+
+// ─── Onboarding Steps (FM London `startright`) ────────────
+//
+// The joining line draws in when threshold.js adds `.is-threshold`, which never
+// happens in the canvas — show it drawn (mobile: the vertical line).
+
+.editor-styles-wrapper .startright__line {
+	transform: scaleX(1);
+
+	@media screen and (max-width: 992px) {
+		transform: translateX(calc(-50% * var(--dir))) scale(1, 1);
 	}
 }

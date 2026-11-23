@@ -1,0 +1,20 @@
+{
+  "name": "overchain/benefit-card",
+  "attributes": {
+    "title": {
+      "translate": "rich"
+    },
+    "text": {
+      "translate": "rich"
+    },
+    "wide": {
+      "translate": "ignore"
+    },
+    "imageId": {
+      "translate": "ignore"
+    },
+    "imageUrl": {
+      "translate": "ignore"
+    }
+  }
+}

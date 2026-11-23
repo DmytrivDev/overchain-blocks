@@ -2,6 +2,8 @@
 	$iconUrl = $attributes['iconUrl'] ?? '';
 	$title   = $attributes['title'] ?? '';
 	$text    = $attributes['text'] ?? '';
+	// Duo's three-column variant (block context) drops the light weight of the text.
+	$textClass = ! empty( $block->context['overchain/duoThreeColumns'] ?? false ) ? 'txt4 col-alt1' : 'txt4 col-alt1 light';
 @endphp
 
 <li class="card-funds">
@@ -12,7 +14,7 @@
 			@endif
 
 			@if ( ! empty( $text ) )
-				<div class="txt4 col-alt1 light">
+				<div class="{{ $textClass }}">
 					<p>{!! wp_kses_post( $text ) !!}</p>
 				</div>
 			@endif

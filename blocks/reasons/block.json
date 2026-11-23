@@ -1,0 +1,68 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/reasons",
+  "title": "Reasons List",
+  "category": "overchain",
+  "icon": "list-view",
+  "description": "Title and a two-column list of reasons — icon, title and a short line — over the design's background.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Why Brokers <br /><span style=\"color: #30e4a3\">Choose Overchain</span>"
+    },
+    "innerBlocks": [
+      {
+        "name": "overchain/reason",
+        "attributes": {
+          "title": "Institutional-grade <br />OTC Desk",
+          "text": "Liquidity for large conversions."
+        }
+      },
+      {
+        "name": "overchain/reason",
+        "attributes": {
+          "title": "Vault-grade Asset <br />Protection",
+          "text": "Secure custody of funds."
+        }
+      },
+      {
+        "name": "overchain/reason",
+        "attributes": {
+          "title": "Embedded <br />Compliance",
+          "text": "KYC/AML-ready infrastructure."
+        }
+      },
+      {
+        "name": "overchain/reason",
+        "attributes": {
+          "title": "Advanced <br />Transaction Controls",
+          "text": "Limits, approvals, screening."
+        }
+      }
+    ]
+  },
+  "allowedBlocks": [
+    "overchain/reason"
+  ],
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "editorScript": "file:../../build/reasons/index.js",
+  "render": "file:./render.php"
+}

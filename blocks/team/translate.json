@@ -1,9 +1,23 @@
 {
   "name": "overchain/team",
   "attributes": {
-    "noPaddingTop": { "translate": "ignore" },
-    "disableWhiteFade": { "translate": "ignore" },
-    "title":        { "translate": "rich" },
-    "text":         { "translate": "rich" }
+    "noPaddingTop": {
+      "translate": "ignore"
+    },
+    "disableWhiteFade": {
+      "translate": "ignore"
+    },
+    "title": {
+      "translate": "rich"
+    },
+    "text": {
+      "translate": "rich"
+    },
+    "centerHeading": {
+      "translate": "ignore"
+    },
+    "lightPlaceholders": {
+      "translate": "ignore"
+    }
   }
 }

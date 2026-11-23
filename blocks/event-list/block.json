@@ -1,0 +1,43 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/event-list",
+  "title": "Event List",
+  "category": "overchain",
+  "icon": "calendar",
+  "description": "A list of event cards — date, place, headline, text and the event logo.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {},
+    "innerBlocks": [
+      {
+        "name": "overchain/event-card",
+        "attributes": {
+          "date": "<span style=\"color: #30e4a3\">Nov 24</span><br />2026",
+          "place": "Old Billingsgate, <br />London",
+          "title": "Settle Instantly. Stay Compliant. <br />Run it All from One Login.",
+          "text": "Real-time settlement that holds up at high volumes, with Travel Rule, AML/CTF and sanctions screening running on every transaction."
+        }
+      }
+    ]
+  },
+  "allowedBlocks": [
+    "overchain/event-card"
+  ],
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "editorScript": "file:../../build/event-list/index.js",
+  "render": "file:./render.php"
+}

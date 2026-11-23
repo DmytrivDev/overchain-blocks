@@ -1,0 +1,17 @@
+{
+  "name": "overchain/use-case-card",
+  "attributes": {
+    "title": {
+      "translate": "rich"
+    },
+    "text": {
+      "translate": "rich"
+    },
+    "imageId": {
+      "translate": "ignore"
+    },
+    "imageUrl": {
+      "translate": "ignore"
+    }
+  }
+}

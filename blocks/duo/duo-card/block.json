@@ -5,6 +5,9 @@
   "category": "overchain",
   "icon": "index-card",
   "description": "Single duo card.",
+  "usesContext": [
+    "overchain/duoThreeColumns"
+  ],
   "textdomain": "overchain-blocks",
   "parent": [
     "overchain/duo"

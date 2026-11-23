@@ -4,9 +4,8 @@
 	$subtitle     = $attributes['subtitle'] ?? '';
 	$steps        = $attributes['steps'] ?? [];
 
-	// A fresh block arrives with four empty steps. An untouched row would still print
-	// its number, so drop the ones with neither a label nor an icon — `array_values`
-	// keeps the numbering sequential afterwards.
+	// A fresh block arrives with four empty steps, so drop the ones with neither a
+	// label nor an icon.
 	$steps = array_values( array_filter(
 		is_array( $steps ) ? $steps : [],
 		function ( $step ) {
@@ -47,12 +46,9 @@
 								@php
 									$iconUrl = $step['iconUrl'] ?? '';
 									$label   = $step['label'] ?? '';
-									$number  = str_pad( (string) ( $index + 1 ), 2, '0', STR_PAD_LEFT );
 
 									// "USDT, BTC, ETH" → a word cycler after the title (theme
-									// auto-swap.js). The icon cycles in step with it: the design
-									// repeats the same icon once per word, and `data-swap-group`
-									// gives both tracks one shared timer and index.
+									// auto-swap.js). The icon is static.
 									$swapWords = array_values( array_filter( array_map(
 										'trim',
 										explode( ',', (string) ( $step['swapWords'] ?? '' ) )
@@ -60,20 +56,10 @@
 									$hasSwap = count( $swapWords ) > 1;
 								@endphp
 
-								<li class="item-oneflow"@if ( $hasSwap ) data-swap-group @endif>
+								<li class="item-oneflow">
 									@if ( ! empty( $iconUrl ) )
 										<div class="item-oneflow__icon">
-											@if ( $hasSwap )
-												<span class="auto-swap-items">
-													<span>
-														@foreach ( $swapWords as $word )
-															<span><img src="{{ esc_url( $iconUrl ) }}" alt=""></span>
-														@endforeach
-													</span>
-												</span>
-											@else
-												<img src="{{ esc_url( $iconUrl ) }}" alt="">
-											@endif
+											<img src="{{ esc_url( $iconUrl ) }}" alt="">
 										</div>
 									@endif
 
@@ -92,8 +78,6 @@
 												@endif
 											</h3>
 										@endif
-
-										<p class="item-oneflow__step">{{ esc_html( $number ) }}</p>
 									</div>
 								</li>
 							@endforeach

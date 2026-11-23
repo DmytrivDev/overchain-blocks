@@ -1,0 +1,107 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/event-hero",
+  "title": "Event Hero",
+  "category": "overchain",
+  "icon": "clock",
+  "description": "First screen for an event: title, text, two buttons and a countdown to the event's start. The background is the design's fixed artwork.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "<span style=\"color: #30e4a3\">Meet Overchain</span> <br />at FM Summit London",
+      "text": "Fiat and digital asset infrastructure for fund subscriptions, <br />redemptions and operations.",
+      "buttonText": "Book a Meeting",
+      "secondaryText": "Explore the Platform",
+      "countdownTo": "2026-12-03T09:00"
+    }
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonText": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonType": {
+      "type": "string",
+      "default": "link"
+    },
+    "buttonLink": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkId": {
+      "type": "number",
+      "default": 0
+    },
+    "buttonLinkTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkNewTab": {
+      "type": "boolean",
+      "default": false
+    },
+    "buttonAnchor": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonPopupId": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonIcon": {
+      "type": "string",
+      "default": "calendar"
+    },
+    "secondaryText": {
+      "type": "string",
+      "default": ""
+    },
+    "secondaryType": {
+      "type": "string",
+      "default": "link"
+    },
+    "secondaryLink": {
+      "type": "string",
+      "default": ""
+    },
+    "secondaryLinkId": {
+      "type": "number",
+      "default": 0
+    },
+    "secondaryLinkTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "secondaryLinkNewTab": {
+      "type": "boolean",
+      "default": false
+    },
+    "secondaryAnchor": {
+      "type": "string",
+      "default": ""
+    },
+    "secondaryPopupId": {
+      "type": "string",
+      "default": ""
+    },
+    "countdownTo": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "editorScript": "file:../../build/event-hero/index.js",
+  "render": "file:./render.php"
+}

@@ -1,0 +1,37 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/reason",
+  "title": "Reason",
+  "category": "overchain",
+  "icon": "yes-alt",
+  "description": "One row of Reasons List: icon, title and a short line.",
+  "textdomain": "overchain-blocks",
+  "parent": [
+    "overchain/reasons"
+  ],
+  "supports": {
+    "html": false,
+    "align": false,
+    "reusable": false
+  },
+  "attributes": {
+    "iconId": {
+      "type": "number",
+      "default": 0
+    },
+    "iconUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "editorScript": "file:../../../build/reasons/reason/index.js",
+  "render": "file:./render.php"
+}

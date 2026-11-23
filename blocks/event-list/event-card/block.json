@@ -1,0 +1,49 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/event-card",
+  "title": "Event Card",
+  "category": "overchain",
+  "icon": "tickets-alt",
+  "description": "One event: date, place, headline (optionally a link), text and logo.",
+  "textdomain": "overchain-blocks",
+  "parent": [
+    "overchain/event-list"
+  ],
+  "supports": {
+    "html": false,
+    "align": false,
+    "reusable": false
+  },
+  "attributes": {
+    "date": {
+      "type": "string",
+      "default": ""
+    },
+    "place": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "link": {
+      "type": "string",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    },
+    "logoId": {
+      "type": "number",
+      "default": 0
+    },
+    "logoUrl": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "editorScript": "file:../../../build/event-list/event-card/index.js",
+  "render": "file:./render.php"
+}

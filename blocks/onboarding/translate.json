@@ -1,0 +1,14 @@
+{
+  "name": "overchain/onboarding",
+  "attributes": {
+    "noPaddingTop": {
+      "translate": "ignore"
+    },
+    "disableWhiteFade": {
+      "translate": "ignore"
+    },
+    "title": {
+      "translate": "rich"
+    }
+  }
+}

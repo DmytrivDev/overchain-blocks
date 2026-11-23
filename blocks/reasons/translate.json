@@ -1,0 +1,14 @@
+{
+  "name": "overchain/reasons",
+  "attributes": {
+    "noPaddingTop": {
+      "translate": "ignore"
+    },
+    "disableWhiteFade": {
+      "translate": "ignore"
+    },
+    "title": {
+      "translate": "rich"
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/onboarding",
+  "title": "Onboarding Steps",
+  "category": "overchain",
+  "icon": "controls-forward",
+  "description": "Centred title and a row of round-icon steps joined by a line that draws in on scroll.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Start Right After <br />the Summit"
+    },
+    "innerBlocks": [
+      {
+        "name": "overchain/onboarding-step",
+        "attributes": {
+          "title": "Streamlined onboarding",
+          "text": "One application, one review."
+        }
+      },
+      {
+        "name": "overchain/onboarding-step",
+        "attributes": {
+          "title": "Instant wallet creation",
+          "text": "Start receiving payments immediately."
+        }
+      },
+      {
+        "name": "overchain/onboarding-step",
+        "attributes": {
+          "title": "Auto-conversion to fiat",
+          "text": "Settle in the currency you need."
+        }
+      },
+      {
+        "name": "overchain/onboarding-step",
+        "attributes": {
+          "title": "24/7 human support",
+          "text": "Real people, around the clock."
+        }
+      }
+    ]
+  },
+  "allowedBlocks": [
+    "overchain/onboarding-step"
+  ],
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "editorScript": "file:../../build/onboarding/index.js",
+  "render": "file:./render.php"
+}

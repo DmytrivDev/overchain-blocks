@@ -5,6 +5,9 @@
   "category": "overchain",
   "icon": "admin-users",
   "description": "Single team slide — photo, name and role.",
+  "usesContext": [
+    "overchain/teamLightPlaceholders"
+  ],
   "textdomain": "overchain-blocks",
   "parent": [
     "overchain/team"

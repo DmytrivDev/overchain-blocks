@@ -48,11 +48,22 @@
     "text": {
       "type": "string",
       "default": ""
+    },
+    "centerHeading": {
+      "type": "boolean",
+      "default": false
+    },
+    "lightPlaceholders": {
+      "type": "boolean",
+      "default": false
     }
   },
   "allowedBlocks": [
     "overchain/team-card"
   ],
+  "providesContext": {
+    "overchain/teamLightPlaceholders": "lightPlaceholders"
+  },
   "editorScript": "file:../../build/team/index.js",
   "render": "file:./render.php"
 }

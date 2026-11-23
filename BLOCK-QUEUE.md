@@ -72,7 +72,7 @@ smoke-рендер усіх гілок, `translate.json`, документаці
 
 - [`resources/scss/styles.scss`](resources/scss/styles.scss) уже містить правила всіх
   нових секцій. Кількість правил збігається з
-  `_desigh/dist/css/blocks.CNAH7hS8.css`.
+  `OverchainMain2.0/dist/css/blocks.CNAH7hS8.css`.
 - `../../themes/overchain/js/main.js` уже ініціалізує `.accept__splide`
   (perPage 4 → 2 → 1) і `.testimonials__splide` (perPage 1). `base-accord`,
   `data-lock` і `.arrows` — загальні механізми, теж уже є.
@@ -82,8 +82,10 @@ smoke-рендер усіх гілок, `translate.json`, документаці
 Тобто робота в кожному пункті — це `block.json` + `edit.js` + `render.php` +
 Blade + `translate.json` + правило для канви.
 
-> Шляхи `_desigh/dist/...` у цьому файлі відлічуються від кореня теми:
-> `wp-content/themes/overchain/_desigh/dist/`. Решта шляхів — від кореня плагіна.
+> Шляхи `OverchainMain2.0/dist/...` у цьому файлі — це зовнішній дизайнерський
+> проєкт `D:\Work\Sites\Building\OverchainMain2.0\` (папку `_desigh/` в темі
+> видалено 07.10.2026; читаємо `dist/` і `public/` прямо звідти). Решта шляхів —
+> від кореня плагіна.
 > Номери рядків верстки звірені; якщо приїде новий дизайн-дроп, вони поїдуть —
 > шукай за класом секції.
 
@@ -221,7 +223,7 @@ Blade + `translate.json` + правило для канви.
 - [x] рядки зареєстровані в `../../themes/overchain/inc/integrations/polylang-strings.php`
 - [x] запис у `PLUGIN.md` § Partials
 
-**Джерело розмітки:** `_desigh/dist/move-money.html:647` (у `.accept`),
+**Джерело розмітки:** `OverchainMain2.0/dist/move-money.html:647` (у `.accept`),
 `platform-overview.html:1422` (у `.testimonials`) — розмітка ідентична, що й
 робить партіал виправданим.
 
@@ -264,9 +266,9 @@ platform-overview — просто `intro__bg`, хоча layout у них різ
 
 | Варіант | Файл |
 |---|---|
-| `default` | `_desigh/dist/platform-overview.html:392` |
-| `content-center` | `_desigh/dist/move-money.html:392`, `control-treasury.html:392` |
-| `with-img` | `_desigh/dist/aviation.html:392` |
+| `default` | `OverchainMain2.0/dist/platform-overview.html:392` |
+| `content-center` | `OverchainMain2.0/dist/move-money.html:392`, `control-treasury.html:392` |
+| `with-img` | `OverchainMain2.0/dist/aviation.html:392` |
 
 **Пастки**
 
@@ -318,7 +320,7 @@ platform-overview — просто `intro__bg`, хоча layout у них різ
 - [x] `'testimonials'` у `$order`
 - [x] партіал 2.1 підключено
 
-**Джерело верстки:** `_desigh/dist/platform-overview.html:1320`
+**Джерело верстки:** `OverchainMain2.0/dist/platform-overview.html:1320`
 
 **Канва — реалізовано інакше, ніж планувалось.** План передбачав «один слайд +
 фейкові крапки» (як Promo Slider). Це **неможливо** для InnerBlocks-батька:
@@ -392,7 +394,7 @@ Everything, Manage і Connect — це тричі одна й та сама пе
 - [x] `'tag-list'` у `$order` (після `'badges'` — теж репітер-список)
 - [x] рядок у таблиці блоків `PLUGIN.md`
 
-**Джерело верстки:** `_desigh/dist/move-money.html:944`
+**Джерело верстки:** `OverchainMain2.0/dist/move-money.html:944`
 (`control-treasury.html:930` — байт у байт та сама секція).
 
 **Слаг змінено з `overchain/modern` на `overchain/tag-list`.** У репозиторії
@@ -446,7 +448,7 @@ Blade, і для `edit.js`; smoke-рендер 9 гілок (повна, `pbs4`,
 - [x] `'everything'` у `$order` (після `'showcase'`)
 - [x] рядки в обох таблицях `PLUGIN.md`, патерн у `BLOCKS.md`
 
-**Джерело верстки:** `_desigh/dist/move-money.html:671–814`
+**Джерело верстки:** `OverchainMain2.0/dist/move-money.html:671–814`
 (`control-treasury.html` — байт у байт та сама секція, звірено `diff`).
 
 **Картка називається `.item-everything`, не `.card-everything`.** Слаг блока —
@@ -509,7 +511,7 @@ smoke-рендер 6 гілок батька і 6 гілок картки, вк�
 - [x] партіал 2.1 підключено
 - [x] рядки в обох таблицях `PLUGIN.md`, патерн у `BLOCKS.md`
 
-**Джерело верстки:** `_desigh/dist/move-money.html:466–669`
+**Джерело верстки:** `OverchainMain2.0/dist/move-money.html:466–669`
 (`control-treasury.html` — байт у байт та сама секція, звірено `diff`).
 
 Розмітка слайдера: `<div class="splide" data-lock>` — `data-lock` уже обробляється
@@ -571,7 +573,7 @@ diff класів — Blade 0/0, `edit.js` 0/0 з урахуванням чот�
 - [x] `'faq'` у `$order` (після `'accordion'`)
 - [x] рядок у таблиці блоків `PLUGIN.md`, три записи в `BLOCKS.md`
 
-**Джерело верстки:** `_desigh/dist/integrations.html:687–874` (6 питань).
+**Джерело верстки:** `OverchainMain2.0/dist/integrations.html:687–874` (6 питань).
 
 Список несе `faq__list base-accord accord` — поведінка вже є в `js/main.js` теми,
 власного JS не треба.
@@ -657,7 +659,7 @@ Blade 0/0, `edit.js` 0/0 з урахуванням `faq__decor`/`no-select` (fro
 - [x] `'manage'` у `$order` (після `'cards'`)
 - [x] рядки в обох таблицях `PLUGIN.md`, чотири записи в `BLOCKS.md`
 
-**Джерело верстки:** `_desigh/dist/platform-overview.html:728–802`
+**Джерело верстки:** `OverchainMain2.0/dist/platform-overview.html:728–802`
 
 Кнопка картки в дизайні має іконку `btn_2.svg` — це значення
 `buttonIcon = 'arrow'` у наявному `partials/btn-icon`, окремої логіки не треба.
@@ -730,7 +732,7 @@ diff класів — Blade 0/0, `edit.js` 0/0 з урахуванням `manage
 - [x] `'connect'` у `$order` (після `'spotlight'`)
 - [x] рядки в обох таблицях `PLUGIN.md`, три записи в `BLOCKS.md`
 
-**Джерело верстки:** `_desigh/dist/platform-overview.html:812–992`
+**Джерело верстки:** `OverchainMain2.0/dist/platform-overview.html:812–992`
 
 **`.heading` тут без `aic`** — секція вирівняна ліворуч, на відміну від Everything
 і Tag List. У плані було правильно, фіксую, бо легко скопіювати не той варіант.
@@ -798,7 +800,7 @@ control-treasury є. Тому іконка — незалежне поле, а �
 - [x] `'moves'` у `$order` (після `'mosaic'`)
 - [x] рядки в обох таблицях `PLUGIN.md`, три записи в `BLOCKS.md`
 
-**Джерела верстки:** `_desigh/dist/move-money.html:820` (6 карток),
+**Джерела верстки:** `OverchainMain2.0/dist/move-money.html:820` (6 карток),
 `control-treasury.html:820` (5 карток, є `tall-first`)
 
 **Канва.** Фронтовий грід — `1fr 1fr 1fr 20rem`, а варіанти розставлені явно:

@@ -1,0 +1,68 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/use-cases",
+  "title": "Use Case Cards",
+  "category": "overchain",
+  "icon": "images-alt2",
+  "description": "Title and a row of cards, each with a title, text and an image rising from the bottom over the design's glow.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "<span style=\"color: #30e4a3\">Every Flow</span> <br />in Your Brokerage"
+    },
+    "innerBlocks": [
+      {
+        "name": "overchain/use-case-card",
+        "attributes": {
+          "title": "Client <br />Deposits",
+          "text": "Global crypto deposits with automatic rate lock and instant settlement."
+        }
+      },
+      {
+        "name": "overchain/use-case-card",
+        "attributes": {
+          "title": "Withdrawals <br />&amp; Payouts",
+          "text": "Fast withdrawals with full traceability."
+        }
+      },
+      {
+        "name": "overchain/use-case-card",
+        "attributes": {
+          "title": "Use case",
+          "text": "Short description."
+        }
+      },
+      {
+        "name": "overchain/use-case-card",
+        "attributes": {
+          "title": "Use case",
+          "text": "Short description."
+        }
+      }
+    ]
+  },
+  "allowedBlocks": [
+    "overchain/use-case-card"
+  ],
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "editorScript": "file:../../build/use-cases/index.js",
+  "render": "file:./render.php"
+}

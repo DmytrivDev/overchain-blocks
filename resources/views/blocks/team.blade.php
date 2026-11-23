@@ -11,7 +11,7 @@
 		<div class="understand__wrap section-wrap">
 			<div class="understand__body section-body{{ overchain_blocks_fade_class( $attributes ) }}">
 				@if ( ! empty( $title ) || ! empty( $text ) )
-					<div class="heading">
+					<div class="heading{{ ! empty( $attributes['centerHeading'] ) ? ' aic' : '' }}">
 						@if ( ! empty( $title ) )
 							<h2 class="tl2 anim-txt">{!! wp_kses_post( $title ) !!}</h2>
 						@endif

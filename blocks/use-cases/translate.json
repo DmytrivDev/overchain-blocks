@@ -1,0 +1,14 @@
+{
+  "name": "overchain/use-cases",
+  "attributes": {
+    "noPaddingTop": {
+      "translate": "ignore"
+    },
+    "disableWhiteFade": {
+      "translate": "ignore"
+    },
+    "title": {
+      "translate": "rich"
+    }
+  }
+}

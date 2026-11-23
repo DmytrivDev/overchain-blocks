@@ -1,21 +1,80 @@
 {
   "name": "overchain/highlight",
   "attributes": {
-    "noPaddingTop":     { "translate": "ignore" },
-    "disableWhiteFade": { "translate": "ignore" },
-    "enableDecor":      { "translate": "ignore" },
-    "title":            { "translate": "rich" },
-    "desc":             { "translate": "rich" },
-    "imageId":          { "translate": "ignore" },
-    "imageUrl":         { "translate": "ignore" },
-    "buttonText":       { "translate": "string" },
-    "buttonType":       { "translate": "ignore" },
-    "buttonLink":       { "translate": "url" },
-    "buttonLinkId":     { "translate": "postobject" },
-    "buttonLinkTitle":  { "translate": "string" },
-    "buttonLinkNewTab": { "translate": "ignore" },
-    "buttonAnchor":     { "translate": "ignore" },
-    "buttonPopupId":    { "translate": "ignore" },
-    "buttonIcon":       { "translate": "ignore" }
+    "noPaddingTop": {
+      "translate": "ignore"
+    },
+    "disableWhiteFade": {
+      "translate": "ignore"
+    },
+    "enableDecor": {
+      "translate": "ignore"
+    },
+    "title": {
+      "translate": "rich"
+    },
+    "desc": {
+      "translate": "rich"
+    },
+    "note": {
+      "translate": "rich"
+    },
+    "imageId": {
+      "translate": "ignore"
+    },
+    "imageUrl": {
+      "translate": "ignore"
+    },
+    "buttonText": {
+      "translate": "string"
+    },
+    "buttonType": {
+      "translate": "ignore"
+    },
+    "buttonLink": {
+      "translate": "url"
+    },
+    "buttonLinkId": {
+      "translate": "postobject"
+    },
+    "buttonLinkTitle": {
+      "translate": "string"
+    },
+    "buttonLinkNewTab": {
+      "translate": "ignore"
+    },
+    "buttonAnchor": {
+      "translate": "ignore"
+    },
+    "buttonPopupId": {
+      "translate": "ignore"
+    },
+    "buttonIcon": {
+      "translate": "ignore"
+    },
+    "secondaryText": {
+      "translate": "string"
+    },
+    "secondaryType": {
+      "translate": "ignore"
+    },
+    "secondaryLink": {
+      "translate": "url"
+    },
+    "secondaryLinkId": {
+      "translate": "postobject"
+    },
+    "secondaryLinkTitle": {
+      "translate": "string"
+    },
+    "secondaryLinkNewTab": {
+      "translate": "ignore"
+    },
+    "secondaryAnchor": {
+      "translate": "ignore"
+    },
+    "secondaryPopupId": {
+      "translate": "ignore"
+    }
   }
 }

@@ -27,6 +27,8 @@ export default function Edit({ attributes, setAttributes }) {
     noPaddingTop,
     enableDecor,
     columns,
+    compact,
+    headingLeft,
     title,
     text,
     descText,
@@ -45,7 +47,7 @@ export default function Edit({ attributes, setAttributes }) {
   // Same modifier the front uses, plus the editor-canvas grid helper (editor.scss).
   const cardsClass = `compliant__cards grid-settings ${
     columns === "5" ? "cards-column-5 grid-5" : "grid-4"
-  }`;
+  }${compact ? " cards-compact" : ""}`;
 
   return (
     <>
@@ -68,6 +70,17 @@ export default function Edit({ attributes, setAttributes }) {
               { label: __("5 per row", "overchain-blocks"), value: "5" },
             ]}
             onChange={(value) => setAttributes({ columns: value })}
+          />
+          <ToggleControl
+            label={__("Compact cards", "overchain-blocks")}
+            help={__("Smaller cards with a title only (FM London).", "overchain-blocks")}
+            checked={!!compact}
+            onChange={(value) => setAttributes({ compact: value })}
+          />
+          <ToggleControl
+            label={__("Heading on the left", "overchain-blocks")}
+            checked={!!headingLeft}
+            onChange={(value) => setAttributes({ headingLeft: value })}
           />
         </PanelBody>
 
@@ -95,7 +108,7 @@ export default function Edit({ attributes, setAttributes }) {
                 </div>
               )}
               <div className="compliant__body section-body">
-                <div className="heading aic">
+                <div className={headingLeft ? "heading" : "heading aic"}>
                   <RichText
                     tagName="h2"
                     className="tl2"

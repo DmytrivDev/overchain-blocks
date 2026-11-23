@@ -1,0 +1,107 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/benefits",
+  "title": "Benefit Cards",
+  "category": "overchain",
+  "icon": "screenoptions",
+  "description": "Centred title, a grid of cards (a card can span two columns and carry an image) and a button.",
+  "textdomain": "overchain-blocks",
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "example": {
+    "viewportWidth": 1200,
+    "attributes": {
+      "title": "Payments Infrastructure <br />Without the Banking Delays",
+      "buttonText": "Book a Demo"
+    },
+    "innerBlocks": [
+      {
+        "name": "overchain/benefit-card",
+        "attributes": {
+          "title": "Instant settlements",
+          "text": "Real-time confirmation without banking delays."
+        }
+      },
+      {
+        "name": "overchain/benefit-card",
+        "attributes": {
+          "title": "Regulatory confidence",
+          "text": "KYC/AML-ready infrastructure with auditability.",
+          "wide": true
+        }
+      },
+      {
+        "name": "overchain/benefit-card",
+        "attributes": {
+          "title": "Reduced costs",
+          "text": "Automated reconciliation, fewer intermediaries.",
+          "wide": true
+        }
+      },
+      {
+        "name": "overchain/benefit-card",
+        "attributes": {
+          "title": "Transparent fees",
+          "text": "Clear pricing with <br />no hidden costs."
+        }
+      }
+    ]
+  },
+  "allowedBlocks": [
+    "overchain/benefit-card"
+  ],
+  "attributes": {
+    "noPaddingTop": {
+      "type": "boolean",
+      "default": false
+    },
+    "disableWhiteFade": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonText": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonType": {
+      "type": "string",
+      "default": "link"
+    },
+    "buttonLink": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkId": {
+      "type": "number",
+      "default": 0
+    },
+    "buttonLinkTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonLinkNewTab": {
+      "type": "boolean",
+      "default": false
+    },
+    "buttonAnchor": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonPopupId": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonIcon": {
+      "type": "string",
+      "default": "calendar"
+    }
+  },
+  "editorScript": "file:../../build/benefits/index.js",
+  "render": "file:./render.php"
+}

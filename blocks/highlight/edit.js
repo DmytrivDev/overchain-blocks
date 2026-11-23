@@ -4,12 +4,13 @@ import {
   RichText,
   InspectorControls,
 } from "@wordpress/block-editor";
-import { PanelBody, ToggleControl } from "@wordpress/components";
+import { PanelBody, TextControl, ToggleControl } from "@wordpress/components";
 
 import SectionSettingsControls from "../../components/SectionSettingsControls";
 import ImageControls from "../../components/ImageControls";
 import ButtonControls from "../../components/ButtonControls";
 import ButtonPreview from "../../components/ButtonPreview";
+import LinkFields from "../../components/LinkFields";
 
 const themeUrl = window.ovchBlocks?.themeUrl || "/wp-content/themes/overchain/";
 
@@ -17,16 +18,42 @@ const themeUrl = window.ovchBlocks?.themeUrl || "/wp-content/themes/overchain/";
 // uploaded, so the canvas shows exactly what will ship.
 const defaultImage = `${themeUrl}assets/img/content/never_img_1.png`;
 
+// `LinkFields` writes the shared `button*` key names; remap them onto the
+// `secondary*` set (same as Intro) so the two buttons never overwrite each other.
+const SECONDARY_KEYS = {
+  buttonType: "secondaryType",
+  buttonLink: "secondaryLink",
+  buttonLinkId: "secondaryLinkId",
+  buttonLinkTitle: "secondaryLinkTitle",
+  buttonNewTab: "secondaryLinkNewTab",
+  buttonAnchor: "secondaryAnchor",
+  buttonPopupId: "secondaryPopupId",
+};
+
+const toSecondary = (fields) =>
+  Object.fromEntries(
+    Object.entries(fields).map(([key, value]) => [SECONDARY_KEYS[key] || key, value]),
+  );
+
 export default function Edit({ attributes, setAttributes }) {
   const {
     noPaddingTop,
     enableDecor,
     title,
     desc,
+    note,
     imageId,
     imageUrl,
     buttonText,
     buttonIcon,
+    secondaryText,
+    secondaryType,
+    secondaryLink,
+    secondaryLinkId,
+    secondaryLinkTitle,
+    secondaryLinkNewTab,
+    secondaryAnchor,
+    secondaryPopupId,
   } = attributes;
 
   const blockProps = useBlockProps({
@@ -68,6 +95,26 @@ export default function Edit({ attributes, setAttributes }) {
           setAttributes={setAttributes}
           initialOpen={false}
         />
+
+        <PanelBody title={__("Secondary button", "overchain-blocks")} initialOpen={false}>
+          <TextControl
+            label={__("Button text", "overchain-blocks")}
+            help={__("Leave empty to hide the button.", "overchain-blocks")}
+            value={secondaryText}
+            onChange={(value) => setAttributes({ secondaryText: value })}
+          />
+
+          <LinkFields
+            type={secondaryType}
+            link={secondaryLink}
+            linkId={secondaryLinkId}
+            linkTitle={secondaryLinkTitle}
+            newTab={secondaryLinkNewTab}
+            anchor={secondaryAnchor}
+            popupId={secondaryPopupId}
+            onChange={(fields) => setAttributes(toSecondary(fields))}
+          />
+        </PanelBody>
       </InspectorControls>
 
       <div {...blockProps}>
@@ -105,11 +152,30 @@ export default function Edit({ attributes, setAttributes }) {
                     onChange={(value) => setAttributes({ desc: value })}
                   />
 
-                  <ButtonPreview
-                    text={buttonText}
-                    icon={buttonIcon}
-                    className="never__btn"
+                  <RichText
+                    tagName="div"
+                    className="never__note txt3 col-alt1"
+                    placeholder={__("Small note (optional)", "overchain-blocks")}
+                    value={note}
+                    onChange={(value) => setAttributes({ note: value })}
                   />
+
+                  {secondaryText ? (
+                    <div className="never__btns">
+                      <ButtonPreview
+                        text={buttonText}
+                        icon={buttonIcon}
+                        className="never__btn"
+                      />
+                      <span className="btn-def stl-trn-clw">{secondaryText}</span>
+                    </div>
+                  ) : (
+                    <ButtonPreview
+                      text={buttonText}
+                      icon={buttonIcon}
+                      className="never__btn"
+                    />
+                  )}
                 </div>
               </div>
             </div>

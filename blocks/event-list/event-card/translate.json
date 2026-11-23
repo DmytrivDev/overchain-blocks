@@ -1,0 +1,26 @@
+{
+  "name": "overchain/event-card",
+  "attributes": {
+    "date": {
+      "translate": "rich"
+    },
+    "place": {
+      "translate": "rich"
+    },
+    "title": {
+      "translate": "rich"
+    },
+    "link": {
+      "translate": "url"
+    },
+    "text": {
+      "translate": "rich"
+    },
+    "logoId": {
+      "translate": "ignore"
+    },
+    "logoUrl": {
+      "translate": "ignore"
+    }
+  }
+}

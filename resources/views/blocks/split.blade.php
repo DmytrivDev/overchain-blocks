@@ -10,7 +10,7 @@
 	$decorUrl = get_template_directory_uri() . '/assets/img/decor/foundation_decor_1.svg';
 
 	// `steps` is the numbered list (platform-overview); `items` is the icon list
-	// used on aviation/igaming. The default stays `steps` so every Split saved
+	// used on aviation/igaming; `points` (FM London) reuses the `steps` rows. The default stays `steps` so every Split saved
 	// before this attribute existed keeps rendering what it renders today.
 	$listStyle = $attributes['listStyle'] ?? 'steps';
 	$items     = $attributes['items'] ?? [];
@@ -30,12 +30,14 @@
 	$subtitleClass = 'alt-min' === $subtitleStyle ? 'txt2 col-alt1 min-size' : 'txt2 medium';
 
 	$sectionClass = 'actually ' . ( $noPaddingTop ? 'pbs4' : 'pbs2' );
-	$bodyClass    = 'actually__body section-body' . overchain_blocks_fade_class( $attributes );
+	// Since design commit 9a29949 the fade sits on __wrap, so the decor and the
+	// picture (siblings of __body) fade out together with the text.
+	$wrapClass    = 'actually__wrap section-wrap' . overchain_blocks_fade_class( $attributes );
 @endphp
 
 <section class="{{ esc_attr( $sectionClass ) }}">
 	<div class="actually__container">
-		<div class="actually__wrap section-wrap">
+		<div class="{{ esc_attr( $wrapClass ) }}">
 			@if ( $enableBlur )
 				<div class="actually__blur no-select" aria-hidden="true"></div>
 			@endif
@@ -59,9 +61,9 @@
 			@endif
 
 			{{-- Each `.animated-block` reveals its `.anim-block` children one by one once
-			     half of it is in view (theme animated-block.js). The body itself fades out on
-			     scroll when a White Section follows (overchain_blocks_fade_class()). --}}
-			<div class="{{ esc_attr( $bodyClass ) }}">
+			     half of it is in view (theme animated-block.js). The whole __wrap fades out
+			     on scroll when a White Section follows (overchain_blocks_fade_class()). --}}
+			<div class="actually__body section-body">
 				<div class="actually__top animated-block">
 					@if ( ! empty( $title ) )
 						<h2 class="tl2 anim-txt anim-block gap-big">{!! wp_kses_post( $title ) !!}</h2>
@@ -95,6 +97,25 @@
 										<div class="item-actually__content">
 											<p>{!! wp_kses_post( $itemText ) !!}</p>
 										</div>
+									</li>
+								@endforeach
+							</ul>
+						@endif
+					@elseif ( 'points' === $listStyle )
+						{{-- FM London: the same `steps` rows (title + text) as a dotted list. --}}
+						@if ( ! empty( $steps ) )
+							<ul class="actually__points anim-block gap-big" role="list">
+								@foreach ( $steps as $step )
+									<li class="points-actually">
+										@if ( ! empty( $step['title'] ?? '' ) )
+											<h3 class="points-actually__tl">{!! wp_kses_post( $step['title'] ) !!}</h3>
+										@endif
+
+										@if ( ! empty( $step['text'] ?? '' ) )
+											<div class="points-actually__desc">
+												<p>{!! wp_kses_post( $step['text'] ) !!}</p>
+											</div>
+										@endif
 									</li>
 								@endforeach
 							</ul>

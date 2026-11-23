@@ -1,0 +1,11 @@
+{
+  "name": "overchain/event-list",
+  "attributes": {
+    "noPaddingTop": {
+      "translate": "ignore"
+    },
+    "disableWhiteFade": {
+      "translate": "ignore"
+    }
+  }
+}

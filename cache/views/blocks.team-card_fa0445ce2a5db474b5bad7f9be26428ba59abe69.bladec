@@ -9,12 +9,15 @@
 	// render as an empty person card. Print nothing until an editor deletes them.
 	$isLegacyIntro = 'intro' === ( $attributes['variant'] ?? '' );
 
-	// A person with no photo falls back to the centred placeholder icon.
-	$defaultIconUrl = get_template_directory_uri() . '/assets/img/icons/ava_def_1.svg';
+	// A person with no photo falls back to the centred placeholder icon. Inside a
+	// White Section the Team turns on "Light photo placeholders" (block context):
+	// the light card (`card-understand-def`) and the dark icon.
+	$light = empty( $avatarUrl ) && ! empty( $block->context['overchain/teamLightPlaceholders'] ?? false );
+	$defaultIconUrl = get_template_directory_uri() . '/assets/img/icons/' . ( $light ? 'ava_def_2' : 'ava_def_1' ) . '.svg';
  ?>
 
 <?php if( ! $isLegacyIntro ): ?>
-	<li class="splide__slide card-understand">
+	<li class="splide__slide card-understand<?php echo \htmlentities($light ? ' card-understand-def' : ''??'', ENT_QUOTES, 'UTF-8', false); ?>">
  <?php if( ! empty( $avatarUrl ) ): ?>
  <div class="card-understand__img ibg no-select">
  <img src="<?php echo \htmlentities(esc_url( $avatarUrl )??'', ENT_QUOTES, 'UTF-8', false); ?>" alt="" loading="lazy" decoding="async">

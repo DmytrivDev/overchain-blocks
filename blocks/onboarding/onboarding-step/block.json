@@ -1,0 +1,37 @@
+{
+  "apiVersion": 3,
+  "name": "overchain/onboarding-step",
+  "title": "Onboarding Step",
+  "category": "overchain",
+  "icon": "marker",
+  "description": "One step of Onboarding Steps: icon, title and text.",
+  "textdomain": "overchain-blocks",
+  "parent": [
+    "overchain/onboarding"
+  ],
+  "supports": {
+    "html": false,
+    "align": false,
+    "reusable": false
+  },
+  "attributes": {
+    "iconId": {
+      "type": "number",
+      "default": 0
+    },
+    "iconUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "editorScript": "file:../../../build/onboarding/onboarding-step/index.js",
+  "render": "file:./render.php"
+}
