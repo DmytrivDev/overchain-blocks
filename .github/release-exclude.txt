@@ -1,0 +1,17 @@
+.git/
+.github/
+.gitignore
+.gitattributes
+node_modules/
+cache/
+build-zip/
+components/
+package.json
+package-lock.json
+webpack.config.js
+fix-asset.js
+BLOCK-QUEUE.md
+BLOCKS.md
+DROP-QUEUE.md
+FIX-QUEUE.md
+PLUGIN.md

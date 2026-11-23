@@ -20,7 +20,23 @@ class OB_Updater {
         add_filter( 'pre_set_site_transient_update_plugins', [ __CLASS__, 'check_update' ] );
         add_filter( 'plugins_api', [ __CLASS__, 'plugin_info' ], 10, 3 );
         add_filter( 'upgrader_source_selection', [ __CLASS__, 'fix_folder_name' ], 10, 4 );
+        // Runs after the rename above, on every package that is this plugin — an
+        // update from GitHub as well as "Upload plugin → Replace current with uploaded".
+        add_filter( 'upgrader_source_selection', [ __CLASS__, 'verify_package' ], 20, 4 );
     }
+
+    /**
+     * Files the plugin cannot render without. A package missing any of them would
+     * leave every block on the site empty, so the upgrade is refused instead and
+     * WordPress keeps the installed version.
+     */
+    const REQUIRED_FILES = [
+        'overchain-blocks.php',
+        'src/View.php',
+        'vendor/autoload.php',
+        'vendor/eftec/bladeone/lib/BladeOne.php',
+        'build/blocks.css',
+    ];
 
     private static function get_latest_release(): ?array {
         $cached = get_transient( self::CACHE_KEY );
@@ -148,6 +164,46 @@ class OB_Updater {
             if ( $wp_filesystem->move( $source, $target, true ) ) {
                 return $target;
             }
+        }
+
+        return $source;
+    }
+
+    /**
+     * Refuse an incomplete Overchain Blocks package before it replaces the plugin.
+     *
+     * @param string|WP_Error $source Unpacked package folder.
+     * @return string|WP_Error
+     */
+    public static function verify_package( $source, string $remote_source, object $upgrader, array $hook_extra ) {
+        if ( is_wp_error( $source ) ) {
+            return $source;
+        }
+
+        $dir  = trailingslashit( $source );
+        $main = $dir . 'overchain-blocks.php';
+
+        // Not this plugin (another plugin or theme being installed): leave it alone.
+        $is_ours = ( $hook_extra['plugin'] ?? '' ) === self::PLUGIN_SLUG
+            || ( file_exists( $main ) && false !== strpos( (string) file_get_contents( $main, false, null, 0, 2048 ), 'Plugin Name:' )
+                && false !== strpos( (string) file_get_contents( $main, false, null, 0, 2048 ), 'Overchain Blocks' ) );
+        if ( ! $is_ours ) {
+            return $source;
+        }
+
+        $missing = array_values( array_filter( self::REQUIRED_FILES, function ( $file ) use ( $dir ) {
+            return ! file_exists( $dir . $file );
+        } ) );
+
+        if ( $missing ) {
+            return new WP_Error(
+                'overchain_blocks_incomplete_package',
+                sprintf(
+                    /* translators: %s: list of missing files */
+                    __( 'Overchain Blocks: the package is incomplete (missing %s). The installed version was kept — nothing was changed.', 'overchain-blocks' ),
+                    implode( ', ', $missing )
+                )
+            );
         }
 
         return $source;

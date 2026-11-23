@@ -153,6 +153,12 @@ Hooks the plugin into the standard WP update system, checking `github.com/Dmytri
 
 Bumping the version means updating **three** places in lockstep: the `Version:` header and the `OVERCHAIN_BLOCKS_VERSION` constant in `overchain-blocks.php`, plus the GitHub release tag. A released ZIP must contain `vendor/` and `build/`, since both are gitignored.
 
+**Release safety (since 1.2.1, after 1.2.0 shipped without `src/` and blanked every block on a live site):**
+- `.github/workflows/release.yml` copies the **whole** plugin folder except the development files listed in `.github/release-exclude.txt` — no hand-kept list of folders to forget. A new runtime folder ships automatically; a new dev-only file must be added to the exclude list.
+- `.github/verify-package.sh` then fails the release if the package lacks `src/View.php`, `vendor/autoload.php`, BladeOne, `build/blocks.css` / `editor.css`, any block's `build/<name>/index.js` + `index.asset.php`, or the Blade view a block's `render.php` names — and checks that `OverchainBlocks\View` and BladeOne actually autoload. Run it locally on an unpacked zip: `bash .github/verify-package.sh <folder>`.
+- `OB_Updater::verify_package()` (`upgrader_source_selection`, priority 20) refuses an Overchain Blocks package missing any of `OB_Updater::REQUIRED_FILES` — on a GitHub update and on "Upload plugin → Replace current with uploaded" — so WordPress keeps the installed version. It runs from the *installed* plugin, so it protects updates made from 1.2.1 onwards.
+- `overchain_blocks_missing_files_notice()` shows a red wp-admin notice when `OverchainBlocks\View` or BladeOne is not loadable — the state in which every block renders empty without any error.
+
 ---
 
 ## Plugin Bootstrap

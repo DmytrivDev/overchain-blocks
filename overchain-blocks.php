@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Overchain Blocks
  * Description: Custom Gutenberg blocks for Overchain sites.
- * Version:     1.2.0
+ * Version:     1.2.1
  * Author:      DmytrivDev
  * Author URI:  https://github.com/DmytrivDev
  * GitHub Plugin URI: DmytrivDev/overchain-blocks
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'OVERCHAIN_BLOCKS_VERSION', '1.2.0' );
+define( 'OVERCHAIN_BLOCKS_VERSION', '1.2.1' );
 define( 'OVERCHAIN_BLOCKS_FILE', __FILE__ );
 define( 'OVERCHAIN_BLOCKS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'OVERCHAIN_BLOCKS_URL', plugin_dir_url( __FILE__ ) );
@@ -35,6 +35,7 @@ add_action( 'plugins_loaded', 'overchain_blocks_load_textdomain' );
 add_action( 'wp_footer', 'overchain_blocks_tabs_script' );
 add_action( 'enqueue_block_editor_assets', 'overchain_blocks_section_anchor_editor' );
 add_filter( 'render_block', 'overchain_blocks_section_anchor_render', 10, 2 );
+add_action( 'admin_notices', 'overchain_blocks_missing_files_notice' );
 
 if ( class_exists( '\OverchainBlocks\Plugin' ) ) {
 	\OverchainBlocks\Plugin::init();
@@ -637,4 +638,41 @@ function overchain_blocks_embed_code( string $code ): string {
 	);
 
 	return wp_kses( $code, $allowed );
+}
+
+
+/**
+ * Say so in wp-admin when the plugin cannot render its blocks.
+ *
+ * Every Blade block goes through \OverchainBlocks\View (src/) and BladeOne (vendor/).
+ * If either is missing — an incomplete upload — the blocks print nothing at all and
+ * the pages look empty with no error anywhere. This notice names what is missing.
+ */
+function overchain_blocks_missing_files_notice() {
+	if ( ! current_user_can( 'activate_plugins' ) ) {
+		return;
+	}
+
+	$missing = array();
+	if ( ! class_exists( 'OverchainBlocks\View' ) ) {
+		$missing[] = 'src/ (OverchainBlocks\View)';
+	}
+	if ( ! class_exists( 'eftec\bladeone\BladeOne' ) ) {
+		$missing[] = 'vendor/ (BladeOne)';
+	}
+	if ( ! $missing ) {
+		return;
+	}
+
+	printf(
+		'<div class="notice notice-error"><p><strong>%s</strong> %s</p></div>',
+		esc_html__( 'Overchain Blocks cannot render its blocks — pages built from them show empty.', 'overchain-blocks' ),
+		esc_html(
+			sprintf(
+				/* translators: %s: missing plugin folders */
+				__( 'Missing in wp-content/plugins/overchain-blocks: %s. Reinstall the plugin from its release zip.', 'overchain-blocks' ),
+				implode( ', ', $missing )
+			)
+		)
+	);
 }

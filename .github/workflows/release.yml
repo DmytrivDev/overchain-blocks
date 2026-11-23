@@ -28,25 +28,20 @@ jobs:
       - name: Install PHP dependencies
         run: composer install --no-dev --optimize-autoloader --no-interaction
 
+      # Everything the plugin runs on goes into the zip; only development files are
+      # left out. An explicit list of folders once forgot src/ (OverchainBlocks\View),
+      # and every Blade block rendered nothing after an update.
+      - name: Assemble plugin folder
+        run: |
+          mkdir -p build-zip
+          rsync -a ./ build-zip/overchain-blocks/ --exclude-from=.github/release-exclude.txt
+
+      # Fail the release instead of shipping a package that would blank the sites.
+      - name: Verify package
+        run: bash .github/verify-package.sh build-zip/overchain-blocks
+
       - name: Build plugin zip
         run: |
-          mkdir -p build-zip/overchain-blocks
-          cp overchain-blocks.php  build-zip/overchain-blocks/
-          cp ob-updater.php        build-zip/overchain-blocks/
-          cp fix-asset.js          build-zip/overchain-blocks/
-          cp composer.json         build-zip/overchain-blocks/ 2>/dev/null || true
-          cp composer.lock         build-zip/overchain-blocks/ 2>/dev/null || true
-          cp README.md             build-zip/overchain-blocks/ 2>/dev/null || true
-          cp CHANGELOG.md          build-zip/overchain-blocks/ 2>/dev/null || true
-          cp -r blocks             build-zip/overchain-blocks/
-          cp -r build              build-zip/overchain-blocks/
-          cp -r resources          build-zip/overchain-blocks/
-          if [ -d vendor ]; then
-            cp -r vendor           build-zip/overchain-blocks/
-          fi
-          if [ -d languages ]; then
-            cp -r languages        build-zip/overchain-blocks/
-          fi
           cd build-zip
           zip -r ../overchain-blocks.zip overchain-blocks/
 
