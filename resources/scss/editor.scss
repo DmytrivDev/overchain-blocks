@@ -963,3 +963,14 @@ li:not(ul li) {
 		transform: translateX(calc(-50% * var(--dir))) scale(1, 1);
 	}
 }
+
+// ─── Event Card (FM London `summits`) ─────────────────────
+//
+// On the front the headline is a link whose `::before` is stretched over the whole
+// card (absolute, inset 0, z-index 10), so the entire card is clickable. In the
+// canvas that layer sits on top of the left column (z-index 6) and swallows the
+// clicks meant for the date and the place. Drop it here; the front keeps it.
+
+.editor-styles-wrapper .card-events .card-events__content .tl3::before {
+	content: none !important;
+}

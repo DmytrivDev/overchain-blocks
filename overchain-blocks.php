@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Overchain Blocks
  * Description: Custom Gutenberg blocks for Overchain sites.
- * Version:     1.2.1
+ * Version:     1.2.2
  * Author:      DmytrivDev
  * Author URI:  https://github.com/DmytrivDev
  * GitHub Plugin URI: DmytrivDev/overchain-blocks
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'OVERCHAIN_BLOCKS_VERSION', '1.2.1' );
+define( 'OVERCHAIN_BLOCKS_VERSION', '1.2.2' );
 define( 'OVERCHAIN_BLOCKS_FILE', __FILE__ );
 define( 'OVERCHAIN_BLOCKS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'OVERCHAIN_BLOCKS_URL', plugin_dir_url( __FILE__ ) );
