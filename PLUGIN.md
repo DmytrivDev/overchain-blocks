@@ -143,7 +143,7 @@ overchain-blocks/
 
 ### `ob-updater.php` — `OB_Updater`
 
-Hooks the plugin into the standard WP update system, checking `github.com/DmytrivDev/overchain-blocks` Releases for a newer tag. Latest release is cached in the `ob_updater_release` transient for 12 hours.
+Hooks the plugin into the standard WP update system, checking `github.com/DmytrivDev/overchain-blocks` Releases for a newer tag. Latest release is cached in the `ob_updater_release` transient for **1 hour** (12 hours before 1.2.3). To see a new release at once: the **Check for updates** link under the plugin on the Plugins screen (clears that cache and WordPress's `update_plugins` data, re-checks, and reports the result in a notice), or **Dashboard → Updates → Check again**, which now clears the cache too (`load-update-core.php` + `force-check`). Both work from 1.2.3 on — older installs need one manual update first.
 
 | Filter | Purpose |
 |---|---|

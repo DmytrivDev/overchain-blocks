@@ -14,7 +14,11 @@ class OB_Updater {
     const GITHUB_REPO = 'overchain-blocks';
     const PLUGIN_SLUG = 'overchain-blocks/overchain-blocks.php';
     const CACHE_KEY   = 'ob_updater_release';
-    const CACHE_TTL   = 12 * HOUR_IN_SECONDS;
+    // One hour: WordPress re-checks plugins hourly on the Plugins / Updates screens,
+    // so a new release shows up within the hour without asking GitHub on every
+    // page load (unauthenticated GitHub API: 60 requests an hour per server IP).
+    const CACHE_TTL   = HOUR_IN_SECONDS;
+    const CHECK_NOW   = 'ob_check_updates';
 
     public static function init(): void {
         add_filter( 'pre_set_site_transient_update_plugins', [ __CLASS__, 'check_update' ] );
@@ -23,6 +27,83 @@ class OB_Updater {
         // Runs after the rename above, on every package that is this plugin — an
         // update from GitHub as well as "Upload plugin → Replace current with uploaded".
         add_filter( 'upgrader_source_selection', [ __CLASS__, 'verify_package' ], 20, 4 );
+
+        // Faster than the cache allows: "Check again" on Dashboard → Updates, and a
+        // "Check for updates" link on the plugin's row, both ask GitHub right away.
+        add_action( 'load-update-core.php', [ __CLASS__, 'on_force_check' ] );
+        add_filter( 'plugin_action_links_' . self::PLUGIN_SLUG, [ __CLASS__, 'action_links' ] );
+        add_action( 'admin_init', [ __CLASS__, 'check_now' ] );
+        add_action( 'admin_notices', [ __CLASS__, 'check_now_notice' ] );
+    }
+
+    /**
+     * Dashboard → Updates → "Check again" (`force-check=1`): drop the cached release
+     * first, so WordPress's forced check really asks GitHub.
+     */
+    public static function on_force_check(): void {
+        if ( ! empty( $_GET['force-check'] ) && current_user_can( 'update_plugins' ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- core verifies its own force-check
+            self::clear_cache();
+        }
+    }
+
+    /**
+     * "Check for updates" link under the plugin on the Plugins screen.
+     *
+     * @param array $links Row action links.
+     */
+    public static function action_links( array $links ): array {
+        if ( current_user_can( 'update_plugins' ) ) {
+            $url = wp_nonce_url( add_query_arg( self::CHECK_NOW, '1', self_admin_url( 'plugins.php' ) ), self::CHECK_NOW );
+            $links[] = '<a href="' . esc_url( $url ) . '">' . esc_html__( 'Check for updates', 'overchain-blocks' ) . '</a>';
+        }
+
+        return $links;
+    }
+
+    /**
+     * Handle the link: forget the cached release and WordPress's plugin update data,
+     * check again now, and come back to the Plugins screen with the result.
+     */
+    public static function check_now(): void {
+        if ( empty( $_GET[ self::CHECK_NOW ] ) || ! current_user_can( 'update_plugins' ) ) {
+            return;
+        }
+
+        check_admin_referer( self::CHECK_NOW );
+
+        self::clear_cache();
+        delete_site_transient( 'update_plugins' );
+        wp_update_plugins();
+
+        $release = get_transient( self::CACHE_KEY );
+        $updates = get_site_transient( 'update_plugins' );
+        $result  = ! is_array( $release ) ? 'error'
+            : ( isset( $updates->response[ self::PLUGIN_SLUG ] ) ? 'update' : 'current' );
+
+        wp_safe_redirect( add_query_arg( 'ob_checked', $result, self_admin_url( 'plugins.php' ) ) );
+        exit;
+    }
+
+    public static function check_now_notice(): void {
+        $result = isset( $_GET['ob_checked'] ) ? sanitize_key( wp_unslash( $_GET['ob_checked'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- display only
+        if ( '' === $result ) {
+            return;
+        }
+
+        $release = get_transient( self::CACHE_KEY );
+        $version = is_array( $release ) ? $release['version'] : '';
+        $notices = [
+            /* translators: %s: version number */
+            'update'  => [ 'warning', sprintf( __( 'Overchain Blocks %s is available — update it below.', 'overchain-blocks' ), $version ) ],
+            /* translators: %s: version number */
+            'current' => [ 'success', sprintf( __( 'Overchain Blocks is up to date (latest release: %s).', 'overchain-blocks' ), $version ) ],
+            'error'   => [ 'error', __( 'Overchain Blocks could not reach GitHub to check for updates. Try again in a few minutes.', 'overchain-blocks' ) ],
+        ];
+        if ( ! isset( $notices[ $result ] ) ) {
+            return;
+        }
+
+        printf( '<div class="notice notice-%s is-dismissible"><p>%s</p></div>', esc_attr( $notices[ $result ][0] ), esc_html( $notices[ $result ][1] ) );
     }
 
     /**
